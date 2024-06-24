@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    public override void SetState(StateInterface state)
+    public override void SetState(IState state)
     {
         base.SetState(state);
 

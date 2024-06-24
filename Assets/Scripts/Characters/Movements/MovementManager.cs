@@ -3,7 +3,7 @@ using UnityEngine;
 public class MovementManager : MonoBehaviour
 {
     private Character character;
-    private MovementInterface movement;
+    private IMovement movement;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class MovementManager : MonoBehaviour
         movement?.Move(character.Rb, character.Data.Status.MoveSpeed);
     }
 
-    public void SetMovement(MovementInterface newMovement)
+    public void SetMovement(IMovement newMovement)
     {
         movement = newMovement;
     }

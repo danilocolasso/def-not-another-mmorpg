@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExitCombatCommand : CommandInterface
+public class ExitCombatCommand : ICommand
 {
     private readonly Character character;
     private readonly Character target;

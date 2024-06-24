@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputMovement : MovementInterface
+public class InputMovement : IMovement
 {
     private InputHandler inputHandler;
 
@@ -15,7 +15,7 @@ public class InputMovement : MovementInterface
         if (inputHandler == null) return;
 
         Vector2 targetPosition = rb.position + inputHandler.MovementInput.normalized;
-        CommandInterface movement = new MoveTowardsCommand(rb, targetPosition, moveSpeed);
+        ICommand movement = new MoveTowardsCommand(rb, targetPosition, moveSpeed);
         movement.Execute();
     }
 }
