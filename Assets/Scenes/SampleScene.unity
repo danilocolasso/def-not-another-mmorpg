@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 36116689}
   - component: {fileID: 36116688}
   - component: {fileID: 36116687}
-  - component: {fileID: 36116694}
+  - component: {fileID: 36116693}
   - component: {fileID: 36116691}
   - component: {fileID: 36116692}
   m_Layer: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b119df02d3df74ba87fbe72d779017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &36116694
+--- !u!114 &36116693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,11 +282,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 36116686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ac33625943c8f44c85bb4f4c9fb9f27, type: 3}
+  m_Script: {fileID: 11500000, guid: c2e1dfb78cb3cb047a89ddcf51c1070a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Foo
-  status: {fileID: 11400000, guid: e35d841b522c86848b69526fe775169a, type: 2}
+  characterData: {fileID: 11400000, guid: fb1d6952e05d01841b464f1de5fe35b0, type: 2}
 --- !u!1 &238806416
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,9 +550,9 @@ GameObject:
   - component: {fileID: 1185604473}
   - component: {fileID: 1185604472}
   - component: {fileID: 1185604471}
-  - component: {fileID: 1185604474}
   - component: {fileID: 1185604470}
-  - component: {fileID: 1185604478}
+  - component: {fileID: 1185604474}
+  - component: {fileID: 1185604477}
   - component: {fileID: 1185604475}
   - component: {fileID: 1185604476}
   m_Layer: 0
@@ -709,7 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b119df02d3df74ba87fbe72d779017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1185604478
+--- !u!114 &1185604477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -718,11 +717,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1185604469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ac33625943c8f44c85bb4f4c9fb9f27, type: 3}
+  m_Script: {fileID: 11500000, guid: c2e1dfb78cb3cb047a89ddcf51c1070a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Player
-  status: {fileID: 11400000, guid: fb1d6952e05d01841b464f1de5fe35b0, type: 2}
+  characterData: {fileID: 11400000, guid: fb1d6952e05d01841b464f1de5fe35b0, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
