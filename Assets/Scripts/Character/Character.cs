@@ -1,25 +1,37 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CharacterData))]
+[RequireComponent(typeof(StateManager))]
+[RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected float moveSpeed = 5f;
-
-    protected Rigidbody2D rb;
-    protected MovementInterface movement;
+    public Rigidbody2D Rb { get; private set; }
+    public CharacterData Data { get; private set; }
+    public MovementManager MovementManager { get; private set; }
+    public StateManager StateManager { get; private set; }
+    public Character Target { get; private set; }
 
     protected virtual void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        Rb = GetComponent<Rigidbody2D>();
+        Data = GetComponent<CharacterData>();
+        StateManager = GetComponent<StateManager>();
+        MovementManager = GetComponent<MovementManager>();
     }
 
-    protected virtual void FixedUpdate()
+    public void SetTarget(Character newTarget)
     {
-        movement?.Move(rb, moveSpeed);
+        Target = newTarget;
     }
-
+    
     public void SetMovement(MovementInterface newMovement)
     {
-        movement = newMovement;
+        MovementManager.SetMovement(newMovement);
+    }
+
+    public virtual void SetState(StateInterface newState)
+    {
+        StateManager.SetState(newState);
     }
 }

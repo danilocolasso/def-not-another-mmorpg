@@ -8,6 +8,7 @@ public class Player : Character
     protected override void Awake()
     {
         base.Awake();
+
         inputHandler = GetComponent<InputHandler>();
         SetMovement(new InputMovement(inputHandler));
     }
