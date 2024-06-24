@@ -18,7 +18,7 @@ public class Enemy : Character
 
     private void StartChaseTarget()
     {
-        SetMovement(new FollowTargetMovement(Target.transform, Data.Status.Range));
+        SetMovement(new FollowTargetMovement(Target.transform, StatusManager.Range.Current));
     }
 
     private void StopChaseTarget()
