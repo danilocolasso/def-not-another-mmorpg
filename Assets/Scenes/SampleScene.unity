@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 36116691}
   - component: {fileID: 36116692}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Foo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,12 +242,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36116686}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.05, y: -0.014256537, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.38959, y: -2.8766475, z: 10.109948}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 238806417}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &36116691
 MonoBehaviour:
@@ -261,7 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c626b3a2b77a29e4ca8975a3de7e30a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: 0
 --- !u!114 &36116692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,10 +285,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac33625943c8f44c85bb4f4c9fb9f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Enemy Foo
-  status:
-    moveSpeed: 5
-    attackRange: 1
+  name: Foo
+  status: {fileID: 11400000, guid: e35d841b522c86848b69526fe775169a, type: 2}
+--- !u!1 &238806416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 238806417}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &238806417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238806416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.33959, y: 2.862391, z: -10.109948}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 36116690}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d3add3566128040b7061c0c6e23db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testEnemy: {fileID: 36116687}
 --- !u!50 &1185604471
 Rigidbody2D:
   serializedVersion: 4
@@ -669,7 +697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c626b3a2b77a29e4ca8975a3de7e30a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: 0
 --- !u!114 &1185604476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,13 +722,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Player
-  status:
-    moveSpeed: 6
-    attackRange: 1
+  status: {fileID: 11400000, guid: fb1d6952e05d01841b464f1de5fe35b0, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 619394802}
   - {fileID: 1185604473}
-  - {fileID: 36116690}
+  - {fileID: 238806417}
