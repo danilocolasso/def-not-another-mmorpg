@@ -14,9 +14,8 @@ public class InputMovement : MovementInterface
     {
         if (inputHandler == null) return;
 
-        Vector2 input = inputHandler.MovementInput;
-        Vector2 movement = input.normalized * moveSpeed * Time.fixedDeltaTime;
-
-        rb.MovePosition(rb.position + movement);
+        Vector2 targetPosition = rb.position + inputHandler.MovementInput.normalized;
+        CommandInterface movement = new MoveTowardsCommand(rb, targetPosition, moveSpeed);
+        movement.Execute();
     }
 }

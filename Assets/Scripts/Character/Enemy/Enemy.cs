@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    [SerializeField] private Transform target;
-    [SerializeField][Range(0, 10)] private float attackRange = 5f;
-
-    protected override void FixedUpdate()
+    public override void SetState(StateInterface state)
     {
-        base.FixedUpdate();
+        base.SetState(state);
 
-        if (target != null) {
-            SetMovement(new TargetMovement(target, attackRange));
+        if (state is InCombatState)
+        {
+            StartChaseTarget();
         }
+        else
+        {
+            StopChaseTarget();
+        }
+    }
+
+    private void StartChaseTarget()
+    {
+        SetMovement(new FollowTargetMovement(Target.transform, Data.Status.AttackRange));
+    }
+
+    private void StopChaseTarget()
+    {
+        SetMovement(null);
     }
 }
