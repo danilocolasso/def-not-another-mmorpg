@@ -19,19 +19,19 @@ public abstract class Character : MonoBehaviour
         StateManager = GetComponent<StateManager>();
         MovementManager = GetComponent<MovementManager>();
     }
-
-    public void SetTarget(Character newTarget)
-    {
-        Target = newTarget;
-    }
     
-    public void SetMovement(MovementInterface newMovement)
+    public void SetMovement(IMovement newMovement)
     {
         MovementManager.SetMovement(newMovement);
     }
 
-    public virtual void SetState(StateInterface newState)
+    public virtual void SetState(IState newState)
     {
         StateManager.SetState(newState);
+    }
+
+    public void SetTarget(Character newTarget)
+    {
+        Target = newTarget;
     }
 }

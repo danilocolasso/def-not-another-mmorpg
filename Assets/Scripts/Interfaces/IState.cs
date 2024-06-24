@@ -1,4 +1,4 @@
-public interface StateInterface
+public interface IState
 {
     public void OnStateEnter(Character character);
     public void OnStateExit(Character character);

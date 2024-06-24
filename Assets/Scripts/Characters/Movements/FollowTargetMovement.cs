@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FollowTargetMovement : MovementInterface
+public class FollowTargetMovement : IMovement
 {
     private readonly Transform target;
     private readonly float stopDistance;
@@ -16,7 +16,7 @@ public class FollowTargetMovement : MovementInterface
         if (target == null) return;
         if (IsInRange(rb.position, target.position)) return;
 
-        CommandInterface movement = new MoveTowardsCommand(rb, target.position, moveSpeed);
+        ICommand movement = new MoveTowardsCommand(rb, target.position, moveSpeed);
         movement.Execute();
     }
 

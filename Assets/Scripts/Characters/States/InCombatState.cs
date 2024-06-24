@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InCombatState : StateInterface
+public class InCombatState : IState
 {
     private Character target;
 
@@ -11,7 +11,7 @@ public class InCombatState : StateInterface
 
     public void OnStateEnter(Character character)
     {   
-        Debug.Log("[" + character + "][StateInterface] InCombatState --> OnStateEnter");
+        Debug.Log("[" + character + "][IState] InCombatState --> OnStateEnter");
 
         if (target.Target == null)
         {
@@ -21,7 +21,7 @@ public class InCombatState : StateInterface
 
     public void OnStateExit(Character character)
     {
-        Debug.Log("[" + character + "][StateInterface] InCombatState --> OnStateExit");
+        Debug.Log("[" + character + "][IState] InCombatState --> OnStateExit");
     }
 
     public void OnStateFixedUpdate(Character character)

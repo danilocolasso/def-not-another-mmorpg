@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveTowardsCommand : CommandInterface
+public class MoveTowardsCommand : ICommand
 {
     private readonly Rigidbody2D rb;
     private readonly Vector2 targetPosition;

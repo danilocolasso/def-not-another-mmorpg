@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnterCombatCommand : CommandInterface
+public class EnterCombatCommand : ICommand
 {
     private readonly Character character;
     private readonly Character target;
