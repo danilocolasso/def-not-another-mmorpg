@@ -2,70 +2,51 @@ using UnityEngine;
 
 public class StatusManager: MonoBehaviour
 {
-    [SerializeField] private CharacterData characterData;
-    private Status health;
-    private Status mana;
-    public int Level { get; private set; }
-    public Status AttackDamage { get; private set; }
-    public Status AttackSpeed { get; private set; }
-    public CharacterData.DamageType AttackDamageType { get; private set; }
-    public Status Range { get; private set; }
-    public Status MoveSpeed { get; private set; }
+    [SerializeField] private CharacterStatus baseStatus;
 
-    public Status Health => health;
-    public Status Mana => mana;
+    public Stat CurrentHealth { get; private set; }
+    public Stat MaxHealth { get; private set; }
+    public Stat CurrentMana { get; private set; }
+    public Stat MaxMana { get; private set; }
+    public Stat AttackDamage { get; private set; }
+    public Stat AttackSpeed { get; private set; }
+    public Stat Range { get; private set; }
+    public Stat MoveSpeed { get; private set; }
 
     protected void Awake()
     {
-        if (characterData == null) {
-            Character character = GetComponent<Character>();
-            throw new System.Exception("Character [" + character + "] Data is not set");
-        }
-
-        SetBaseValues();
-    }
-
-    public void LevelUp()
-    {
-        Level++;
+        SetBaseStatus();
     }
 
     public void TakeDamage(float amount)
     {
-        health.Decrement(amount);
+        CurrentHealth.Decrement(amount);
     }
 
     public void Heal(float amount)
     {
-        health.Increment(amount);
+        CurrentHealth.Increment(amount);
     }
 
     public void UseMana(float amount)
     {
-        mana.Decrement(amount);
+        CurrentMana.Decrement(amount);
     }
 
     public void RestoreMana(float amount)
     {
-        mana.Increment(amount);
+        CurrentMana.Increment(amount);
     }
 
-    private void SetBaseValues()
+    private void SetBaseStatus()
     {
-        health = new Status(characterData.Health);
-        mana = new Status(characterData.Mana);
-        Level = characterData.Level;
-        AttackDamage = new Status(characterData.AttackDamage);
-        AttackSpeed = new Status(characterData.AttackSpeed);
-        AttackDamageType = characterData.AttackDamageType;
-        Range = new Status(characterData.Range);
-        MoveSpeed = new Status(characterData.MoveSpeed);
-    }
-
-    [System.Serializable]
-    public struct Stat
-    {
-        public float currentValue;
-        public float maxValue;
+        CurrentHealth = new Stat(baseStatus.CurrentHealth);
+        MaxHealth = new Stat(baseStatus.MaxHealth);
+        CurrentMana = new Stat(baseStatus.CurrentMana);
+        MaxMana = new Stat(baseStatus.MaxMana);
+        AttackDamage = new Stat(baseStatus.AttackDamage);
+        AttackSpeed = new Stat(baseStatus.AttackSpeed);
+        Range = new Stat(baseStatus.Range);
+        MoveSpeed = new Stat(baseStatus.MoveSpeed);
     }
 }

@@ -12,7 +12,7 @@ public class MovementManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        movement?.Move(character.Rb, character.StatusManager.MoveSpeed.Current);
+        movement?.Move(character.Rb, character.StatusManager.MoveSpeed.Value);
     }
 
     public void SetMovement(IMovement newMovement)

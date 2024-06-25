@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(StateManager))]
 [RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
-{
+{   
     public Rigidbody2D Rb { get; private set; }
     public StatusManager StatusManager { get; private set; }
     public MovementManager MovementManager { get; private set; }
