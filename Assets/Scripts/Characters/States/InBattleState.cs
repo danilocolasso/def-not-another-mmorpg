@@ -1,27 +1,27 @@
 using UnityEngine;
 
-public class InCombatState : IState
+public class InBattleState : IState
 {
     private Character target;
 
-    public InCombatState(Character target)
+    public InBattleState(Character target)
     {
         this.target = target;
     }
 
     public void OnStateEnter(Character character)
-    {   
-        Debug.Log("[" + character + "][IState] InCombatState --> OnStateEnter");
-
-        if (target.Target == null)
+    {
+        if (character.Target == null)
         {
-            target.SetTarget(character);
+            character.SetTarget(target);
         }
+
+        Debug.Log("[" + character + "][IState] InBattleState --> OnStateEnter");
     }
 
     public void OnStateExit(Character character)
     {
-        Debug.Log("[" + character + "][IState] InCombatState --> OnStateExit");
+        Debug.Log("[" + character + "][IState] InBattleState --> OnStateExit");
     }
 
     public void OnStateFixedUpdate(Character character)

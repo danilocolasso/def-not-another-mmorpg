@@ -10,32 +10,41 @@ public class StatusManager: MonoBehaviour
     public Stat MaxMana { get; private set; }
     public Stat AttackDamage { get; private set; }
     public Stat AttackSpeed { get; private set; }
+    public Stat AttackRange { get; private set; }
     public Stat Range { get; private set; }
     public Stat MoveSpeed { get; private set; }
+
+    public bool IsAlive => CurrentHealth.Value > 0;
 
     protected void Awake()
     {
         SetBaseStatus();
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         CurrentHealth.Decrement(amount);
+        Debug.Log($"{name} ---> {CurrentHealth.Value}/{MaxHealth.Value}");
     }
 
-    public void Heal(float amount)
+    public void Heal(int amount)
     {
         CurrentHealth.Increment(amount);
     }
 
-    public void UseMana(float amount)
+    public void UseMana(int amount)
     {
         CurrentMana.Decrement(amount);
     }
 
-    public void RestoreMana(float amount)
+    public void RestoreMana(int amount)
     {
         CurrentMana.Increment(amount);
+    }
+
+    public void Die()
+    {
+        CurrentHealth.SetValue(0);
     }
 
     private void SetBaseStatus()
@@ -46,6 +55,7 @@ public class StatusManager: MonoBehaviour
         MaxMana = new Stat(baseStatus.MaxMana);
         AttackDamage = new Stat(baseStatus.AttackDamage);
         AttackSpeed = new Stat(baseStatus.AttackSpeed);
+        AttackRange = new Stat(baseStatus.AttackRange);
         Range = new Stat(baseStatus.Range);
         MoveSpeed = new Stat(baseStatus.MoveSpeed);
     }

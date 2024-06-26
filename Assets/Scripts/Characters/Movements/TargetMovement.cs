@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class FollowTargetMovement : IMovement
+public class TargetMovement : IMovement
 {
     private readonly Transform target;
     private readonly float stopDistance;
 
-    public FollowTargetMovement(Transform target, float stopDistance = 1f)
+    public TargetMovement(Transform target, float stopDistance = 1f)
     {
         this.target = target;
         this.stopDistance = stopDistance;

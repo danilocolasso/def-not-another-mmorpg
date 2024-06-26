@@ -6,7 +6,7 @@ public class Enemy : Character
     {
         base.SetState(state);
 
-        if (state is InCombatState)
+        if (state is InBattleState)
         {
             StartChaseTarget();
         }
@@ -18,7 +18,7 @@ public class Enemy : Character
 
     private void StartChaseTarget()
     {
-        SetMovement(new FollowTargetMovement(Target.transform, StatusManager.Range.Value));
+        SetMovement(new TargetMovement(Target.transform, StatusManager.Range.Value));
     }
 
     private void StopChaseTarget()

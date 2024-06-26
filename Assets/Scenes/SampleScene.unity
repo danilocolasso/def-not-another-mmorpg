@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 36116687}
   - component: {fileID: 36116693}
   - component: {fileID: 36116691}
+  - component: {fileID: 36116694}
   - component: {fileID: 36116692}
   m_Layer: 0
   m_Name: Foo
@@ -286,6 +287,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStatus: {fileID: 11400000, guid: e35d841b522c86848b69526fe775169a, type: 2}
+--- !u!114 &36116694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36116686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7729f5306edafd4e87e4113a89fb01e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &238806416
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,11 +564,12 @@ GameObject:
   - component: {fileID: 1185604472}
   - component: {fileID: 1185604471}
   - component: {fileID: 1185604470}
-  - component: {fileID: 1185604474}
   - component: {fileID: 1185604477}
   - component: {fileID: 1185604475}
+  - component: {fileID: 1185604479}
   - component: {fileID: 1185604476}
   - component: {fileID: 1185604478}
+  - component: {fileID: 1185604474}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -575,6 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d3add3566128040b7061c0c6e23db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTest: {fileID: 36116687}
 --- !u!50 &1185604471
 Rigidbody2D:
   serializedVersion: 4
@@ -732,6 +747,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e01dbb26b778c7c40abb1ed8111ded9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1185604479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185604469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7729f5306edafd4e87e4113a89fb01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

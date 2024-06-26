@@ -3,8 +3,7 @@ using UnityEngine;
 public class StateManager : MonoBehaviour
 {
     private Character character;
-    private IState currentState = new OutOfCombatState();
-    public IState CurrentState => currentState;
+    private IState currentState = new OutOfBattleState();
 
     public void Awake()
     {
@@ -23,7 +22,7 @@ public class StateManager : MonoBehaviour
     
     public void SetState(IState newState)
     {
-        if (currentState == newState) return;
+        if (currentState.GetType() == newState.GetType()) return;
         
         currentState?.OnStateExit(character);
         currentState = newState;

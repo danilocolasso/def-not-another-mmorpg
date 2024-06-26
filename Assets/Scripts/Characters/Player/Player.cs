@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(InputHandler))]
 [RequireComponent(typeof(ExperienceManager))]
+[RequireComponent(typeof(InputHandler))]
 public class Player : Character
 {
     private InputHandler inputHandler;
@@ -22,5 +22,15 @@ public class Player : Character
         }
 
         SetMovement(new InputMovement(inputHandler));
+    }
+
+    public Character enemyTest;
+    protected void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SetTarget(enemyTest);
+            BattleManager.Attack(enemyTest);
+        }
     }
 }
