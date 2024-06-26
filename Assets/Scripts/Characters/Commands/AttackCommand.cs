@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class EnterCombatCommand : ICommand
+public class AttackCommand : ICommand
 {
     private readonly Character character;
     private readonly Character target;
 
-    public EnterCombatCommand(Character character, Character target)
+    public AttackCommand(Character character, Character target)
     {
         this.character = character;
         this.target = target;
@@ -13,7 +13,7 @@ public class EnterCombatCommand : ICommand
 
     public void Execute()
     {
-        character.SetState(new InCombatState(target));
-        target.SetState(new InCombatState(character));
+        target.Hit((int)character.StatusManager.AttackDamage.Value);
     }
+
 }

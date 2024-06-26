@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public class OutOfCombatState : IState
+public class DeadState : IState
 {
     public void OnStateEnter(Character character)
-    {
-        Debug.Log("[" + character + "][IState] OutOfCombatState --> OnStateEnter");
+    {   
+        Debug.Log("[" + character + "][IState] DeadState --> OnStateEnter");
+        character.SetTarget(null);
     }
 
     public void OnStateExit(Character character)
     {
-        Debug.Log("[" + character + "][IState] OutOfCombatState --> OnStateExit");
+        Debug.Log("[" + character + "][IState] DeadState --> OnStateExit");
     }
 
     public void OnStateFixedUpdate(Character character)
