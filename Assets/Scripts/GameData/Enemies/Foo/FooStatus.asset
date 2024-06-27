@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b120eba90603f34fb1c31e456e92235, type: 3}
   m_Name: FooStatus
   m_EditorClassIdentifier: 
-  name: Foo
-  health: 100
-  mana: 0
-  attackDamage: 1
+  currentHealth: 100
+  maxHealth: 100
+  currentMana: 100
+  maxMana: 100
   attackSpeed: 1
-  attackDamageType: 0
+  attackDamage: 1
+  attackRange: 1
   range: 1
-  moveSpeed: 4
+  moveSpeed: 3

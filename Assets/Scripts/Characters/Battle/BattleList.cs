@@ -14,8 +14,8 @@ public class BattleList: List<Character>
     {
         if (target.IsAlive && !Contains(target))
         {
-            Debug.Log("[" + character + "][BattleList] Add to battle list --> [" + target + "] --> [List Count: " + Count + "]");
             base.Add(target);
+            Debug.Log("[" + character + "][BattleList] Add to battle list --> [" + target + "] --> [List Count: " + Count + "]");
             return true;
         }
 
@@ -26,8 +26,8 @@ public class BattleList: List<Character>
     {
         if (Contains(target))
         {
-            Debug.Log("[" + character + "][BattleList] Remove from battle list --> [" + target + "] --> [List Count: " + Count + "]");
             base.Remove(target);
+            Debug.Log("[" + character + "][BattleList] Remove from battle list --> [" + target + "] --> [List Count: " + Count + "]");
             return true;
         }
         

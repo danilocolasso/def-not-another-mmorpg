@@ -32,5 +32,10 @@ public class Player : Character
             SetTarget(enemyTest);
             BattleManager.Attack(enemyTest);
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ExperienceManager.GainExperience(12);
+        }
     }
 }
