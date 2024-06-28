@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Stat
+public class FloatStat
 {
     private readonly float baseValue;
     [SerializeField] private float value;
@@ -10,7 +10,7 @@ public class Stat
 
     public float Value => value;
 
-    public Stat(float value)
+    public FloatStat(float value)
     {
         baseValue = value;
         this.value = value;

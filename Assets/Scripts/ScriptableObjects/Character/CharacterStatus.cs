@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CharacterStatus", menuName = "Scriptable Objects/Character/Status")]
+[CreateAssetMenu(fileName = "NewCharacterStatus", menuName = "Scriptable Objects/Character/Status")]
 public class CharacterStatus : ScriptableObject
 {
     [SerializeField] private int currentHealth = 100;

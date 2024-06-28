@@ -16,12 +16,12 @@ public class InBattleState : IState
             character.SetTarget(target);
         }
 
-        Debug.Log("[" + character + "][IState] InBattleState --> OnStateEnter");
+        Debug.Log("[" + character + "][IState] InBattleState --> Enter");
     }
 
     public void OnStateExit(Character character)
     {
-        Debug.Log("[" + character + "][IState] InBattleState --> OnStateExit");
+        Debug.Log("[" + character + "][IState] InBattleState --> Exit");
     }
 
     public void OnStateFixedUpdate(Character character)

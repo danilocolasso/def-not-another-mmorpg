@@ -4,13 +4,13 @@ public class DeadState : IState
 {
     public void OnStateEnter(Character character)
     {   
-        Debug.Log("[" + character + "][IState] DeadState --> OnStateEnter");
+        Debug.Log("[" + character + "][IState] DeadState --> Enter");
         character.SetTarget(null);
     }
 
     public void OnStateExit(Character character)
     {
-        Debug.Log("[" + character + "][IState] DeadState --> OnStateExit");
+        Debug.Log("[" + character + "][IState] DeadState --> Exit");
     }
 
     public void OnStateFixedUpdate(Character character)
