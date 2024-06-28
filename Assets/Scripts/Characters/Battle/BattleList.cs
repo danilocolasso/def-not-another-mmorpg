@@ -38,22 +38,28 @@ public class BattleList: List<Character>
     {
         for (int i = 0; i < Count; i++)
         {
-            this[i].BattleManager.ExitBattle(character);
+            this[i].ExitBattle(character);
         }
 
         base.Clear();
         Debug.Log("[" + character + "][BattleList] Clear battle list --> [List Count: " + Count + "]");
     }
 
-    // public Character GetPrevious()
-    // {
-        
-    // }
+    public Character GetNext()
+    {
+        if (Count == 0)
+        {
+            return null;
+        }
 
-    // public Character GetNext()
-    // {
+        return this[0];
+    }
 
-    // }
+    public Character GetPrevious(Character target)
+    {
+        int index = IndexOf(target);
+        return index == 0 ? target : this[index - 1];
+    }
 
     public void SortByDistance()
     {

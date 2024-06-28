@@ -16,9 +16,16 @@ public class Enemy : Character
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Character target = other.GetComponent<Character>();
+        ICommand command = new DetectCharacterCommand(this, target);
+        command.Execute();
+    }
+
     private void StartChaseTarget()
     {
-        SetMovement(new TargetMovement(Target.transform, StatusManager.Range.Value));
+        SetMovement(new TargetMovement(Target.transform, Status.Range));
     }
 
     private void StopChaseTarget()

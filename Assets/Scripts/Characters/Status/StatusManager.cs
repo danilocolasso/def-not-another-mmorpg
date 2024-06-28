@@ -1,62 +1,62 @@
 using UnityEngine;
 
-public class StatusManager: MonoBehaviour
+public class StatusManager: MonoBehaviour, IStatus
 {
     [SerializeField] private CharacterStatus baseStatus;
 
-    public Stat CurrentHealth { get; private set; }
-    public Stat MaxHealth { get; private set; }
-    public Stat CurrentMana { get; private set; }
-    public Stat MaxMana { get; private set; }
-    public Stat AttackDamage { get; private set; }
-    public Stat AttackSpeed { get; private set; }
-    public Stat AttackRange { get; private set; }
-    public Stat Range { get; private set; }
-    public Stat MoveSpeed { get; private set; }
+    public int CurrentHealth => currentHealth.Value;
+    public int MaxHealth => maxHealth.Value;
+    public int CurrentMana => currentMana.Value;
+    public int MaxMana => maxMana.Value;
+    public int AttackDamage => attackDamage.Value;
+    public float AttackSpeed => attackSpeed.Value;
+    public float AttackRange => attackRange.Value;
+    public float Range => range.Value;
+    public float MoveSpeed => moveSpeed.Value;
 
-    public bool IsAlive => CurrentHealth.Value > 0;
+    private IntStat currentHealth;
+    private IntStat maxHealth;
+    private IntStat currentMana;
+    private IntStat maxMana;
+    private IntStat attackDamage;
+    private FloatStat attackSpeed;
+    private FloatStat attackRange;
+    private FloatStat range;
+    private FloatStat moveSpeed;
+
+    public bool IsAlive => currentHealth.Value > 0;
 
     protected void Awake()
     {
         SetBaseStatus();
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(Character source)
     {
-        CurrentHealth.Decrement(amount);
-        Debug.Log($"{name} ---> {CurrentHealth.Value}/{MaxHealth.Value}");
+        currentHealth.Decrement(source.Status.AttackDamage);
+        Debug.Log($"{name} ---> {currentHealth.Value}/{maxHealth.Value}");
     }
 
     public void Heal(int amount)
     {
-        CurrentHealth.Increment(amount);
-    }
-
-    public void UseMana(int amount)
-    {
-        CurrentMana.Decrement(amount);
-    }
-
-    public void RestoreMana(int amount)
-    {
-        CurrentMana.Increment(amount);
+        currentHealth.Increment(amount);
     }
 
     public void Die()
     {
-        CurrentHealth.SetValue(0);
+        currentHealth.SetValue(0);
     }
 
     private void SetBaseStatus()
     {
-        CurrentHealth = new Stat(baseStatus.CurrentHealth);
-        MaxHealth = new Stat(baseStatus.MaxHealth);
-        CurrentMana = new Stat(baseStatus.CurrentMana);
-        MaxMana = new Stat(baseStatus.MaxMana);
-        AttackDamage = new Stat(baseStatus.AttackDamage);
-        AttackSpeed = new Stat(baseStatus.AttackSpeed);
-        AttackRange = new Stat(baseStatus.AttackRange);
-        Range = new Stat(baseStatus.Range);
-        MoveSpeed = new Stat(baseStatus.MoveSpeed);
+        currentHealth = new IntStat(baseStatus.CurrentHealth);
+        maxHealth = new IntStat(baseStatus.MaxHealth);
+        currentMana = new IntStat(baseStatus.CurrentMana);
+        maxMana = new IntStat(baseStatus.MaxMana);
+        attackDamage = new IntStat(baseStatus.AttackDamage);
+        attackSpeed = new FloatStat(baseStatus.AttackSpeed);
+        attackRange = new FloatStat(baseStatus.AttackRange);
+        range = new FloatStat(baseStatus.Range);
+        moveSpeed = new FloatStat(baseStatus.MoveSpeed);
     }
 }

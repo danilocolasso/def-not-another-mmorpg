@@ -62,6 +62,6 @@ public class BattleManager : MonoBehaviour
     private bool InRange(Character target)
     {
         return Vector2.Distance(character.transform.position, target.transform.position)
-            <= character.StatusManager.AttackRange.Value;
+            <= character.Status.AttackRange;
     }
 }

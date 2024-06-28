@@ -13,7 +13,7 @@ public class AttackCommand : ICommand
 
     public void Execute()
     {
-        target.Hit((int)character.StatusManager.AttackDamage.Value);
+        target.TakeDamage(character);
     }
 
 }

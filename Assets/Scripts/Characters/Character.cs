@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(StatusManager))]
 [RequireComponent(typeof(StateManager))]
@@ -7,15 +9,17 @@ using UnityEngine;
 [RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
 {
+    protected StatusManager StatusManager;
+    protected StateManager StateManager;
+    protected BattleManager BattleManager;
+    protected MovementManager MovementManager;
     public Rigidbody2D Rb { get; private set; }
-    public StatusManager StatusManager { get; private set; }
-    public StateManager StateManager { get; private set; }
-    public BattleManager BattleManager { get; private set; }
-    public MovementManager MovementManager { get; private set; }
     public Character Target { get; private set; }
 
     public bool IsAlive => StatusManager.IsAlive;
     public bool IsDead => !IsAlive;
+    public bool IsInBattle => BattleManager.IsInBattle;
+    public IStatus Status => (IStatus)StatusManager;
 
     protected virtual void Awake()
     {
@@ -51,14 +55,17 @@ public abstract class Character : MonoBehaviour
         BattleManager.ExitBattle(target);
     }
 
-    public void Hit(int amount)
+    public void TakeDamage(Character attacker)
     {
-        StatusManager.TakeDamage(amount);
+        StatusManager.TakeDamage(attacker);
 
         if (IsDead)
         {
             Die();
+            return;
         }
+
+        EnterBattle(attacker);
     }
 
     public void Heal(int amount)
