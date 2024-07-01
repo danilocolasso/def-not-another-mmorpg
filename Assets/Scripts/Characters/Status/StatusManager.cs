@@ -49,6 +49,8 @@ public class StatusManager: MonoBehaviour, IStatus
 
     private void SetBaseStatus()
     {
+        Debug.Assert(baseStatus != null, "Base Status is null! Please assign a Character Status ScriptableObject!");
+
         currentHealth = new IntStat(baseStatus.CurrentHealth);
         maxHealth = new IntStat(baseStatus.MaxHealth);
         currentMana = new IntStat(baseStatus.CurrentMana);

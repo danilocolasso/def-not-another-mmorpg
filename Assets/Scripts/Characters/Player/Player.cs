@@ -10,16 +10,9 @@ public class Player : Character
     protected override void Awake()
     {
         base.Awake();
-        ExperienceManager = GetComponent<ExperienceManager>();
-        SetDefaultMovement();
-    }
 
-    private void SetDefaultMovement()
-    {
-        if (inputHandler == null)
-        {
-            inputHandler = GetComponent<InputHandler>();
-        }
+        ExperienceManager = GetComponent<ExperienceManager>();
+        inputHandler = GetComponent<InputHandler>();
 
         SetMovement(new InputMovement(inputHandler));
     }
@@ -30,7 +23,7 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SetTarget(enemyTest);
-            BattleManager.Attack(enemyTest);
+            battleManager.Attack(enemyTest);
         }
 
         if (Input.GetKeyDown(KeyCode.R))

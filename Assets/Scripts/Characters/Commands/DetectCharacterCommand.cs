@@ -13,7 +13,11 @@ public class DetectCharacterCommand : ICommand
     {
         if (target == null || !target.IsAlive) return;
 
-        IState newState = character.IsInBattle ? new InBattleState(target) : new DetectState(target);
-        character.SetState(newState);
+        if (!character.IsInBattle) {
+            character.SetState(new DetectState(target));
+            return;
+        }
+
+        character.EnterBattle(target);
     }
 }
