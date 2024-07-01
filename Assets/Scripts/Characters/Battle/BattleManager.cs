@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -21,7 +22,7 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        if (!InRange(target))
+        if (!IsInRange(target))
         {
             Debug.Log("[BattleManager] " + character.name + " --> Out of range --> " + target.name);
             return;
@@ -59,7 +60,7 @@ public class BattleManager : MonoBehaviour
         battleList.Clear();
     }
 
-    private bool InRange(Character target)
+    private bool IsInRange(Character target)
     {
         return Vector2.Distance(character.transform.position, target.transform.position)
             <= character.Status.AttackRange;

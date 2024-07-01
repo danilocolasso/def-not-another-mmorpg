@@ -60,11 +60,4 @@ public class BattleList: List<Character>
         int index = IndexOf(target);
         return index == 0 ? target : this[index - 1];
     }
-
-    public void SortByDistance()
-    {
-        Sort((a, b) => Vector3
-            .Distance(a.transform.position, character.transform.position)
-            .CompareTo(Vector3.Distance(b.transform.position, character.transform.position)));
-    }
 }

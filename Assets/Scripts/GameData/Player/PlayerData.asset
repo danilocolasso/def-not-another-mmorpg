@@ -9,15 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b120eba90603f34fb1c31e456e92235, type: 3}
-  m_Name: FooStatus
+  m_Script: {fileID: 11500000, guid: 50d00cb200d0a2f49976c043bc12b979, type: 3}
+  m_Name: PlayerData
   m_EditorClassIdentifier: 
-  currentHealth: 100
-  maxHealth: 100
-  currentMana: 100
-  maxMana: 100
-  attackSpeed: 1
-  attackDamage: 1
-  attackRange: 1.5
-  range: 3
-  moveSpeed: 2
+  name: Player
+  level: 1
+  experience: 0

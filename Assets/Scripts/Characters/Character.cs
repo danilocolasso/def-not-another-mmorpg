@@ -9,35 +9,39 @@ using UnityEngine;
 [RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
 {
-    protected StatusManager StatusManager;
-    protected StateManager StateManager;
-    protected BattleManager BattleManager;
-    protected MovementManager MovementManager;
+    [SerializeField] protected CharacterData data;
+    protected StatusManager statusManager;
+    protected StateManager stateManager;
+    protected BattleManager battleManager;
+    protected MovementManager movementManager;
     public Rigidbody2D Rb { get; private set; }
     public Character Target { get; private set; }
 
-    public bool IsAlive => StatusManager.IsAlive;
+    public bool IsAlive => statusManager.IsAlive;
     public bool IsDead => !IsAlive;
-    public bool IsInBattle => BattleManager.IsInBattle;
-    public IStatus Status => (IStatus)StatusManager;
+    public bool IsInBattle => battleManager.IsInBattle;
+    public CharacterData Data => data;
+    public IStatus Status => statusManager;
 
     protected virtual void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
-        StatusManager = GetComponent<StatusManager>();
-        MovementManager = GetComponent<MovementManager>();
-        StateManager = GetComponent<StateManager>();
-        BattleManager = GetComponent<BattleManager>();
+        statusManager = GetComponent<StatusManager>();
+        movementManager = GetComponent<MovementManager>();
+        stateManager = GetComponent<StateManager>();
+        battleManager = GetComponent<BattleManager>();
+
+        Debug.Assert(data != null, "Character Data is null! Please assign a Character Data ScriptableObject!");
     }
 
     public void SetMovement(IMovement newMovement)
     {
-        MovementManager.SetMovement(newMovement);
+        movementManager.SetMovement(newMovement);
     }
 
     public virtual void SetState(IState newState)
     {
-        StateManager.SetState(newState);
+        stateManager.SetState(newState);
     }
 
     public void SetTarget(Character newTarget)
@@ -45,19 +49,19 @@ public abstract class Character : MonoBehaviour
         Target = newTarget;
     }
 
-    public void EnterBattle(Character target)
+    public virtual void EnterBattle(Character target)
     {
-        BattleManager.EnterBattle(target);
+        battleManager.EnterBattle(target);
     }
 
-    public void ExitBattle(Character target)
+    public virtual void ExitBattle(Character target)
     {
-        BattleManager.ExitBattle(target);
+        battleManager.ExitBattle(target);
     }
 
     public void TakeDamage(Character attacker)
     {
-        StatusManager.TakeDamage(attacker);
+        statusManager.TakeDamage(attacker);
 
         if (IsDead)
         {
@@ -70,12 +74,17 @@ public abstract class Character : MonoBehaviour
 
     public void Heal(int amount)
     {
-        StatusManager.Heal(amount);
+        statusManager.Heal(amount);
+    }
+
+    public bool IsInRange(Character target)
+    {
+        return Vector2.Distance(transform.position, target.transform.position) <= Status.Range;
     }
 
     public void Die()
     {
-        StatusManager.Die();
-        BattleManager.Die();
+        statusManager.Die();
+        battleManager.Die();
     }
 }
