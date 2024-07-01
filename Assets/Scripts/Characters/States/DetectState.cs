@@ -12,13 +12,12 @@ public class DetectState : IState
 
     public void OnStateEnter(Character character)
     {   
-        Debug.Log("[" + character + "][IState] DetectState --> [" + target + "] Enter");
         character.StartCoroutine(EnterBattleCoroutine(character));
     }
 
     public void OnStateExit(Character character)
     {
-        Debug.Log("[" + character + "][IState] DetectState --> [" + target + "] Exit");
+        // Do nothing
     }
 
     public void OnStateFixedUpdate(Character character)

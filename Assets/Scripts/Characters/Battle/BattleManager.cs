@@ -18,13 +18,11 @@ public class BattleManager : MonoBehaviour
     {
         if (target.IsDead)
         {
-            Debug.Log("[BattleManager] " + target.name + " --> Already dead");
             return;
         }
 
         if (!IsInRange(target))
         {
-            Debug.Log("[BattleManager] " + character.name + " --> Out of range --> " + target.name);
             return;
         }
 

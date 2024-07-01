@@ -34,7 +34,6 @@ public class StatusManager: MonoBehaviour, IStatus
     public void TakeDamage(Character source)
     {
         currentHealth.Decrement(source.Status.AttackDamage);
-        Debug.Log($"{name} ---> {currentHealth.Value}/{maxHealth.Value}");
     }
 
     public void Heal(int amount)

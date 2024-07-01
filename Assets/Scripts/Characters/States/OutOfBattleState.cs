@@ -4,12 +4,12 @@ public class OutOfBattleState : IState
 {
     public void OnStateEnter(Character character)
     {
-        Debug.Log("[" + character + "][IState] OutOfBattleState --> Enter");
+        // Do nothing
     }
 
     public void OnStateExit(Character character)
     {
-        Debug.Log("[" + character + "][IState] OutOfBattleState --> Exit");
+        // Do nothing
     }
 
     public void OnStateFixedUpdate(Character character)
