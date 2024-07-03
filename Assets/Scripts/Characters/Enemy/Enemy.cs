@@ -34,12 +34,6 @@ public class Enemy : Character
     {
         SetMovement(null);
     }
-    
-    public override void EnterBattle(Character target)
-    {
-        base.EnterBattle(target);
-        aggroManager.Disable();
-    }
 
     public override void ExitBattle(Character target)
     {

@@ -30,5 +30,10 @@ public class Player : Character
         {
             ExperienceManager.GainExperience(12);
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            abilityManager.UseAbility("Arrow Shot", this, enemyTest);
+        }
     }
 }

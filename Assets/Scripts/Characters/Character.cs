@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
@@ -6,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(StatusManager))]
 [RequireComponent(typeof(StateManager))]
 [RequireComponent(typeof(BattleManager))]
+[RequireComponent(typeof(AbilityManager))]
 [RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public abstract class Character : MonoBehaviour
     protected StatusManager statusManager;
     protected StateManager stateManager;
     protected BattleManager battleManager;
+    protected AbilityManager abilityManager;
     protected MovementManager movementManager;
     public Rigidbody2D Rb { get; private set; }
     public Character Target { get; private set; }
@@ -27,11 +28,12 @@ public abstract class Character : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
         statusManager = GetComponent<StatusManager>();
-        movementManager = GetComponent<MovementManager>();
         stateManager = GetComponent<StateManager>();
         battleManager = GetComponent<BattleManager>();
+        abilityManager = GetComponent<AbilityManager>();
+        movementManager = GetComponent<MovementManager>();
 
-        Debug.Assert(data != null, "Character Data is null! Please assign a Character Data ScriptableObject!");
+        Debug.Assert(data != null, $"{name} Character Data is null! Please assign a Character Data ScriptableObject!");
     }
 
     public void SetMovement(IMovement newMovement)
@@ -59,9 +61,15 @@ public abstract class Character : MonoBehaviour
         battleManager.ExitBattle(target);
     }
 
-    public void TakeDamage(Character attacker)
+    public void UseAbility(string abilityName, Character target)
     {
-        statusManager.TakeDamage(attacker);
+        abilityManager.UseAbility(abilityName, this, target);
+    }
+
+    public void TakeDamage(Character attacker, int damage = 1)
+    {
+        Debug.Log($"{name} took {damage} damage from {attacker.name}");
+        statusManager.TakeDamage(damage);
 
         if (IsDead)
         {
