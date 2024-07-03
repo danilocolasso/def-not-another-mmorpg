@@ -31,9 +31,9 @@ public class StatusManager: MonoBehaviour, IStatus
         SetBaseStatus();
     }
 
-    public void TakeDamage(Character source)
+    public void TakeDamage(int damage)
     {
-        currentHealth.Decrement(source.Status.AttackDamage);
+        currentHealth.Decrement(damage);
     }
 
     public void Heal(int amount)
