@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ArrowShot
   m_EditorClassIdentifier: 
   name: Arrow Shot
-  cooldown: 2
+  cooldown: 3
   damage: 15
   range: 5
-  speed: 5
+  speed: 10
   projectile: {fileID: 8147543704594684790, guid: 155fa19a05f9f8342a99fb6833d88c33, type: 3}
