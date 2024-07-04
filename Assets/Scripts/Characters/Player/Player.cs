@@ -17,13 +17,13 @@ public class Player : Character
         SetMovement(new InputMovement(inputHandler));
     }
 
-    public Character enemyTest;
     protected void Update()
     {
+        if (!Target) return;
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SetTarget(enemyTest);
-            battleManager.Attack(enemyTest);
+            battleManager.Attack(Target);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -33,7 +33,7 @@ public class Player : Character
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            abilityManager.UseAbility("Arrow Shot", this, enemyTest);
+            abilityManager.UseAbility("Arrow Shot", this, Target);
         }
     }
 }

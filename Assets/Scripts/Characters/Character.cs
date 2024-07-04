@@ -1,6 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(StatusManager))]
 [RequireComponent(typeof(StateManager))]
@@ -48,7 +48,13 @@ public abstract class Character : MonoBehaviour
 
     public void SetTarget(Character newTarget)
     {
+        Debug.Log($"{name} set target to {newTarget.name}");
         Target = newTarget;
+    }
+
+    public void OnPointerClick(BaseEventData eventData)
+    {
+        GameManager.Instance.Player.SetTarget(this);
     }
 
     public virtual void EnterBattle(Character target)

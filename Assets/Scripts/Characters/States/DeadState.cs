@@ -4,7 +4,7 @@ public class DeadState : IState
 {
     public void OnStateEnter(Character character)
     {   
-        character.SetTarget(null);
+        character.SetTarget((Character)null);
     }
 
     public void OnStateExit(Character character)
