@@ -46,7 +46,7 @@ public class AggroManager : MonoBehaviour
 
     public void StartAggro(Collider2D other)
     {
-        Character target = other.GetComponent<Character>();
+        Character target = other.GetComponentInParent<Character>();
 
         if (target.IsDead) return;
 
@@ -63,7 +63,7 @@ public class AggroManager : MonoBehaviour
 
     public void StopAggro(Collider2D other)
     {
-        Character target = other.GetComponent<Character>();
+        Character target = other.GetComponentInParent<Character>();
 
         StopCoroutine(aggroCoroutines[target]);
         aggroCoroutines[target] = StartCoroutine(DecrementCoroutine(target));
