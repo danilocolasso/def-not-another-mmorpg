@@ -17,35 +17,37 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    public void UseAbility(string abilityName, Character caster, Character target)
+    public bool UseAbility(string abilityName, Character caster, Character target)
     {
         if (!abilityList.TryGetValue(abilityName, out Ability ability))
         {
             Debug.Log($"{caster.name} does not have \"{abilityName}\" ability!");
-            return;
+            return false;
         }
 
         if (IsAbilityOnCooldown(ability))
         {
             Debug.Log($"{ability.name} is on cooldown!");
-            return;
+            return false;
         }
 
         if (!target.IsInRange(caster, ability.range))
         {
             Debug.Log($"{target.name} is out of range!");
-            return;
+            return false;
         }
 
         if (!ability.CanUse(caster, target))
         {
             Debug.Log($"{caster.name} cannot use {abilityName} on {target.name}!");
-            return;
+            return false;
         }
 
         ability.Use(caster, target);
         StartCooldown(ability);
         Debug.Log($"{caster.name} used {abilityName} on {target.name}");
+        
+        return true;
     }
 
     private void AddAbility(Ability ability)
