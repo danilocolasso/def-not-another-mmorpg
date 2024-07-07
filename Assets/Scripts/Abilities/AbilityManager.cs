@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
 {
-    [SerializeField] private List<Ability> abilities = new List<Ability>();
-    private Dictionary<string, Ability> abilityDictionary = new Dictionary<string, Ability>();
-    private Dictionary<Ability, Coroutine> cooldownDictionary = new Dictionary<Ability, Coroutine>();
+    [SerializeField] private List<Ability> abilities = new();
+    private Dictionary<string, Ability> abilityList = new();
+    private Dictionary<Ability, Coroutine> cooldownList = new();
 
     private void Awake()
     {
         foreach (Ability ability in abilities)
         {
+            Debug.Log($"Adding {ability} to Ability Dictionary");
             AddAbility(ability);
         }
     }
 
     public void UseAbility(string abilityName, Character caster, Character target)
     {
-        if (!abilityDictionary.TryGetValue(abilityName, out Ability ability))
+        if (!abilityList.TryGetValue(abilityName, out Ability ability))
         {
             Debug.Log($"{caster.name} does not have \"{abilityName}\" ability!");
             return;
@@ -26,19 +27,24 @@ public class AbilityManager : MonoBehaviour
 
         if (IsAbilityOnCooldown(ability))
         {
-            Debug.Log($"{abilityName} is on cooldown!");
+            Debug.Log($"{ability.name} is on cooldown!");
             return;
         }
 
-        if (!IsTargetInRange(caster, target, ability))
+        if (!target.IsInRange(caster, ability.range))
         {
             Debug.Log($"{target.name} is out of range!");
             return;
         }
 
-        ability.Activate(caster, target);
-        StartCooldown(ability);
+        if (!ability.CanUse(caster, target))
+        {
+            Debug.Log($"{caster.name} cannot use {abilityName} on {target.name}!");
+            return;
+        }
 
+        ability.Use(caster, target);
+        StartCooldown(ability);
         Debug.Log($"{caster.name} used {abilityName} on {target.name}");
     }
 
@@ -46,47 +52,42 @@ public class AbilityManager : MonoBehaviour
     {
         if (!HasAbility(ability.name))
         {
-            abilityDictionary.Add(ability.name, ability);
+            abilityList.Add(ability.name, ability);
             Debug.Log($"Added {ability.name} to Ability Dictionary");
         }
     }
 
     private bool HasAbility(string abilityName)
     {
-        return abilityDictionary.ContainsKey(abilityName);
-    }
-
-    private void StartCooldown(Ability ability)
-    {
-        if (cooldownDictionary.TryGetValue(ability, out Coroutine cooldown))
-        {
-            StopCoroutine(cooldown);
-        }
-
-        cooldownDictionary[ability] = StartCoroutine(Cooldown(ability));
-    }
-
-    private void StopCooldown(Ability ability)
-    {
-        if (cooldownDictionary.TryGetValue(ability, out Coroutine cooldown))
-        {
-            StopCoroutine(cooldown);
-        }
-
-        cooldownDictionary.Remove(ability);
+        return abilityList.ContainsKey(abilityName);
     }
 
     private bool IsAbilityOnCooldown(Ability ability)
     {
-        return cooldownDictionary.ContainsKey(ability);
+        return cooldownList.ContainsKey(ability);
     }
 
-    private bool IsTargetInRange(Character caster, Character target, Ability ability)
+    private void StartCooldown(Ability ability)
     {
-        return Vector3.Distance(caster.transform.position, target.transform.position) <= ability.range;
+        if (cooldownList.TryGetValue(ability, out Coroutine cooldown))
+        {
+            StopCoroutine(cooldown);
+        }
+
+        cooldownList[ability] = StartCoroutine(CooldownCoroutine(ability));
     }
 
-    private IEnumerator Cooldown(Ability ability)
+    private void StopCooldown(Ability ability)
+    {
+        if (cooldownList.TryGetValue(ability, out Coroutine cooldown))
+        {
+            StopCoroutine(cooldown);
+        }
+
+        cooldownList.Remove(ability);
+    }
+
+    private IEnumerator CooldownCoroutine(Ability ability)
     {
         yield return new WaitForSeconds(ability.cooldown);
         Debug.Log($"{ability.name} is off cooldown!");

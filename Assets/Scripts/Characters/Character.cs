@@ -91,9 +91,9 @@ public abstract class Character : MonoBehaviour
         statusManager.Heal(amount);
     }
 
-    public bool IsInRange(Character target)
+    public bool IsInRange(Character target, float range)
     {
-        return Vector2.Distance(transform.position, target.transform.position) <= Status.Range;
+        return Vector2.Distance(transform.position, target.transform.position) <= range;
     }
 
     public void Die()

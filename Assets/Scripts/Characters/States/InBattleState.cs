@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InBattleState : IState
 {
-    private Character target;
+    private readonly Character target;
 
     public InBattleState(Character target)
     {

@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fafc597b8b41df4b8c9367a5d5f2167, type: 3}
-  m_Name: ArrowShot
+  m_Script: {fileID: 11500000, guid: fc35c93ca29d4ef4095105b334d54aab, type: 3}
+  m_Name: ArrowShotDamage
   m_EditorClassIdentifier: 
-  name: Arrow Shot
-  cooldown: 3
-  damage: 15
-  range: 5
-  speed: 10
-  projectile: {fileID: 8147543704594684790, guid: 155fa19a05f9f8342a99fb6833d88c33, type: 3}
+  damage: 10

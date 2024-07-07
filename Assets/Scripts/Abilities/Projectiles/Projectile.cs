@@ -23,15 +23,13 @@ public class Projectile : MonoBehaviour
     {
         if (other.TryGetComponent(out Hitbox hitbox) && hitbox.Character == target)
         {
-            target.TakeDamage(caster, ability.damage);
+            ability.ApplyEffect(caster, target);
             Destroy(gameObject);
         }
     }
 
     protected void Update()
     {
-        Debug.Log("target: " + target + " caster: " + caster + " ability: " + ability);
-
         if (target == null)
         {
             Destroy(gameObject);
