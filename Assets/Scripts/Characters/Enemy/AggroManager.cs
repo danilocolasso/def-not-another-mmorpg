@@ -11,8 +11,8 @@ public class AggroManager : MonoBehaviour
 
     private Enemy character;
     [SerializeField] private Collider2DTrigger detectionArea;
-    private readonly Dictionary<Character, float> aggroValues = new Dictionary<Character, float>();
-    private readonly Dictionary<Character, Coroutine> aggroCoroutines = new Dictionary<Character, Coroutine>();
+    private readonly Dictionary<Character, float> aggroValues = new();
+    private readonly Dictionary<Character, Coroutine> aggroCoroutines = new();
 
     protected void Awake()
     {
@@ -40,8 +40,6 @@ public class AggroManager : MonoBehaviour
         detectionArea.Disable();
         aggroValues.Clear();
         aggroCoroutines.Clear();
-
-        Debug.Log(aggroCoroutines.Count);
     }
 
     public void StartAggro(Collider2D other)

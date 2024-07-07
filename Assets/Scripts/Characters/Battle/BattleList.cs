@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class BattleList: List<Character>
 {
-    private Character character;
+    private readonly Character character;
 
     public BattleList(Character character)
     {
@@ -39,21 +39,5 @@ public class BattleList: List<Character>
         }
 
         base.Clear();
-    }
-
-    public Character GetNext()
-    {
-        if (Count == 0)
-        {
-            return null;
-        }
-
-        return this[0];
-    }
-
-    public Character GetPrevious(Character target)
-    {
-        int index = IndexOf(target);
-        return index == 0 ? target : this[index - 1];
     }
 }
