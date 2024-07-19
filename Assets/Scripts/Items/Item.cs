@@ -6,6 +6,7 @@ public abstract class Item : ScriptableObject
     public string description;
     public Sprite icon;
     [Range(1, 20)] public int maxStack = 1;
+    public bool CanStack => maxStack > 1;
 
     public abstract void Use(Character character);
 }

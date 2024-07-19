@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3669ab992b3ccd6469cc7047e69992a1, type: 3}
-  m_Name: Backpack
+  m_Name: Small Bag
   m_EditorClassIdentifier: 
-  name: Backpack
-  description: The player's default bag
+  name: Smal Bag
+  description: 
   icon: {fileID: 0}
   maxStack: 1
-  size: 16
+  size: 6

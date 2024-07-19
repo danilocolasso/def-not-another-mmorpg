@@ -14,7 +14,7 @@ public class InventoryManager : MonoBehaviour
             return false;
         }
 
-        bags.Add(bag, new List<Item>(bag.slots));
+        bags.Add(bag, new List<Item>(bag.size));
         Debug.Log($"Added {bag.name} to bags");
 
         return true;
@@ -29,7 +29,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (bags.Remove(oldBag))
         {
-            bags.Add(newBag, new List<Item>(newBag.slots));
+            bags.Add(newBag, new List<Item>(newBag.size));
         }
     }
 
@@ -96,6 +96,6 @@ public class InventoryManager : MonoBehaviour
 
     private bool HasSpaceInBag(Bag bag)
     {
-        return bags[bag].Count < bag.slots;
+        return bags[bag].Count < bag.size;
     }
 }
