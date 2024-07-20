@@ -16,37 +16,6 @@ public class InventoryBag
         slots = new InventoryItem[bag.size];
     }
 
-    public void LogBag()
-    {
-        string empty = "-";
-        string result = "";
-
-        Debug.Log($"+---------- {bag.name} ---------+");
-
-        for (int i = 0; i < slots.Length; i++)
-        {
-            result += "[ " + (slots[i] != null ? slots[i].Amount : empty) + " ]";
-
-            if ((i + 1) % 4 == 0)
-            {
-                Debug.Log(result);
-                result = "";
-            }
-        }
-
-        if (result != "")
-        {
-            Debug.Log(result);
-        }
-
-        foreach (KeyValuePair<Item, int[]> item in items)
-        {
-            Debug.Log("[ITEM] " + item.Key.name + " --> slots [" + string.Join(", ", item.Value) + " ]");
-        }
-
-        Debug.Log("+--------------------------------+");
-    }
-
     public InventoryItem GetInventoryItem(int slot)
     {
         return slots[slot];

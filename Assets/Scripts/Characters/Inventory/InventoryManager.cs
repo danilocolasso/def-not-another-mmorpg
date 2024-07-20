@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -10,14 +9,6 @@ public class InventoryManager : MonoBehaviour
     private void Awake()
     {
         AddDefaultBags();
-    }
-
-    public void LogBags()
-    {
-        for (int i = 0; i < inventoryBags.Length; i++)
-        {
-            inventoryBags[i]?.LogBag();
-        }
     }
 
     public bool AddBag(Bag bag)
@@ -37,18 +28,12 @@ public class InventoryManager : MonoBehaviour
     {
         bags[index] = bag;
         inventoryBags[index] = new InventoryBag(bag);
-
-        Debug.Log($"Added {bag.name} to bags");
-        LogBags();
     }
 
     public void RemoveBag(int index)
     {
         bags[index] = null;
         inventoryBags[index] = null;
-
-        Debug.Log($"Removed bag at index {index}");
-        LogBags();
     }
 
     public void ReplaceBag(int index, Bag newBag)
@@ -60,18 +45,12 @@ public class InventoryManager : MonoBehaviour
 
         bags[index] = newBag;
         inventoryBags[index] = newInventoryBag;
-
-        Debug.Log($"Replaced bag at index {index}");
-        LogBags();
     }
 
     public void SwapBags(int index1, int index2)
     {
         (bags[index2], bags[index1]) = (bags[index1], bags[index2]);
         (inventoryBags[index2], inventoryBags[index1]) = (inventoryBags[index1], inventoryBags[index2]);
-
-        Debug.Log($"Swapped bags at indexes {index1} and {index2}");
-        LogBags();
     }
 
     public int AddItem(Item item, int amount)
@@ -91,19 +70,12 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        Debug.Log($"Added {item.name} x{amount - remaining}");
-        LogBags();
-
         return remaining;
     }
 
     public int AddItem(Item item, int amount, int bag, int slot)
     {
-        // return inventoryBags[bag].Add(item, amount, slot); // TODO: Uncomment and logs below
-
-        var foo = inventoryBags[bag].Add(item, amount, slot);
-        LogBags();
-        return foo;
+        return inventoryBags[bag].Add(item, amount, slot);
     }
 
     public int RemoveItem(Item item, int amount)
@@ -123,20 +95,12 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        Debug.Log($"Removed {item.name} x{amount - remaining}");
-        LogBags();
-
         return remaining;
     }
 
     public int RemoveItem(int bag, int slot, int amount)
     {
-        // return inventoryBags[bag].Remove(slot, amount); // TODO: Uncomment and logs below
-
-        var foo = inventoryBags[bag].Remove(slot, amount);
-        Debug.Log($"Removed {amount - foo} from bag {bag} slot {slot}");
-        LogBags();
-        return foo;
+        return inventoryBags[bag].Remove(slot, amount);
     }
 
     public void MoveItem(int bag, int destinationBag, int slot, int destiantionSlot)
@@ -147,9 +111,6 @@ public class InventoryManager : MonoBehaviour
 
         inventoryBag.Remove(slot, inventoryItem.Amount);
         destinationInventoryBag.Add(inventoryItem.Item, inventoryItem.Amount, destiantionSlot);
-
-        Debug.Log($"Moved {inventoryItem.Item.name} x{inventoryItem.Amount} from bag {bag} slot {slot} to bag {destinationBag} slot {destiantionSlot}");
-        LogBags();
     }
 
     private void AddDefaultBags()
@@ -162,8 +123,6 @@ public class InventoryManager : MonoBehaviour
             }
 
         }
-
-        LogBags();
     }
 
     private bool GetEmptyBagSlot(out int index)
