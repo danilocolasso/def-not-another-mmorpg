@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class InventoryItem
+public class RuntimeItem
 {
     public readonly Item Item;
     public int Amount { get; private set; }
 
-    public InventoryItem(Item item, int amount)
+    public RuntimeItem(Item item, int amount)
     {
         Item = item;
         Amount = amount;
