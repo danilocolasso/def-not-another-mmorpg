@@ -1,18 +1,55 @@
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class InventoryBag
 {
     private readonly Bag bag;
-    private readonly BagSlot[] slots;
-    private readonly Dictionary<Item, int[]> indexes = new();
+    private readonly InventoryItem[] slots;
+    private readonly Dictionary<Item, int[]> items = new();
 
-    private bool IsFull => indexes.Count == bag.size;
+    private bool IsFull => items.Count == bag.size;
 
     public InventoryBag(Bag bag)
     {
         this.bag = bag;
-        slots = new BagSlot[bag.size];
+        slots = new InventoryItem[bag.size];
+    }
+
+    public void LogBag()
+    {
+        string empty = "-";
+        string result = "";
+
+        Debug.Log($"+---------- {bag.name} ---------+");
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            result += "[ " + (slots[i] != null ? slots[i].Amount : empty) + " ]";
+
+            if ((i + 1) % 4 == 0)
+            {
+                Debug.Log(result);
+                result = "";
+            }
+        }
+
+        if (result != "")
+        {
+            Debug.Log(result);
+        }
+
+        foreach (KeyValuePair<Item, int[]> item in items)
+        {
+            Debug.Log("[ITEM] " + item.Key.name + " --> slots [" + string.Join(", ", item.Value) + " ]");
+        }
+
+        Debug.Log("+--------------------------------+");
+    }
+
+    public InventoryItem GetInventoryItem(int slot)
+    {
+        return slots[slot];
     }
 
     public int Add(Item item, int amount, int slot)
@@ -43,77 +80,110 @@ public class InventoryBag
                 break;
             }
 
-            remaining = CreateSlot(item, amount, index);
+            remaining = CreateSlot(item, remaining, index);
         }
 
         return remaining;
     }
 
-    public int Remove(Item item, int amount, int slot)
+    public int Remove(int slot, int amount)
     {
-        BagSlot bagSlot = slots[slot];
-        int remaining = amount;
+        Item item = slots[slot].Item;
 
-        if (bagSlot.Amount > amount)
+        if (slots[slot].Unstack(amount, out int remaining))
         {
-            bagSlot.Unstack(amount);
-            return 0;
+            RemoveSlot(slot);
         }
 
-        indexes.Remove(item);
-        slots[slot] = null;
-        remaining -= bagSlot.Amount;
+        if (remaining > 0)
+        {
+            return Remove(item, remaining);
+        }
 
         return remaining;
     }
 
-    public int Remove(Item item, int amount = 1)
+    public int Remove(Item item, int amount)
     {
         int remaining = amount;
 
-        foreach (int index in indexes[item])
+        for (int i = 0; i < slots.Length; i++)
         {
-            remaining = Remove(item, remaining, index);
-
-            if (remaining == 0)
+            if (slots[i] != null && slots[i].Item == item)
             {
-                break;
+                remaining = Remove(i, remaining);
+
+                if (remaining == 0)
+                {
+                    break;
+                }
             }
         }
 
         return remaining;
+    }
+
+    public void CopyItems(InventoryBag bag)
+    {
+        for (int i = 0; i < bag.slots.Length; i++)
+        {
+            if (bag.slots[i] != null)
+            {
+                Add(bag.slots[i].Item, bag.slots[i].Amount, i);
+            }
+        }
+    }
+
+    public void MoveItems(InventoryBag bag)
+    {
+        CopyItems(bag);
+        bag.Clear();
+    }
+
+    public void MoveItem(int slot, InventoryBag destinationBag)
+    {
+        Add(slots[slot].Item, slots[slot].Amount);
+        destinationBag.Remove(slot, slots[slot].Amount);
+    }
+
+    public void Clear()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = null;
+        }
+
+        items.Clear();
     }
 
     public void Swap(int slot1, int slot2)
     {
         Item item1 = slots[slot1].Item;
         Item item2 = slots[slot2].Item;
-        BagSlot bagSlot1 = slots[slot1];
-        BagSlot bagSlot2 = slots[slot2];
+        InventoryItem bagSlot1 = slots[slot1];
+        InventoryItem bagSlot2 = slots[slot2];
 
-        Remove(item1, bagSlot1.Amount, slot1);
-        Remove(item2, bagSlot2.Amount, slot2);
+        Remove(slot1, bagSlot1.Amount);
+        Remove(slot2, bagSlot2.Amount);
         Add(item1, bagSlot1.Amount, slot2);
         Add(item2, bagSlot2.Amount, slot1);
     }
 
     private int Stack(Item item, int amount)
     {
-        if (!indexes.ContainsKey(item))
+        if (!items.ContainsKey(item))
         {
             return amount;
         }
 
-        foreach (int index in indexes[item])
+        foreach (int index in items[item])
         {
-            BagSlot bagSlot = slots[index];
+            InventoryItem bagSlot = slots[index];
 
-            if (!bagSlot.CanStack())
+            if (bagSlot.CanStack())
             {
-                continue;
+                amount = bagSlot.Stack(amount);
             }
-
-            amount = bagSlot.Stack(amount);
         }
 
         return amount;
@@ -124,10 +194,30 @@ public class InventoryBag
         int remaining = Mathf.Max(0, amount - item.maxStack);
         amount = Mathf.Min(item.maxStack, amount);
 
-        slots[index] = new BagSlot(item, amount);
-        indexes.Add(item, new int[] { index });
+        slots[index] = new InventoryItem(item, amount);
+
+        if (items.ContainsKey(item))
+        {
+            items[item] = items[item].Append(index).ToArray();
+        }
+        else
+        {
+            items.Add(item, new int[] { index });
+        }
 
         return remaining;
+    }
+
+    private void RemoveSlot(int slot)
+    {
+        items[slots[slot].Item] = items[slots[slot].Item].Where(i => i != slot).ToArray();
+
+        if (items[slots[slot].Item].Length == 0)
+        {
+            items.Remove(slots[slot].Item);
+        }
+
+        slots[slot] = null;
     }
 
     private bool GetEmptySlotIndex(out int index)

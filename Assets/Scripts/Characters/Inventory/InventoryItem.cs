@@ -1,12 +1,11 @@
-
 using UnityEngine;
 
-public class BagSlot
+public class InventoryItem
 {
     public readonly Item Item;
     public int Amount { get; private set; }
 
-    public BagSlot(Item item, int amount = 1)
+    public InventoryItem(Item item, int amount)
     {
         Item = item;
         Amount = amount;
@@ -30,11 +29,11 @@ public class BagSlot
         return remaining;
     }
 
-    public int Unstack(int amount)
+    public bool Unstack(int amount, out int remaining)
     {
-        int remaining = Mathf.Max(0, amount - Amount);
+        remaining = Mathf.Max(0, amount - Amount);
         Amount = Mathf.Max(0, Amount - amount);
 
-        return remaining;
+        return Amount == 0;
     }
 }

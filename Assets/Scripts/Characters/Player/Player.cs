@@ -25,34 +25,34 @@ public class Player : Character
         return inventoryManager.AddBag(bag);
     }
 
-    public bool RemoveBag(Bag bag)
+    public void AddBag(Bag bag, int index)
     {
-        return inventoryManager.RemoveBag(bag);
+        inventoryManager.AddBag(bag, index);
     }
 
-    public bool AddItem(Item item)
+    public void RemoveBag(int index)
     {
-        return inventoryManager.AddItem(item);
+        inventoryManager.RemoveBag(index);
     }
 
-    public bool AddItem(Item item, Bag bag)
+    public int AddItem(Item item, int amount)
     {
-        return inventoryManager.AddItem(item, bag);
+        return inventoryManager.AddItem(item, amount);
     }
 
-    public bool RemoveItem(Item item)
+    public int AddItem(Item item, int amount, int bag, int slot)
     {
-        return inventoryManager.RemoveItem(item);
+        return inventoryManager.AddItem(item, amount, bag, slot);
     }
 
-    public bool RemoveItem(Item item, Bag bag)
+    public int RemoveItem(Item item, int amount)
     {
-        return inventoryManager.RemoveItem(item, bag);
+        return inventoryManager.RemoveItem(item, amount);
     }
 
-    public bool MoveItem(Item item, Bag fromBag, Bag toBag)
+    public void MoveItem(int bagFrom, int bagTo, int slotFrom, int slotTo)
     {
-        return inventoryManager.MoveItem(item, fromBag, toBag);
+        inventoryManager.MoveItem(bagFrom, bagTo, slotFrom, slotTo);
     }
 
     public void GainExperience(int amount)
@@ -60,27 +60,52 @@ public class Player : Character
         experienceManager.GainExperience(amount);
     }
 
-    public Item testItem;
     protected void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        Testing();
+    }
+
+    public Item testItem;
+    private void Testing()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             testItem.Use(this);
+            Debug.Log("Used " + testItem.name);
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
-            AddItem(testItem);
+            AddItem(testItem, 3);
+            Debug.Log("Added 3 " + testItem.name + " to the first available slot");
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
-            RemoveItem(testItem);
+            int amount = Random.Range(1, 5);
+            int bag = Random.Range(0, 3);
+            int slot = Random.Range(0, 5);
+
+            AddItem(testItem, amount, bag, slot);
+            Debug.Log("Added " + amount + " " + testItem.name + " to bag " + bag + " slot " + slot);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            RemoveItem(testItem, 2);
+            Debug.Log("Removed 2 " + testItem.name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            MoveItem(0, 1, 0, 4);
+            Debug.Log("Moved item from bag 0 slot 0 to bag 1 slot 4");
+        }
+
+        if (Input.GetKeyDown(KeyCode.F6))
         {
             GainExperience(12);
+            Debug.Log("Gained 12 experience");
         }
 
         if (Target)
