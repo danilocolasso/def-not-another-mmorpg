@@ -17,20 +17,20 @@ public class Enemy : Character
 
         if (state is InBattleState)
         {
-            StartChaseTarget();
+            StartChase();
         }
         else
         {
-            StopChaseTarget();
+            StopChase();
         }
     }
 
-    private void StartChaseTarget()
+    private void StartChase()
     {
         SetMovement(new TargetMovement(Target.transform, Status.AttackRange));
     }
 
-    private void StopChaseTarget()
+    private void StopChase()
     {
         SetMovement(null);
     }

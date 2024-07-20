@@ -52,7 +52,7 @@ public abstract class Character : MonoBehaviour
         Target = newTarget;
     }
 
-    public void OnPointerClick(BaseEventData eventData)
+    public void OnPointerClick(BaseEventData _)
     {
         GameManager.Instance.Player.SetTarget(this);
     }
@@ -67,9 +67,14 @@ public abstract class Character : MonoBehaviour
         battleManager.ExitBattle(target);
     }
 
-    public void UseAbility(string abilityName, Character target)
+    public bool UseAbility(string abilityName, Character target)
     {
-        abilityManager.UseAbility(abilityName, this, target);
+        return abilityManager.UseAbility(abilityName, this, target);
+    }
+
+    public void Attack(Character target)
+    {
+        battleManager.Attack(target);
     }
 
     public void TakeDamage(Character attacker, int damage = 1)
