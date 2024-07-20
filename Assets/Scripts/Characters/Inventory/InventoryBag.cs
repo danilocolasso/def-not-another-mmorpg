@@ -107,7 +107,7 @@ public class InventoryBag
     {
         int remaining = amount;
 
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = slots.Length - 1; i >= 0; i--)
         {
             if (slots[i] != null && slots[i].Item == item)
             {

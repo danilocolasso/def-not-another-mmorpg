@@ -110,7 +110,7 @@ public class InventoryManager : MonoBehaviour
     {
         int remaining = amount;
 
-        for (int i = 0; i < inventoryBags.Length; i++)
+        for (int i = inventoryBags.Length - 1; i >= 0; i--)
         {
             if (inventoryBags[i] != null)
             {
