@@ -10,6 +10,7 @@ using UnityEngine.EventSystems;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected CharacterData data;
+    [SerializeField] protected CharacterGraphics graphics;
     protected StatusManager statusManager;
     protected StateManager stateManager;
     protected BattleManager battleManager;

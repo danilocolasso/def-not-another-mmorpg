@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097bf06836eeba24196bf0358a881b7a, type: 3}
+  m_Name: PlayerGraphics
+  m_EditorClassIdentifier: 
+  hair: {fileID: 0}
+  beard: {fileID: 0}
+  head: {fileID: 21300000, guid: e605c5c93a9381a4f9b413ce16352ea7, type: 3}
+  body: {fileID: 21300000, guid: 14dc9233f2f3af1409ea571a73ff74ef, type: 3}
+  hand: {fileID: 21300000, guid: c4571d618848b7f41bd7dd200da3b41a, type: 3}
+  underware: {fileID: 21300000, guid: 74c35b81cdf3671488d845ccfece23bb, type: 3}
+  leg: {fileID: 21300000, guid: 8f78b82d46cadfe499e433522d8e1366, type: 3}
+  foot: {fileID: 0}
+  helmet: {fileID: 0}
+  glasses: {fileID: 0}
+  shoulderLeft: {fileID: 0}
+  shoulderRight: {fileID: 0}
+  back: {fileID: 0}
+  chest: {fileID: 0}
+  gloves: {fileID: 0}
+  pants: {fileID: 0}
+  boots: {fileID: 0}
+  weaponLeft: {fileID: 0}
+  weaponRight: {fileID: 0}
