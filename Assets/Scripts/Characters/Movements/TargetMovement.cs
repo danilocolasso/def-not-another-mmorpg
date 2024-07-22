@@ -11,13 +11,17 @@ public class TargetMovement : IMovement
         this.stopDistance = stopDistance;
     }
 
-    public void Move(Rigidbody2D rb, float moveSpeed)
+    public Vector2 Move(Rigidbody2D rb, float moveSpeed)
     {
-        if (target == null) return;
-        if (IsInRange(rb.position, target.position)) return;
+        if (target == null || IsInRange(rb.position, target.position))
+        {
+            return Vector2.zero;
+        }
 
-        ICommand movement = new MoveTowardsCommand(rb, target.position, moveSpeed);
-        movement.Execute();
+        ICommand command = new MoveTowardsCommand(rb, target.position, moveSpeed);
+        command.Execute();
+
+        return ((Vector2)target.position - rb.position).normalized;
     }
 
     private bool IsInRange(Vector2 currentPosition, Vector2 targetPosition)

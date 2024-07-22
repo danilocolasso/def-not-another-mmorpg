@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IMovement
 {
-    public void Move(Rigidbody2D rb, float moveSpeed);
+    public Vector2 Move(Rigidbody2D rb, float moveSpeed);
 }

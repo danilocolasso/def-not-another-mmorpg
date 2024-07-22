@@ -12,7 +12,13 @@ public class MovementManager : MonoBehaviour
 
     public void FixedUpdate()
     {
-        movement?.Move(character.Rb, character.Status.MoveSpeed);
+        if (movement == null)
+        {
+            return;
+        }
+
+        Vector2 direction = movement.Move(character.Rb, character.Status.MoveSpeed);
+        character.SetIsMoving(direction);
     }
 
     public void SetMovement(IMovement newMovement)

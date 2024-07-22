@@ -4,26 +4,21 @@ public class StatusManager: MonoBehaviour, IStatus
 {
     [SerializeField] private CharacterStatus baseStatus;
 
-    public int CurrentHealth => currentHealth.Value;
-    public int MaxHealth => maxHealth.Value;
-    public int CurrentMana => currentMana.Value;
-    public int MaxMana => maxMana.Value;
-    public int AttackDamage => attackDamage.Value;
-    public float AttackSpeed => attackSpeed.Value;
-    public float AttackRange => attackRange.Value;
-    public float Range => range.Value;
-    public float MoveSpeed => moveSpeed.Value;
-
     private IntStat currentHealth;
     private IntStat maxHealth;
-    private IntStat currentMana;
-    private IntStat maxMana;
     private IntStat attackDamage;
     private FloatStat attackSpeed;
     private FloatStat attackRange;
     private FloatStat range;
     private FloatStat moveSpeed;
 
+    public int CurrentHealth => currentHealth.Value;
+    public int MaxHealth => maxHealth.Value;
+    public int AttackDamage => attackDamage.Value;
+    public float AttackSpeed => attackSpeed.Value;
+    public float AttackRange => attackRange.Value;
+    public float Range => range.Value;
+    public float MoveSpeed => moveSpeed.Value;
     public bool IsAlive => currentHealth.Value > 0;
 
     protected void Awake()
@@ -50,10 +45,8 @@ public class StatusManager: MonoBehaviour, IStatus
     {
         Debug.Assert(baseStatus != null, "Base Status is null! Please assign a Character Status ScriptableObject!");
 
-        currentHealth = new IntStat(baseStatus.CurrentHealth);
-        maxHealth = new IntStat(baseStatus.MaxHealth);
-        currentMana = new IntStat(baseStatus.CurrentMana);
-        maxMana = new IntStat(baseStatus.MaxMana);
+        currentHealth = new IntStat(baseStatus.Health);
+        maxHealth = new IntStat(baseStatus.Health);
         attackDamage = new IntStat(baseStatus.AttackDamage);
         attackSpeed = new FloatStat(baseStatus.AttackSpeed);
         attackRange = new FloatStat(baseStatus.AttackRange);

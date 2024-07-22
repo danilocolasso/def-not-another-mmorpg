@@ -16,7 +16,7 @@ public class MoveTowardsCommand : ICommand
     public void Execute()
     {
         Vector2 direction = (targetPosition - rb.position).normalized;
-        Vector2 adjustedMovement = direction * moveSpeed * Time.fixedDeltaTime;
+        Vector2 adjustedMovement = moveSpeed * Time.fixedDeltaTime * direction;
         Vector2 newPosition = rb.position + adjustedMovement;
         
         rb.MovePosition(newPosition);
