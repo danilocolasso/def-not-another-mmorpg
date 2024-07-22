@@ -8,17 +8,8 @@ public class GraphicsManager : MonoBehaviour
     private int moveSpeedHash;
     private bool flipped = false;
 
-    [Header("Data")]
     [SerializeField] private CharacterGraphics graphics;
-
-    [Header("Sprite Renderers")]
-    [SerializeField] private SpriteRenderer head;
-    [SerializeField] private SpriteRenderer rightHand;
-    [SerializeField] private SpriteRenderer chest;
-    [SerializeField] private SpriteRenderer rightLeg;
-    [SerializeField] private SpriteRenderer under;
-    [SerializeField] private SpriteRenderer leftLeg;
-    [SerializeField] private SpriteRenderer leftHand;
+    [SerializeField] private HumanoidCharacter body;
 
     private void Start()
     {
@@ -31,7 +22,7 @@ public class GraphicsManager : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        SetSpritesColor();
+        body.SetSkinColor(graphics.SkinColor);
     }
 
     public void SetMoving(Vector2 direction, float speed = 1)
@@ -69,16 +60,5 @@ public class GraphicsManager : MonoBehaviour
     {
         isMovingHash = Animator.StringToHash("isMoving");
         moveSpeedHash = Animator.StringToHash("moveSpeed");
-    }
-
-    private void SetSpritesColor()
-    {
-        head.color = graphics.SkinColor;
-        rightHand.color = graphics.SkinColor;
-        chest.color = graphics.SkinColor;
-        rightLeg.color = graphics.SkinColor;
-        under.color = graphics.SkinColor;
-        leftLeg.color = graphics.SkinColor;
-        leftHand.color = graphics.SkinColor;
     }
 }
