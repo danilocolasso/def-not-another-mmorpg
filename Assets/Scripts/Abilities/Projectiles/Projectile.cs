@@ -36,7 +36,7 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        ICommand moveCommand = new MoveTowardsCommand(rb, target.transform.position, ability.speed);
-        moveCommand.Execute();
+        ICommand command = new MoveTowardsCommand(rb, target.transform.position, ability.speed);
+        command.Execute();
     }
 }

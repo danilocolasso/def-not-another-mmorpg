@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InputMovement : IMovement
 {
@@ -10,12 +9,18 @@ public class InputMovement : IMovement
         this.inputHandler = inputHandler;
     }
 
-    public void Move(Rigidbody2D rb, float moveSpeed)
+    public Vector2 Move(Rigidbody2D rb, float moveSpeed)
     {
-        if (inputHandler == null) return;
+        if (inputHandler == null)
+        {
+            return Vector2.zero;
+        }
 
-        Vector2 targetPosition = rb.position + inputHandler.MovementInput.normalized;
-        ICommand movement = new MoveTowardsCommand(rb, targetPosition, moveSpeed);
-        movement.Execute();
+        Vector2 movement = inputHandler.MovementInput.normalized;
+        Vector2 targetPosition = rb.position + movement;
+        ICommand command = new MoveTowardsCommand(rb, targetPosition, moveSpeed);
+        command.Execute();
+
+        return movement;
     }
 }

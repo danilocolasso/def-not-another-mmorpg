@@ -10,12 +10,12 @@ using UnityEngine.EventSystems;
 public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected CharacterData data;
-    [SerializeField] protected CharacterGraphics graphics;
     protected StatusManager statusManager;
     protected StateManager stateManager;
     protected BattleManager battleManager;
     protected AbilityManager abilityManager;
     protected MovementManager movementManager;
+    protected GraphicsManager graphicsManager;
     public Rigidbody2D Rb { get; private set; }
     public Character Target { get; private set; }
 
@@ -33,13 +33,20 @@ public abstract class Character : MonoBehaviour
         battleManager = GetComponent<BattleManager>();
         abilityManager = GetComponent<AbilityManager>();
         movementManager = GetComponent<MovementManager>();
+        graphicsManager = GetComponentInChildren<GraphicsManager>();
 
         Debug.Assert(data != null, $"{name} Character Data is null! Please assign a Character Data ScriptableObject!");
     }
 
     public void SetMovement(IMovement newMovement)
     {
-        movementManager.SetMovement(newMovement);
+        movementManager?.SetMovement(newMovement);
+    }
+
+    public void SetIsMoving(Vector2 direction)
+    {
+        graphicsManager.SetMoving(direction, Status.MoveSpeed);
+        graphicsManager.SetDirection(direction);
     }
 
     public virtual void SetState(IState newState)
@@ -106,5 +113,6 @@ public abstract class Character : MonoBehaviour
     {
         statusManager.Die();
         battleManager.Die();
+        graphicsManager.Die();
     }
 }
