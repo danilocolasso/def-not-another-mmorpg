@@ -156,7 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 0b0f1fa4772c57244a06044b6ac6943c, type: 2}
-  graphics: {fileID: 0}
 --- !u!50 &36116688
 Rigidbody2D:
   serializedVersion: 4
@@ -1387,7 +1386,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 4fc4ff72e7df28b478e2a6bcf5d045d3, type: 2}
-  graphics: {fileID: 11400000, guid: b07b3bb3a19b66b478c0441de1687149, type: 2}
 --- !u!50 &1185604471
 Rigidbody2D:
   serializedVersion: 4
@@ -1681,9 +1679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670b2cceac0253b4a906e1c2fa2c499a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skinColor:
-    serializedVersion: 2
-    rgba: 4288788448
+  graphics: {fileID: 11400000, guid: b07b3bb3a19b66b478c0441de1687149, type: 2}
   head: {fileID: 1662723048}
   rightHand: {fileID: 376933142}
   chest: {fileID: 2052552326}
@@ -2402,9 +2398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670b2cceac0253b4a906e1c2fa2c499a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skinColor:
-    serializedVersion: 2
-    rgba: 4291807848
+  graphics: {fileID: 11400000, guid: 8747ef6218257394aaaf7dcfbf4e4cf6, type: 2}
   head: {fileID: 1950450667}
   rightHand: {fileID: 1756758836}
   chest: {fileID: 984244314}

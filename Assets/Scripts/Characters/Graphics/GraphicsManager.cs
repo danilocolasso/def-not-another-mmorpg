@@ -8,7 +8,10 @@ public class GraphicsManager : MonoBehaviour
     private int moveSpeedHash;
     private bool flipped = false;
 
-    [SerializeField] private Color32 skinColor;
+    [Header("Data")]
+    [SerializeField] private CharacterGraphics graphics;
+
+    [Header("Sprite Renderers")]
     [SerializeField] private SpriteRenderer head;
     [SerializeField] private SpriteRenderer rightHand;
     [SerializeField] private SpriteRenderer chest;
@@ -24,7 +27,10 @@ public class GraphicsManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Assert(graphics != null, $"{GetComponentInParent<Character>()} Graphics is null!");
+
         animator = GetComponent<Animator>();
+
         SetSpritesColor();
     }
 
@@ -67,12 +73,12 @@ public class GraphicsManager : MonoBehaviour
 
     private void SetSpritesColor()
     {
-        head.color = skinColor;
-        rightHand.color = skinColor;
-        chest.color = skinColor;
-        rightLeg.color = skinColor;
-        under.color = skinColor;
-        leftLeg.color = skinColor;
-        leftHand.color = skinColor;
+        head.color = graphics.SkinColor;
+        rightHand.color = graphics.SkinColor;
+        chest.color = graphics.SkinColor;
+        rightLeg.color = graphics.SkinColor;
+        under.color = graphics.SkinColor;
+        leftLeg.color = graphics.SkinColor;
+        leftHand.color = graphics.SkinColor;
     }
 }

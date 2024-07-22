@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterGraphics : ScriptableObject
 {
     [Header("Body")]
+    [SerializeField] private Color32 skinColor = new(255, 255, 255, 255);
     [SerializeField] private Sprite hair;
     [SerializeField] private Sprite beard;
     [SerializeField] private Sprite head;
@@ -28,6 +29,7 @@ public class CharacterGraphics : ScriptableObject
     [SerializeField] private Sprite weaponLeft;
     [SerializeField] private Sprite weaponRight;
     
+    public Color32 SkinColor => skinColor;
     public Sprite Hair => hair;
     public Sprite Beard => beard;
     public Sprite Head => head;
