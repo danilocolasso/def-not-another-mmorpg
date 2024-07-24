@@ -17,12 +17,16 @@ public class AggroManager : MonoBehaviour
     protected void Awake()
     {
         character = GetComponent<Enemy>();
-
-        Debug.Assert(detectionArea != null, $"Critical --> {name} Detection Area is null in the Inspector!");
     }
 
     protected void Start()
     {
+        if (detectionArea == null)
+        {
+            detectionArea = GetComponentInChildren<Collider2DTrigger>();
+            Debug.LogWarning($"Performance --> Assign {name} Detection Area to AggroManager in the Inspector!");
+        }
+
         detectionArea.SetRadius(character.Status.Range);
     }
 

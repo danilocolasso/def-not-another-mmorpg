@@ -4,7 +4,7 @@ public class GraphicsManager : MonoBehaviour
 {
     private bool flipped = false;
 
-    [SerializeField] private CharacterBodyGraphics graphics;
+    [SerializeField] private AbstractCharacterGraphics graphics;
 
     public void Initialize(Character character)
     {
@@ -18,9 +18,14 @@ public class GraphicsManager : MonoBehaviour
         SetDirection(direction);
     }
 
-    public void SetInBattle(bool isInBattle)
+    public void EnterBattle(Character target)
     {
-        graphics.SetInBattle(isInBattle);
+        graphics.EnterBattle(target);
+    }
+
+    public void ExitBattle()
+    {
+        graphics.ExitBattle();
     }
 
     public virtual void SetDirection(Vector2 direction)
@@ -46,7 +51,7 @@ public class GraphicsManager : MonoBehaviour
     {
         if (graphics == null)
         {
-            graphics = GetComponentInChildren<CharacterBodyGraphics>();
+            graphics = GetComponentInChildren<AbstractCharacterGraphics>();
             Debug.LogWarning($"Performance --> Assign {name} Graphics child object to GraphicsManager in the Inspector!");
         }
     }

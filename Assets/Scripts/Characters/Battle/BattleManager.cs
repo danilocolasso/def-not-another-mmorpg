@@ -53,6 +53,11 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public bool IsInBattleWith(Character target)
+    {
+        return battleList.Contains(target);
+    }
+
     public void Die()
     {
         battleList.Clear();

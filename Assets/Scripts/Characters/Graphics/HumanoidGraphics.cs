@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class HumanoidGraphics : CharacterBodyGraphics
+public class HumanoidGraphics : AbstractCharacterGraphics
 {
     [Serializable]
     public struct BodyRenderers
@@ -23,8 +23,16 @@ public class HumanoidGraphics : CharacterBodyGraphics
         public SpriteRenderer left;
     }
 
+    private GameObject rightArm;
+    private GameObject leftArm;
     public BodyRenderers Body;
     public WeaponRenderers Weapons;
+
+    public override void Initialize(Character character)
+    {
+        base.Initialize(character);
+        SetArms();
+    }
 
     public override void SetColor(Color32 color)
     {
@@ -37,14 +45,25 @@ public class HumanoidGraphics : CharacterBodyGraphics
         Body.LeftHand.color = color;
     }
 
-    public override void SetInBattle(bool inBattle)
+    public override void EnterBattle(Character target)
     {
-        base.SetInBattle(inBattle);
+        base.EnterBattle(target);
 
-        Weapons.right.gameObject.SetActive(inBattle);
-        Weapons.left.gameObject.SetActive(inBattle);
+        Weapons.right.gameObject.SetActive(false);
+        Weapons.left.gameObject.SetActive(false);
+    }
 
-        Body.LeftHand.gameObject.SetActive(!inBattle);
-        Body.RightHand.gameObject.SetActive(!inBattle);
+    public override void ExitBattle()
+    {
+        base.ExitBattle();
+
+        Weapons.right.gameObject.SetActive(true);
+        Weapons.left.gameObject.SetActive(true);
+    }
+
+    private void SetArms()
+    {
+        rightArm = Body.RightHand.transform.parent.gameObject;
+        leftArm = Body.LeftHand.transform.parent.gameObject;
     }
 }

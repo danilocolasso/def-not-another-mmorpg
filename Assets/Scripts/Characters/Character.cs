@@ -20,7 +20,7 @@ public abstract class Character : MonoBehaviour
     private AbilityManager abilityManager;
     private MovementManager movementManager;
     private GraphicsManager graphicsManager;
-    
+
     [SerializeField] protected CharacterData data;
 
     public bool IsAlive => statusManager.IsAlive;
@@ -57,14 +57,24 @@ public abstract class Character : MonoBehaviour
 
     public virtual void EnterBattle(Character target)
     {
-        battleManager.EnterBattle(target);
-        graphicsManager.SetInBattle(true);
+        if (!battleManager.IsInBattleWith(target))
+        {
+            battleManager.EnterBattle(target);
+            graphicsManager.EnterBattle(target);
+        }
     }
 
     public virtual void ExitBattle(Character target)
     {
-        battleManager.ExitBattle(target);
-        graphicsManager.SetInBattle(false);
+        if (battleManager.IsInBattleWith(target))
+        {
+            battleManager.ExitBattle(target);
+        }
+
+        if (!IsInBattle)
+        {
+            graphicsManager.ExitBattle();
+        }
     }
 
     public bool UseAbility(string abilityName, Character target)
@@ -119,7 +129,7 @@ public abstract class Character : MonoBehaviour
         battleManager = GetComponent<BattleManager>();
         abilityManager = GetComponent<AbilityManager>();
         movementManager = GetComponent<MovementManager>();
-        graphicsManager = GetComponentInChildren<GraphicsManager>();        
+        graphicsManager = GetComponentInChildren<GraphicsManager>();
 
         statusManager.Initialize(this);
         experienceManager.Initialize(this);

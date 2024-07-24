@@ -13,6 +13,10 @@ public class InBattleState : IState
         {
             character.SetTarget(target);
         }
+
+        // Set weapon renderers active
+        // weapon an abstract ScriptableObject that contains the sprites for the weapon, it extends Item
+        // fist, shield, sword, axe, mace, dagger, spear, staff, wand, bow, gun
     }
 
     public void OnStateExit(Character character)

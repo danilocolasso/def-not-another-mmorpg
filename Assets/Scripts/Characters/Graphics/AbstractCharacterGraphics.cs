@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public abstract class CharacterBodyGraphics : MonoBehaviour
+public abstract class AbstractCharacterGraphics : MonoBehaviour
 {
     private int isMovingHash;
     private int isInBattleHash;
@@ -13,6 +13,16 @@ public abstract class CharacterBodyGraphics : MonoBehaviour
     public virtual void Initialize(Character character)
     {
         SetColor(character.Data.Graphics.SkinColor);
+    }
+
+    public virtual void EnterBattle(Character target)
+    {
+        animator.SetBool(isInBattleHash, true);
+    }
+
+    public virtual void ExitBattle()
+    {
+        animator.SetBool(isInBattleHash, false);
     }
 
     public virtual void SetInBattle(bool isInBattle)
