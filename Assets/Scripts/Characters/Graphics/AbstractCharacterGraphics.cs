@@ -39,6 +39,12 @@ public abstract class AbstractCharacterGraphics : MonoBehaviour
         SetMoving(Vector2.zero);
     }
 
+    public virtual void Flip(bool flip)
+    {
+        float y = flip ? transform.rotation.y + 180 : transform.rotation.y - 180;
+        transform.Rotate(0, y, 0);
+    }
+
     private void Awake()
     {
         animator = GetComponent<Animator>();

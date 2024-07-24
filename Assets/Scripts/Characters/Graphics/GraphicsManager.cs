@@ -32,13 +32,13 @@ public class GraphicsManager : MonoBehaviour
     {
         if (direction.x < 0 && !flipped)
         {
-            Flip(true);
-            return;
+            graphics.Flip(true);
+            flipped = true;
         }
-
-        if (direction.x > 0 && flipped)
+        else if (direction.x > 0 && flipped)
         {
-            Flip(false);
+            graphics.Flip(false);
+            flipped = false;
         }
     }
 
@@ -54,11 +54,5 @@ public class GraphicsManager : MonoBehaviour
             graphics = GetComponentInChildren<AbstractCharacterGraphics>();
             Debug.LogWarning($"Performance --> Assign {name} Graphics child object to GraphicsManager in the Inspector!");
         }
-    }
-
-    private void Flip(bool flip)
-    {
-        flipped = flip;
-        graphics.transform.Rotate(0, flip ? 180 : -180, 0);
     }
 }
