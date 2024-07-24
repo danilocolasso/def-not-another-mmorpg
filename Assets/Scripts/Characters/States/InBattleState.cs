@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class InBattleState : IState
 {
     private readonly Character target;

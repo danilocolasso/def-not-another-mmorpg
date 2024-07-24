@@ -2,41 +2,32 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(GraphicsManager))]
 [RequireComponent(typeof(StatusManager))]
+[RequireComponent(typeof(ExperienceManager))]
 [RequireComponent(typeof(StateManager))]
 [RequireComponent(typeof(BattleManager))]
 [RequireComponent(typeof(AbilityManager))]
 [RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected CharacterData data;
-    protected StatusManager statusManager;
-    protected StateManager stateManager;
-    protected BattleManager battleManager;
-    protected AbilityManager abilityManager;
-    protected MovementManager movementManager;
-    protected GraphicsManager graphicsManager;
     public Rigidbody2D Rb { get; private set; }
     public Character Target { get; private set; }
+    private StatusManager statusManager;
+    private ExperienceManager experienceManager;
+    private StateManager stateManager;
+    private BattleManager battleManager;
+    private AbilityManager abilityManager;
+    private MovementManager movementManager;
+    private GraphicsManager graphicsManager;
+    
+    [SerializeField] protected CharacterData data;
 
     public bool IsAlive => statusManager.IsAlive;
     public bool IsDead => !IsAlive;
     public bool IsInBattle => battleManager.IsInBattle;
     public CharacterData Data => data;
     public IStatus Status => statusManager;
-
-    protected virtual void Awake()
-    {
-        Rb = GetComponent<Rigidbody2D>();
-        statusManager = GetComponent<StatusManager>();
-        stateManager = GetComponent<StateManager>();
-        battleManager = GetComponent<BattleManager>();
-        abilityManager = GetComponent<AbilityManager>();
-        movementManager = GetComponent<MovementManager>();
-        graphicsManager = GetComponentInChildren<GraphicsManager>();
-
-        Debug.Assert(data != null, $"{name} Character Data is null! Please assign a Character Data ScriptableObject!");
-    }
 
     public void SetMovement(IMovement newMovement)
     {
@@ -46,7 +37,6 @@ public abstract class Character : MonoBehaviour
     public void SetIsMoving(Vector2 direction)
     {
         graphicsManager.SetMoving(direction, Status.MoveSpeed);
-        graphicsManager.SetDirection(direction);
     }
 
     public virtual void SetState(IState newState)
@@ -68,16 +58,18 @@ public abstract class Character : MonoBehaviour
     public virtual void EnterBattle(Character target)
     {
         battleManager.EnterBattle(target);
+        graphicsManager.SetInBattle(true);
     }
 
     public virtual void ExitBattle(Character target)
     {
         battleManager.ExitBattle(target);
+        graphicsManager.SetInBattle(false);
     }
 
     public bool UseAbility(string abilityName, Character target)
     {
-        return abilityManager.UseAbility(abilityName, this, target);
+        return abilityManager.UseAbility(abilityName, target);
     }
 
     public void Attack(Character target)
@@ -99,9 +91,9 @@ public abstract class Character : MonoBehaviour
         EnterBattle(attacker);
     }
 
-    public void Heal(int amount)
+    public void GainExperience(int amount)
     {
-        statusManager.Heal(amount);
+        experienceManager.GainExperience(amount);
     }
 
     public bool IsInRange(Character target, float range)
@@ -114,5 +106,26 @@ public abstract class Character : MonoBehaviour
         statusManager.Die();
         battleManager.Die();
         graphicsManager.Die();
+    }
+
+    protected virtual void Awake()
+    {
+        Debug.Assert(data != null, $"Critical --> Character {name} Data is null in the Inspector!");
+
+        Rb = GetComponent<Rigidbody2D>();
+        statusManager = GetComponent<StatusManager>();
+        experienceManager = GetComponent<ExperienceManager>();
+        stateManager = GetComponent<StateManager>();
+        battleManager = GetComponent<BattleManager>();
+        abilityManager = GetComponent<AbilityManager>();
+        movementManager = GetComponent<MovementManager>();
+        graphicsManager = GetComponentInChildren<GraphicsManager>();        
+
+        statusManager.Initialize(this);
+        experienceManager.Initialize(this);
+        stateManager.Initialize(this);
+        battleManager.Initialize(this);
+        abilityManager.Initialize(this);
+        graphicsManager.Initialize(this);
     }
 }

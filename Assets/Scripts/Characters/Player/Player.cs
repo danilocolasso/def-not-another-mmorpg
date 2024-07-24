@@ -1,20 +1,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(InventoryManager))]
-[RequireComponent(typeof(ExperienceManager))]
 [RequireComponent(typeof(InputHandler))]
 public class Player : Character
 {
     private InputHandler inputHandler;
     private InventoryManager inventoryManager;
-    private ExperienceManager experienceManager;
 
     protected override void Awake()
     {
         base.Awake();
 
         inventoryManager = GetComponent<InventoryManager>();
-        experienceManager = GetComponent<ExperienceManager>();
         inputHandler = GetComponent<InputHandler>();
 
         SetMovement(new InputMovement(inputHandler));
@@ -53,10 +50,5 @@ public class Player : Character
     public void MoveItem(int bagFrom, int bagTo, int slotFrom, int slotTo)
     {
         inventoryManager.MoveItem(bagFrom, bagTo, slotFrom, slotTo);
-    }
-
-    public void GainExperience(int amount)
-    {
-        experienceManager.GainExperience(amount);
     }
 }

@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: FooData
   m_EditorClassIdentifier: 
   name: Foo
-  skinColor:
-    serializedVersion: 2
-    rgba: 4293504133
   level: 1
   experience: 0
+  status: {fileID: 11400000, guid: e35d841b522c86848b69526fe775169a, type: 2}
+  graphics: {fileID: 11400000, guid: 8747ef6218257394aaaf7dcfbf4e4cf6, type: 2}

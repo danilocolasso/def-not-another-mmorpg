@@ -1,37 +1,29 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class GraphicsManager : MonoBehaviour
 {
-    private Animator animator;
-    private int isMovingHash;
-    private int moveSpeedHash;
     private bool flipped = false;
 
-    [SerializeField] private CharacterGraphics graphics;
-    [SerializeField] private HumanoidCharacter body;
+    [SerializeField] private CharacterBodyGraphics graphics;
 
-    private void Start()
+    public void Initialize(Character character)
     {
-        SetHashes();
-    }
-
-    private void Awake()
-    {
-        Debug.Assert(graphics != null, $"{GetComponentInParent<Character>()} Graphics is null!");
-
-        animator = GetComponent<Animator>();
-
-        body.SetSkinColor(graphics.SkinColor);
+        Debug.Assert(character.Data.Graphics != null, $"Critical --> {character} Data.Graphics is null in the Inspector!");
+        graphics.Initialize(character);
     }
 
     public void SetMoving(Vector2 direction, float speed = 1)
     {
-        animator.SetBool(isMovingHash, direction != Vector2.zero);
-        animator.SetFloat(moveSpeedHash, speed);
+        graphics.SetMoving(direction, speed);
+        SetDirection(direction);
     }
 
-    public void SetDirection(Vector2 direction)
+    public void SetInBattle(bool isInBattle)
+    {
+        graphics.SetInBattle(isInBattle);
+    }
+
+    public virtual void SetDirection(Vector2 direction)
     {
         if (direction.x < 0 && !flipped)
         {
@@ -47,18 +39,21 @@ public class GraphicsManager : MonoBehaviour
 
     public void Die()
     {
-        SetMoving(Vector2.zero);
+        graphics.SetDead();
+    }
+
+    private void Awake()
+    {
+        if (graphics == null)
+        {
+            graphics = GetComponentInChildren<CharacterBodyGraphics>();
+            Debug.LogWarning($"Performance --> Assign {name} Graphics child object to GraphicsManager in the Inspector!");
+        }
     }
 
     private void Flip(bool flip)
     {
         flipped = flip;
-        transform.Rotate(0, flip ? 180 : -180, 0);
-    }
-
-    private void SetHashes()
-    {
-        isMovingHash = Animator.StringToHash("isMoving");
-        moveSpeedHash = Animator.StringToHash("moveSpeed");
+        graphics.transform.Rotate(0, flip ? 180 : -180, 0);
     }
 }

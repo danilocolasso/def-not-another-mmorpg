@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   name: Player
-  skinColor:
-    serializedVersion: 2
-    rgba: 4286949865
   level: 1
   experience: 0
+  status: {fileID: 11400000, guid: fb1d6952e05d01841b464f1de5fe35b0, type: 2}
+  graphics: {fileID: 11400000, guid: b07b3bb3a19b66b478c0441de1687149, type: 2}

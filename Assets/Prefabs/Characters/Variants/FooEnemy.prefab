@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 0b0f1fa4772c57244a06044b6ac6943c, type: 2}
     - target: {fileID: 1945059912215406884, guid: 78884ee41468be64c8b5098c6c780542, type: 3}
       propertyPath: m_Name
-      value: Foo Variant
+      value: FooEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 2454988841173622152, guid: 78884ee41468be64c8b5098c6c780542, type: 3}
       propertyPath: m_LocalPosition.x

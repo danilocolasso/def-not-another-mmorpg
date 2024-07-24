@@ -5,23 +5,22 @@ using UnityEngine;
 public class AbilityManager : MonoBehaviour
 {
     [SerializeField] private List<Ability> abilities = new();
-    private Dictionary<string, Ability> abilityList = new();
-    private Dictionary<Ability, Coroutine> cooldownList = new();
 
-    private void Awake()
+    private readonly Dictionary<string, Ability> abilityList = new();
+    private readonly Dictionary<Ability, Coroutine> cooldownList = new();
+    private Character character;
+
+    public void Initialize(Character character)
     {
-        foreach (Ability ability in abilities)
-        {
-            Debug.Log($"Adding {ability} to Ability Dictionary");
-            AddAbility(ability);
-        }
+        this.character = character;
+        AddAbilities(abilities);
     }
 
-    public bool UseAbility(string abilityName, Character caster, Character target)
+    public bool UseAbility(string abilityName, Character target)
     {
         if (!abilityList.TryGetValue(abilityName, out Ability ability))
         {
-            Debug.Log($"{caster.name} does not have \"{abilityName}\" ability!");
+            Debug.Log($"{character.name} does not have \"{abilityName}\" ability!");
             return false;
         }
 
@@ -31,21 +30,21 @@ public class AbilityManager : MonoBehaviour
             return false;
         }
 
-        if (!target.IsInRange(caster, ability.range))
+        if (!character.IsInRange(target, ability.range))
         {
             Debug.Log($"{target.name} is out of range!");
             return false;
         }
 
-        if (!ability.CanUse(caster, target))
+        if (!ability.CanUse(character, target))
         {
-            Debug.Log($"{caster.name} cannot use {abilityName} on {target.name}!");
+            Debug.Log($"{character.name} cannot use {abilityName} on {target.name}!");
             return false;
         }
 
-        ability.Use(caster, target);
+        ability.Use(character, target);
         StartCooldown(ability);
-        Debug.Log($"{caster.name} used {abilityName} on {target.name}");
+        Debug.Log($"{character.name} used {abilityName} on {target.name}");
         
         return true;
     }
@@ -55,7 +54,14 @@ public class AbilityManager : MonoBehaviour
         if (!HasAbility(ability.name))
         {
             abilityList.Add(ability.name, ability);
-            Debug.Log($"Added {ability.name} to Ability Dictionary");
+        }
+    }
+
+    private void AddAbilities(List<Ability> abilities)
+    {
+        foreach (Ability ability in abilities)
+        {
+            AddAbility(ability);
         }
     }
 

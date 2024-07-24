@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class StatusManager: MonoBehaviour, IStatus
 {
-    [SerializeField] private CharacterStatus baseStatus;
-
     private IntStat currentHealth;
     private IntStat maxHealth;
     private IntStat attackDamage;
@@ -21,9 +19,9 @@ public class StatusManager: MonoBehaviour, IStatus
     public float MoveSpeed => moveSpeed.Value;
     public bool IsAlive => currentHealth.Value > 0;
 
-    protected void Awake()
+    public void Initialize(Character character)
     {
-        SetBaseStatus();
+        SetBaseStatus(character.Data.Status);
     }
 
     public void TakeDamage(int damage)
@@ -31,19 +29,14 @@ public class StatusManager: MonoBehaviour, IStatus
         currentHealth.Decrement(damage);
     }
 
-    public void Heal(int amount)
-    {
-        currentHealth.Increment(amount);
-    }
-
     public void Die()
     {
         currentHealth.SetValue(0);
     }
 
-    private void SetBaseStatus()
+    private void SetBaseStatus(CharacterStatus baseStatus)
     {
-        Debug.Assert(baseStatus != null, "Base Status is null! Please assign a Character Status ScriptableObject!");
+        Debug.Assert(baseStatus != null, $"Critical --> {name} Data.Status is null in the Inspector!");
 
         currentHealth = new IntStat(baseStatus.Health);
         maxHealth = new IntStat(baseStatus.Health);
