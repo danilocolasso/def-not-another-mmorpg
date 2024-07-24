@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Arrow Shot
   cooldown: 2
-  range: 5
+  range: 10
   effects:
   - {fileID: 11400000, guid: e7be1ac7c8500f546abb8b4425f322cc, type: 2}
   speed: 15

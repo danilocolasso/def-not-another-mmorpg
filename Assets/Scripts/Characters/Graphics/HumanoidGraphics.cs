@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class HumanoidGraphics : AbstractCharacterGraphics
@@ -45,25 +44,33 @@ public class HumanoidGraphics : AbstractCharacterGraphics
         Body.LeftHand.color = color;
     }
 
-    public override void EnterBattle(Character target)
-    {
-        base.EnterBattle(target);
-
-        Weapons.right.gameObject.SetActive(false);
-        Weapons.left.gameObject.SetActive(false);
-    }
-
     public override void ExitBattle()
     {
         base.ExitBattle();
+        ResetRightArm();
+    }
 
-        Weapons.right.gameObject.SetActive(true);
-        Weapons.left.gameObject.SetActive(true);
+    private void FixedUpdate()
+    {
+        if (character.IsInBattle)
+        {
+            UpdateRightArm();
+        }
     }
 
     private void SetArms()
     {
         rightArm = Body.RightHand.transform.parent.gameObject;
         leftArm = Body.LeftHand.transform.parent.gameObject;
+    }
+
+    private void UpdateRightArm()
+    {
+        rightArm.transform.right = -(character.Target.transform.position - character.transform.position);
+    }
+
+    private void ResetRightArm()
+    {
+        rightArm.transform.right = Vector3.right;
     }
 }

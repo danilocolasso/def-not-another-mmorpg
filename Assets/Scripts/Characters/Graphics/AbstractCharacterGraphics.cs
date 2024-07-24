@@ -4,32 +4,30 @@ using UnityEngine;
 public abstract class AbstractCharacterGraphics : MonoBehaviour
 {
     private int isMovingHash;
-    private int isInBattleHash;
+    private int enterBattleHash;
+    private int exitBattleHash;
     private int moveSpeedHash;
     protected Animator animator;
+    protected Character character;
 
     public abstract void SetColor(Color32 color);
 
     public virtual void Initialize(Character character)
     {
+        this.character = character;
         SetColor(character.Data.Graphics.SkinColor);
     }
 
     public virtual void EnterBattle(Character target)
     {
-        animator.SetBool(isInBattleHash, true);
+        animator.SetTrigger(enterBattleHash);
     }
 
     public virtual void ExitBattle()
     {
-        animator.SetBool(isInBattleHash, false);
+        animator.SetTrigger(exitBattleHash);
     }
 
-    public virtual void SetInBattle(bool isInBattle)
-    {
-        animator.SetBool(isInBattleHash, isInBattle);
-    }
-    
     public virtual void SetMoving(Vector2 direction, float speed = 1)
     {
         animator.SetBool(isMovingHash, direction != Vector2.zero);
@@ -54,7 +52,8 @@ public abstract class AbstractCharacterGraphics : MonoBehaviour
     private void SetHashes()
     {
         isMovingHash = Animator.StringToHash("IsMoving");
-        isInBattleHash = Animator.StringToHash("IsInBattle");
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
+        enterBattleHash = Animator.StringToHash("EnterBattle");
+        exitBattleHash = Animator.StringToHash("ExitBattle");
     }
 }
