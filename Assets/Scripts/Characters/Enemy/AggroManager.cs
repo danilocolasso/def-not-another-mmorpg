@@ -18,7 +18,7 @@ public class AggroManager : MonoBehaviour
     {
         character = GetComponent<Enemy>();
 
-        Debug.Assert(detectionArea != null, $"{name} Detection Area is null! Please assign a Detection Area component!");
+        Debug.Assert(detectionArea != null, $"Critical --> {name} Detection Area is null in the Inspector!");
     }
 
     protected void Start()

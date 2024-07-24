@@ -110,7 +110,7 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Debug.Assert(data != null, $"{this} Character Data is null!");
+        Debug.Assert(data != null, $"Critical --> Character {name} Data is null in the Inspector!");
 
         Rb = GetComponent<Rigidbody2D>();
         statusManager = GetComponent<StatusManager>();
