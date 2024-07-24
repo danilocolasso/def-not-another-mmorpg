@@ -7,8 +7,8 @@ public class HumanoidGraphics : CharacterBodyGraphics
     [Serializable]
     public struct BodyRenderers
     {
-        public SpriteRenderer Head;
         public SpriteRenderer RightHand;
+        public SpriteRenderer Head;
         public SpriteRenderer Chest;
         public SpriteRenderer RightLeg;
         public SpriteRenderer Under;
