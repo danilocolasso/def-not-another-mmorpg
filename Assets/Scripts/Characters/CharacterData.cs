@@ -5,9 +5,11 @@ public class CharacterData : ScriptableObject
 {
     [SerializeField] private new string name = "New Character";
     [SerializeField] private int level = 1;
-    [SerializeField] private int experience = 0;
+    [SerializeField] private CharacterStatus status;
+    [SerializeField] private CharacterGraphics graphics;
 
     public string Name => name;
     public int Level => level;
-    public int Experience => experience;
+    public CharacterStatus Status => status;
+    public CharacterGraphics Graphics => graphics;
 }

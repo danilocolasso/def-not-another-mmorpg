@@ -41,7 +41,7 @@ public class InventoryManager : MonoBehaviour
         RuntimeBag oldInventoryBag = equipedBags[index];
         RuntimeBag newInventoryBag = new(newBag);
 
-        oldInventoryBag?.MoveItems(newInventoryBag);
+        oldInventoryBag?.Move(newInventoryBag);
 
         bags[index] = newBag;
         equipedBags[index] = newInventoryBag;

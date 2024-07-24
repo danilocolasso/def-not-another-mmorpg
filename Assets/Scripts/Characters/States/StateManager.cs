@@ -5,19 +5,9 @@ public class StateManager : MonoBehaviour
     private Character character;
     private IState currentState = new OutOfBattleState();
 
-    public void Awake()
+    public void Initialize(Character character)
     {
-        character = GetComponent<Character>();
-    }
-
-    public void FixedUpdate()
-    {
-        currentState?.OnStateUpdate(character);
-    }
-
-    public void Update()
-    {
-        currentState?.OnStateUpdate(character);
+        this.character = character;
     }
     
     public void SetState(IState newState)
@@ -27,5 +17,15 @@ public class StateManager : MonoBehaviour
         currentState?.OnStateExit(character);
         currentState = newState;
         currentState?.OnStateEnter(character);
+    }
+
+    private void FixedUpdate()
+    {
+        currentState?.OnStateUpdate(character);
+    }
+
+    private void Update()
+    {
+        currentState?.OnStateUpdate(character);
     }
 }

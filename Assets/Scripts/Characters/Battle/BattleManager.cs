@@ -8,9 +8,9 @@ public class BattleManager : MonoBehaviour
 
     public bool IsInBattle => battleList.Count > 0;
 
-    private void Awake()
+    public void Initialize(Character character)
     {
-        character = GetComponent<Character>();
+        this.character = character;
         battleList = new BattleList(character);
     }
 

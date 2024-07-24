@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class OutOfBattleState : IState
 {
     public void OnStateEnter(Character character)

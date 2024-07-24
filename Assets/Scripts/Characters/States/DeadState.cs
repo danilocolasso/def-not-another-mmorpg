@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class DeadState : IState
 {
     public void OnStateEnter(Character character)
     {   
-        character.SetTarget((Character)null);
+        character.SetTarget(null);
     }
 
     public void OnStateExit(Character character)
