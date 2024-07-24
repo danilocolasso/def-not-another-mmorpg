@@ -37,14 +37,23 @@ public class GraphicsManager : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        graphics.SetDead();
+    }
+
+    private void Awake()
+    {
+        if (graphics == null)
+        {
+            graphics = GetComponentInChildren<CharacterBodyGraphics>();
+            Debug.LogWarning($"Performance --> Assign {name} Graphics child object to GraphicsManager in the Inspector!");
+        }
+    }
+
     private void Flip(bool flip)
     {
         flipped = flip;
         graphics.transform.Rotate(0, flip ? 180 : -180, 0);
-    }
-
-    public void Die()
-    {
-        graphics.SetDead();
     }
 }
