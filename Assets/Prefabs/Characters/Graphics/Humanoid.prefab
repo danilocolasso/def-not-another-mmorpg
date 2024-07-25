@@ -328,8 +328,8 @@ Transform:
   - {fileID: 7966531802031641418}
   - {fileID: 360378266477534668}
   - {fileID: 4856602272013239470}
-  - {fileID: 3778193492336827768}
   - {fileID: 1081105506366541036}
+  - {fileID: 3778193492336827768}
   - {fileID: 5701625360101520682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -629,7 +629,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 74c35b81cdf3671488d845ccfece23bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -803,7 +803,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 8f78b82d46cadfe499e433522d8e1366, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
