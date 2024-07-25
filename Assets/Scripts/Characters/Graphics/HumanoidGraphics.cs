@@ -1,55 +1,53 @@
 using System;
 using UnityEngine;
 
-public class HumanoidGraphics : AbstractCharacterGraphics
+public class CharacterHumanoidGraphics : CharacterGraphics
 {
     [Serializable]
-    public struct BodyRenderers
+    private struct BodyRenderer
     {
         public SpriteRenderer RightHand;
         public SpriteRenderer Head;
         public SpriteRenderer Chest;
-        public SpriteRenderer RightLeg;
         public SpriteRenderer Under;
+        public SpriteRenderer RightLeg;
         public SpriteRenderer LeftLeg;
         public SpriteRenderer LeftHand;
     }
 
     [Serializable]
-    public struct WeaponRenderers
+    private struct ArmsGameObject
     {
-        public SpriteRenderer right;
-        public SpriteRenderer left;
+        public GameObject Right;
+        public GameObject Left;
     }
 
-    private struct HandsOriginalPosition
-    {
-        public Vector3 right;
-        public Vector3 left;
-    }
+    [Header("Sprite Renderers")]
+    [SerializeField] private BodyRenderer body;
 
-    private GameObject rightArm;
-    private GameObject leftArm;
-    private HandsOriginalPosition handsOriginalPosition;
-
-    public BodyRenderers Body;
-    public WeaponRenderers Weapons;
+    [Header("Game Objects")]
+    [SerializeField] private ArmsGameObject arms;
 
     public override void Initialize(Character character)
     {
         base.Initialize(character);
-        SetArms();
+
+        if (arms.Right == null || arms.Left == null)
+        {
+            Debug.LogWarning($"Performance ---> {character} arms not set in Inspector!");
+            SetArms();
+        }
     }
 
     public override void SetColor(Color32 color)
     {
-        Body.Head.color = color;
-        Body.RightHand.color = color;
-        Body.Chest.color = color;
-        Body.RightLeg.color = color;
-        Body.Under.color = color;
-        Body.LeftLeg.color = color;
-        Body.LeftHand.color = color;
+        body.Head.color = color;
+        body.RightHand.color = color;
+        body.Chest.color = color;
+        body.RightLeg.color = color;
+        body.Under.color = color;
+        body.LeftLeg.color = color;
+        body.LeftHand.color = color;
     }
 
     public override void ExitBattle()
@@ -71,11 +69,8 @@ public class HumanoidGraphics : AbstractCharacterGraphics
 
     private void SetArms()
     {
-        rightArm = Body.RightHand.transform.parent.gameObject;
-        leftArm = Body.LeftHand.transform.parent.gameObject;
-
-        handsOriginalPosition.right = Body.RightHand.transform.localPosition;
-        handsOriginalPosition.left = Body.LeftHand.transform.localPosition;
+        arms.Right = body.RightHand.transform.parent.gameObject;
+        arms.Left = body.LeftHand.transform.parent.gameObject;
     }
 
     private void UpdateRightArm()
@@ -83,11 +78,11 @@ public class HumanoidGraphics : AbstractCharacterGraphics
         if (character.Target != null)
         {
             Vector3 direction = character.Target.transform.position - transform.position;
-            rightArm.transform.right = -direction;
+            arms.Right.transform.right = -direction;
             return;
         }
 
-        if (rightArm.transform.right != Vector3.right)
+        if (arms.Right.transform.right != Vector3.right)
         {
             ResetRightArm();
         }
@@ -100,7 +95,7 @@ public class HumanoidGraphics : AbstractCharacterGraphics
 
     private void ResetRightArm()
     {
-        rightArm.transform.right = Vector3.right;
+        arms.Right.transform.right = Vector3.right;
     }
 
     public override void Flip(bool flip)
@@ -120,30 +115,30 @@ public class HumanoidGraphics : AbstractCharacterGraphics
 
         Vector3 direction = (character.Target.transform.position - transform.position).normalized;
 
-        bool headIsFlipped = Body.Head.transform.localRotation.y != 0;
+        bool headIsFlipped = body.Head.transform.localRotation.y != 0;
         bool isFacingRight = (IsFlipped && headIsFlipped) || (!IsFlipped && !headIsFlipped);
         bool shouldFaceRight = direction.x > 0;
         bool shouldFlipHead = isFacingRight != shouldFaceRight;
 
         if (shouldFlipHead)
         {
-            Body.Head.transform.Rotate(0, headIsFlipped ? -FLIP_ANGLE : FLIP_ANGLE, 0);
+            body.Head.transform.Rotate(0, headIsFlipped ? -FLIP_ANGLE : FLIP_ANGLE, 0);
         }
     }
 
     private void ResetHead()
     {
-        if (Body.Head.transform.localRotation.y != 0)
+        if (body.Head.transform.localRotation.y != 0)
         {
-            Body.Head.transform.Rotate(Vector3.zero);
+            body.Head.transform.Rotate(Vector3.zero);
         }
     }
 
     private void SwapHands(bool flip)
     {
-        rightArm.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
-        leftArm.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+        arms.Right.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+        arms.Left.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
 
-        (Body.LeftHand.sortingOrder, Body.RightHand.sortingOrder) = (Body.RightHand.sortingOrder, Body.LeftHand.sortingOrder);
+        (body.LeftHand.sortingOrder, body.RightHand.sortingOrder) = (body.RightHand.sortingOrder, body.LeftHand.sortingOrder);
     }
 }

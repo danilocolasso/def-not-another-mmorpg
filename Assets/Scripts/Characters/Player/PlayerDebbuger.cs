@@ -36,8 +36,8 @@ public class PlayerDebbuger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            player.RemoveItem(testItem, 2);
-            Debug.Log("Removed 2 " + testItem.name);
+            int remaining = player.RemoveItem(testItem, 2);
+            Debug.Log($"Removed {2 - remaining} {testItem} from the inventory");
         }
 
         if (Input.GetKeyDown(KeyCode.F5))

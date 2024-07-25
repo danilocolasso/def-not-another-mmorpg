@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(ExperienceManager))]
 [RequireComponent(typeof(StateManager))]
 [RequireComponent(typeof(BattleManager))]
+[RequireComponent(typeof(EquipmentManager))]
 [RequireComponent(typeof(AbilityManager))]
 [RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
@@ -18,6 +19,7 @@ public abstract class Character : MonoBehaviour
     private StateManager stateManager;
     private BattleManager battleManager;
     private AbilityManager abilityManager;
+    private EquipmentManager equipmentManager;
     private MovementManager movementManager;
     private GraphicsManager graphicsManager;
 
@@ -118,6 +120,26 @@ public abstract class Character : MonoBehaviour
         graphicsManager.Die();
     }
 
+    public void Equip(Equipment equipment)
+    {
+        equipmentManager.Equip(equipment);
+    }
+
+    public void Equip(Weapon weapon)
+    {
+        equipmentManager.Equip(weapon);
+    }
+
+    public void Equip(Weapon weapon, Weapon.Hand hand)
+    {
+        equipmentManager.Equip(weapon, hand);
+    }
+
+    public void Unequip(Weapon.Hand hand)
+    {
+        equipmentManager.Unequip(hand);
+    }
+
     protected virtual void Awake()
     {
         Debug.Assert(data != null, $"Critical --> Character {name} Data is null in the Inspector!");
@@ -128,6 +150,7 @@ public abstract class Character : MonoBehaviour
         stateManager = GetComponent<StateManager>();
         battleManager = GetComponent<BattleManager>();
         abilityManager = GetComponent<AbilityManager>();
+        equipmentManager = GetComponent<EquipmentManager>();
         movementManager = GetComponent<MovementManager>();
         graphicsManager = GetComponentInChildren<GraphicsManager>();
 
@@ -136,6 +159,7 @@ public abstract class Character : MonoBehaviour
         stateManager.Initialize(this);
         battleManager.Initialize(this);
         abilityManager.Initialize(this);
+        equipmentManager.Initialize(this);
         graphicsManager.Initialize(this);
     }
 }

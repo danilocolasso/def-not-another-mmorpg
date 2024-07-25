@@ -367,17 +367,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f268f51954fdf084aa9765c4fd675c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Body:
+  body:
     RightHand: {fileID: 6226499013568414043}
     Head: {fileID: 5152599462204288535}
     Chest: {fileID: 4271731576200280585}
-    RightLeg: {fileID: 986373673011144436}
     Under: {fileID: 1869629426238319500}
+    RightLeg: {fileID: 986373673011144436}
     LeftLeg: {fileID: 6918077595236802699}
     LeftHand: {fileID: 2578308754786840269}
-  Weapons:
-    right: {fileID: 8976475802941913544}
-    left: {fileID: 1982334699550322179}
+  arms:
+    Right: {fileID: 8387186817352739047}
+    Left: {fileID: 2736812944222128021}
 --- !u!1 &6152351860184130614
 GameObject:
   m_ObjectHideFlags: 0

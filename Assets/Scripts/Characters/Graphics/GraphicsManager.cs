@@ -4,7 +4,7 @@ public class GraphicsManager : MonoBehaviour
 {
     private bool flipped = false;
 
-    [SerializeField] private AbstractCharacterGraphics graphics;
+    [SerializeField] private CharacterGraphics graphics;
 
     public void Initialize(Character character)
     {
@@ -51,7 +51,7 @@ public class GraphicsManager : MonoBehaviour
     {
         if (graphics == null)
         {
-            graphics = GetComponentInChildren<AbstractCharacterGraphics>();
+            graphics = GetComponentInChildren<CharacterGraphics>();
             Debug.LogWarning($"Performance --> Assign {name} Graphics child object to GraphicsManager in the Inspector!");
         }
     }

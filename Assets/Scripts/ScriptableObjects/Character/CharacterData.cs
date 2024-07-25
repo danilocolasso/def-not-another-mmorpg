@@ -6,10 +6,10 @@ public class CharacterData : ScriptableObject
     [SerializeField] private new string name = "New Character";
     [SerializeField] private int level = 1;
     [SerializeField] private CharacterStatus status;
-    [SerializeField] private CharacterGraphics graphics;
+    [SerializeField] private HumanoidCharacterGraphics graphics;
 
     public string Name => name;
     public int Level => level;
     public CharacterStatus Status => status;
-    public CharacterGraphics Graphics => graphics;
+    public HumanoidCharacterGraphics Graphics => graphics;
 }

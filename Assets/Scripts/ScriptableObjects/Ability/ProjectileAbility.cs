@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewTargetAbility", menuName = "Scriptable Objects/Ability/Projectile")]
+[CreateAssetMenu(fileName = "NewProjectileAbility", menuName = "Scriptable Objects/Ability/Projectile")]
 public class ProjectileAbility : Ability
 {
     [Range(1, 20)] public float speed;

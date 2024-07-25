@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 7139922842203800280}
   - component: {fileID: 2543916196571874904}
   - component: {fileID: 3768099816389844393}
+  - component: {fileID: 6123372064985395126}
+  - component: {fileID: 2461292800418082971}
   - component: {fileID: 6292398421456813810}
   - component: {fileID: 8923464110319633746}
-  - component: {fileID: 2461292800418082971}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -146,6 +147,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7729f5306edafd4e87e4113a89fb01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6123372064985395126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945059912215406884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b48b0aedaffc94f971017243c75034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+    right: {fileID: 0}
+    left: {fileID: 0}
+--- !u!114 &2461292800418082971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945059912215406884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27408927ffcf2ae4db9a00646d75d8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities: []
 --- !u!114 &6292398421456813810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,19 +200,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionArea: {fileID: 927660534847482056}
---- !u!114 &2461292800418082971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945059912215406884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27408927ffcf2ae4db9a00646d75d8b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilities: []
 --- !u!1 &5891037641192575603
 GameObject:
   m_ObjectHideFlags: 0

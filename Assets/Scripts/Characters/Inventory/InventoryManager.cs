@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    private const int MAX_BAGS = 4;
-    [SerializeField] private Bag[] bags = new Bag[MAX_BAGS];
-    private readonly RuntimeBag[] equipedBags = new RuntimeBag[MAX_BAGS];
+    [SerializeField] private Bag[] bags;
+    private RuntimeBag[] equipedBags;
 
     private void Awake()
     {
+        equipedBags = new RuntimeBag[bags.Length];
+        
         EquipDefaultBags();
     }
 
