@@ -589,6 +589,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7445675031201131057, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
+      propertyPath: m_AssetsPPU
+      value: 96
+      objectReference: {fileID: 0}
+    - target: {fileID: 7445675031201131057, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
+      propertyPath: m_RefResolutionX
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7445675031201131057, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
+      propertyPath: m_RefResolutionY
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071745167359921517, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
+      propertyPath: orthographic size
+      value: 5.625
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
