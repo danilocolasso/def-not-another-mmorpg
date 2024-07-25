@@ -22,15 +22,15 @@ public class HumanoidGraphics : AbstractCharacterGraphics
         public SpriteRenderer left;
     }
 
-    private struct OriginalPosition
+    private struct HandsOriginalPosition
     {
-        public Vector3 rightHand;
-        public Vector3 leftHand;
+        public Vector3 right;
+        public Vector3 left;
     }
 
     private GameObject rightArm;
     private GameObject leftArm;
-    private OriginalPosition hands;
+    private HandsOriginalPosition handsOriginalPosition;
 
     public BodyRenderers Body;
     public WeaponRenderers Weapons;
@@ -65,6 +65,8 @@ public class HumanoidGraphics : AbstractCharacterGraphics
             UpdateRightArm();
             UpdateLeftArm();
         }
+
+        FaceTarget();
     }
 
     private void SetArms()
@@ -72,19 +74,28 @@ public class HumanoidGraphics : AbstractCharacterGraphics
         rightArm = Body.RightHand.transform.parent.gameObject;
         leftArm = Body.LeftHand.transform.parent.gameObject;
 
-        hands.rightHand = Body.RightHand.transform.localPosition;
-        hands.leftHand = Body.LeftHand.transform.localPosition;
+        handsOriginalPosition.right = Body.RightHand.transform.localPosition;
+        handsOriginalPosition.left = Body.LeftHand.transform.localPosition;
     }
 
     private void UpdateRightArm()
     {
-        Vector2 direction = -(character.Target.transform.position - character.transform.position);
-        rightArm.transform.right = direction;
+        if (character.Target != null)
+        {
+            Vector3 direction = character.Target.transform.position - transform.position;
+            rightArm.transform.right = -direction;
+            return;
+        }
+
+        if (rightArm.transform.right != Vector3.right)
+        {
+            ResetRightArm();
+        }
     }
 
     private void UpdateLeftArm()
     {
-        Vector2 direction = -(character.Target.transform.position - character.transform.position);
+        // TODO implement
     }
 
     private void ResetRightArm()
@@ -95,14 +106,43 @@ public class HumanoidGraphics : AbstractCharacterGraphics
     public override void Flip(bool flip)
     {
         base.Flip(flip);
+        FaceTarget();
         SwapHands();
+    }
+
+    private void FaceTarget()
+    {
+        if (character.Target == null)
+        {
+            ResetHead();
+            return;
+        }
+
+        Vector3 direction = (character.Target.transform.position - transform.position).normalized;
+
+        bool headIsFlipped = Body.Head.transform.localRotation.y != 0;
+        bool isFacingRight = (IsFlipped && headIsFlipped) || (!IsFlipped && !headIsFlipped);
+        bool shouldFaceRight = direction.x > 0;
+        bool shouldFlipHead = isFacingRight != shouldFaceRight;
+
+        if (shouldFlipHead)
+        {
+            Body.Head.transform.Rotate(0, headIsFlipped ? -FLIP_ANGLE : FLIP_ANGLE, 0);
+        }
+    }
+
+    private void ResetHead()
+    {
+        if (Body.Head.transform.localRotation.y != 0)
+        {
+            Body.Head.transform.Rotate(Vector3.zero);
+        }
     }
 
     private void SwapHands()
     {
-        Body.LeftHand.transform.localPosition = new Vector3(hands.rightHand.x, hands.rightHand.y, hands.leftHand.z);
-        Body.RightHand.transform.localPosition = new Vector3(hands.leftHand.x, hands.leftHand.y, hands.rightHand.z);
-    
+        // TODO: swap in the animator, because the animation is overwriting the position
+        // (Body.RightHand.transform.position, Body.LeftHand.transform.position) = (Body.LeftHand.transform.position, Body.RightHand.transform.position);
         (Body.LeftHand.sortingOrder, Body.RightHand.sortingOrder) = (Body.RightHand.sortingOrder, Body.LeftHand.sortingOrder);
     }
 }

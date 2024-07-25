@@ -3,12 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public abstract class AbstractCharacterGraphics : MonoBehaviour
 {
+    protected const int FLIP_ANGLE = 180;
+
     private int isMovingHash;
     private int enterBattleHash;
     private int exitBattleHash;
     private int moveSpeedHash;
+    private int flippedHash;
     protected Animator animator;
     protected Character character;
+
+    public bool IsFlipped => transform.rotation.y != 0;
 
     public abstract void SetColor(Color32 color);
 
@@ -41,8 +46,8 @@ public abstract class AbstractCharacterGraphics : MonoBehaviour
 
     public virtual void Flip(bool flip)
     {
-        float y = flip ? transform.rotation.y + 180 : transform.rotation.y - 180;
-        transform.Rotate(0, y, 0);
+        transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+        animator.SetBool(flippedHash, flip);
     }
 
     private void Awake()
@@ -61,5 +66,6 @@ public abstract class AbstractCharacterGraphics : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         enterBattleHash = Animator.StringToHash("EnterBattle");
         exitBattleHash = Animator.StringToHash("ExitBattle");
+        flippedHash = Animator.StringToHash("Flipped");
     }
 }
