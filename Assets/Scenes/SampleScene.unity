@@ -581,6 +581,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4821876022589530660, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
+      propertyPath: m_Antialiasing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4821876022589530660, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5034574304001362169, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
       propertyPath: m_SortingOrder
       value: 6
@@ -590,20 +598,12 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7445675031201131057, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
-      propertyPath: m_AssetsPPU
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 7445675031201131057, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
-      propertyPath: m_RefResolutionX
-      value: 1920
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7445675031201131057, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
       propertyPath: m_RefResolutionY
       value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 9071745167359921517, guid: 40a9768325d014f4f86abc3aa6b77344, type: 3}
-      propertyPath: orthographic size
-      value: 5.625
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
