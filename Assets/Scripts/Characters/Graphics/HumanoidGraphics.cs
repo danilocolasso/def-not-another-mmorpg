@@ -106,8 +106,8 @@ public class HumanoidGraphics : AbstractCharacterGraphics
     public override void Flip(bool flip)
     {
         base.Flip(flip);
+        SwapHands(flip);
         FaceTarget();
-        SwapHands();
     }
 
     private void FaceTarget()
@@ -139,10 +139,11 @@ public class HumanoidGraphics : AbstractCharacterGraphics
         }
     }
 
-    private void SwapHands()
+    private void SwapHands(bool flip)
     {
-        // TODO: swap in the animator, because the animation is overwriting the position
-        // (Body.RightHand.transform.position, Body.LeftHand.transform.position) = (Body.LeftHand.transform.position, Body.RightHand.transform.position);
+        rightArm.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+        leftArm.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+
         (Body.LeftHand.sortingOrder, Body.RightHand.sortingOrder) = (Body.RightHand.sortingOrder, Body.LeftHand.sortingOrder);
     }
 }
