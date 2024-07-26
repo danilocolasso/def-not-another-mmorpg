@@ -50,6 +50,11 @@ public class AggroManager : MonoBehaviour
     {
         Character target = other.GetComponentInParent<Character>();
 
+        if (target is Enemy)
+        {
+            return;
+        }
+
         if (target.IsDead) return;
 
         if (!aggroValues.ContainsKey(target))

@@ -19,5 +19,7 @@ public class Weapon : Equipment
     public void Attack(Character character, Character target)
     {
         // TODO implement
+
+        // Hitbox no chest
     }
 }

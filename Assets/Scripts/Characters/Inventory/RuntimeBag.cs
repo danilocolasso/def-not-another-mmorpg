@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class RuntimeBag
 {
-    public RuntimeBag(Bag bag)
-    {
-        this.bag = bag;
-        slots = new RuntimeItem[bag.size];
-    }
-
     private readonly Bag bag;
     private readonly RuntimeItem[] slots;
     private readonly Dictionary<Item, int[]> items = new();
 
     private bool IsFull => items.Count == bag.size;
+
+    public RuntimeBag(Bag bag)
+    {
+        this.bag = bag;
+        slots = new RuntimeItem[bag.size];
+    }
 
     public RuntimeItem GetItemByIndex(int index)
     {

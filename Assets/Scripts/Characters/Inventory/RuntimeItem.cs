@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class RuntimeItem
 {
+    public readonly Item Item;
+    
+    public int Amount { get; private set; }
+
     public RuntimeItem(Item item, int amount)
     {
         Item = item;
         Amount = amount;
     }
-
-    public readonly Item Item;
-    
-    public int Amount { get; private set; }
 
     public void Use(Character character)
     {

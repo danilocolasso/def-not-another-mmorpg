@@ -12,12 +12,12 @@ TagManager:
   - Water
   - UI
   - Hitbox
-  - Character
-  - DetectionArea
+  - 
+  - AggroArea
   - Projectile
-  - 
-  - 
-  - 
+  - NPC
+  - Player
+  - Enemy
   - 
   - 
   - 

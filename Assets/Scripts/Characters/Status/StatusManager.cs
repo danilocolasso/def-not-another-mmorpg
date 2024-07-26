@@ -18,9 +18,11 @@ public class StatusManager: MonoBehaviour, IStatus
     public float Range => range.Value;
     public float MoveSpeed => moveSpeed.Value;
     public bool IsAlive => currentHealth.Value > 0;
+    private Character character;
 
     public void Initialize(Character character)
     {
+        this.character = character;
         SetBaseStatus(character.Data.Status);
     }
 
@@ -34,16 +36,16 @@ public class StatusManager: MonoBehaviour, IStatus
         currentHealth.SetValue(0);
     }
 
-    private void SetBaseStatus(CharacterStatus baseStatus)
+    private void SetBaseStatus(CharacterStatus status)
     {
-        Debug.Assert(baseStatus != null, $"Critical --> {name} Data.Status is null in the Inspector!");
+        Debug.Assert(status != null, $"Critical --> Assign a Status to {character} Data in the Inspector!");
 
-        currentHealth = new IntStat(baseStatus.Health);
-        maxHealth = new IntStat(baseStatus.Health);
-        attackDamage = new IntStat(baseStatus.AttackDamage);
-        attackSpeed = new FloatStat(baseStatus.AttackSpeed);
-        attackRange = new FloatStat(baseStatus.AttackRange);
-        range = new FloatStat(baseStatus.Range);
-        moveSpeed = new FloatStat(baseStatus.MoveSpeed);
+        currentHealth = new IntStat(status.Health);
+        maxHealth = new IntStat(status.Health);
+        attackDamage = new IntStat(status.AttackDamage);
+        attackSpeed = new FloatStat(status.AttackSpeed);
+        attackRange = new FloatStat(status.AttackRange);
+        range = new FloatStat(status.Range);
+        moveSpeed = new FloatStat(status.MoveSpeed);
     }
 }

@@ -8,7 +8,7 @@ public class GraphicsManager : MonoBehaviour
 
     public void Initialize(Character character)
     {
-        Debug.Assert(character.Data.Graphics != null, $"Critical --> {character} Data.Graphics is null in the Inspector!");
+        Debug.Assert(character.Data.Graphics != null, $"Critical --> Assign a Graphics to {character} Data in the Inspector!");
         graphics.Initialize(character);
     }
 

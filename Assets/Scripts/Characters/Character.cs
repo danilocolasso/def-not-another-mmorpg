@@ -12,8 +12,6 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(MovementManager))]
 public abstract class Character : MonoBehaviour
 {
-    public Rigidbody2D Rb { get; private set; }
-    public Character Target { get; private set; }
     private StatusManager statusManager;
     private ExperienceManager experienceManager;
     private StateManager stateManager;
@@ -23,7 +21,12 @@ public abstract class Character : MonoBehaviour
     private MovementManager movementManager;
     private GraphicsManager graphicsManager;
 
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] protected CharacterData data;
+
+    
+    public Rigidbody2D Rb { get; private set; }
+    public Character Target { get; private set; }
 
     public bool IsAlive => statusManager.IsAlive;
     public bool IsDead => !IsAlive;
@@ -142,7 +145,7 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Debug.Assert(data != null, $"Critical --> Character {name} Data is null in the Inspector!");
+        Debug.Assert(data != null, $"Critical --> Assign a Data to {name} in the Inspector!");
 
         Rb = GetComponent<Rigidbody2D>();
         statusManager = GetComponent<StatusManager>();

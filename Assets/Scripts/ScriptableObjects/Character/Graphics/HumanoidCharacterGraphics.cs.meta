@@ -1,2 +1,30 @@
 fileFormatVersion: 2
 guid: 097bf06836eeba24196bf0358a881b7a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hair: {instanceID: 0}
+  - beard: {instanceID: 0}
+  - head: {fileID: 21300000, guid: e605c5c93a9381a4f9b413ce16352ea7, type: 3}
+  - body: {fileID: 21300000, guid: 14dc9233f2f3af1409ea571a73ff74ef, type: 3}
+  - hand: {fileID: 21300000, guid: c4571d618848b7f41bd7dd200da3b41a, type: 3}
+  - underware: {fileID: 21300000, guid: 74c35b81cdf3671488d845ccfece23bb, type: 3}
+  - leg: {fileID: 21300000, guid: 8f78b82d46cadfe499e433522d8e1366, type: 3}
+  - foot: {instanceID: 0}
+  - helmet: {instanceID: 0}
+  - glasses: {instanceID: 0}
+  - shoulderLeft: {instanceID: 0}
+  - shoulderRight: {instanceID: 0}
+  - back: {instanceID: 0}
+  - chest: {instanceID: 0}
+  - gloves: {instanceID: 0}
+  - pants: {instanceID: 0}
+  - boots: {instanceID: 0}
+  - weaponLeft: {instanceID: 0}
+  - weaponRight: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

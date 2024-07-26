@@ -7,8 +7,8 @@ public class CharacterStatus : ScriptableObject
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private int attackDamage = 1;
     [Range(0, 5)][SerializeField] private float attackRange = 1f;
-    [Range(0, 10)][SerializeField] private float range = 1f;
-    [Range(0, 5)][SerializeField] private float moveSpeed = 5;
+    [Range(0, 10)][SerializeField] private float range = 3f;
+    [Range(0, 5)][SerializeField] private float moveSpeed = 1f;
 
     public int Health => health;
     public float AttackSpeed => attackSpeed;

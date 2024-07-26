@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            Debug.Assert(player != null, "Critical --> Assign a Player to GameManager in the Inspector!");
         }
         else
         {
