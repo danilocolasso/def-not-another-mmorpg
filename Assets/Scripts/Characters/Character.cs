@@ -51,7 +51,7 @@ public abstract class Character : MonoBehaviour
 
     public void SetTarget(Character newTarget)
     {
-        Debug.Log($"{name} set target to {newTarget.name}");
+        Debug.Log($"{name} set target to {(newTarget == null ? "null" : newTarget)}");
         Target = newTarget;
     }
 

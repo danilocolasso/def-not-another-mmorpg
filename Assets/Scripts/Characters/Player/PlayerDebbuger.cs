@@ -18,6 +18,11 @@ public class PlayerDebbuger : MonoBehaviour
             Debug.Log("Used " + testItem.name);
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            player.SetTarget(null);
+        }
+
         if (Input.GetKeyDown(KeyCode.F2))
         {
             player.AddItem(testItem, 3);

@@ -115,14 +115,14 @@ public class CharacterHumanoidGraphics : CharacterGraphics
 
         Vector3 direction = (character.Target.transform.position - transform.position).normalized;
 
-        bool headIsFlipped = body.Head.transform.localRotation.y != 0;
-        bool isFacingRight = (IsFlipped && headIsFlipped) || (!IsFlipped && !headIsFlipped);
+        bool isHeadFlipped = body.Head.transform.localRotation.y != 0;
+        bool isFacingRight = (IsFlipped && isHeadFlipped) || (!IsFlipped && !isHeadFlipped);
         bool shouldFaceRight = direction.x > 0;
         bool shouldFlipHead = isFacingRight != shouldFaceRight;
 
         if (shouldFlipHead)
         {
-            body.Head.transform.Rotate(0, headIsFlipped ? -FLIP_ANGLE : FLIP_ANGLE, 0);
+            body.Head.transform.Rotate(0, isHeadFlipped ? -FLIP_ANGLE : FLIP_ANGLE, 0);
         }
     }
 
@@ -130,7 +130,7 @@ public class CharacterHumanoidGraphics : CharacterGraphics
     {
         if (body.Head.transform.localRotation.y != 0)
         {
-            body.Head.transform.Rotate(Vector3.zero);
+            body.Head.transform.Rotate(0, -FLIP_ANGLE, 0);
         }
     }
 
