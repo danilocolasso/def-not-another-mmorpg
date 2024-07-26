@@ -40,7 +40,7 @@ public class AggroManager : MonoBehaviour
     public void Disable()
     {
         StopAllCoroutines();
-    
+
         detectionArea.Disable();
         aggroValues.Clear();
         aggroCoroutines.Clear();
@@ -50,12 +50,10 @@ public class AggroManager : MonoBehaviour
     {
         Character target = other.GetComponentInParent<Character>();
 
-        if (target is Enemy)
+        if (target.IsDead)
         {
             return;
         }
-
-        if (target.IsDead) return;
 
         if (!aggroValues.ContainsKey(target))
         {
@@ -114,7 +112,7 @@ public class AggroManager : MonoBehaviour
         while (aggroValues[target] > MIN_AGGRO)
         {
             yield return new WaitForSeconds(AGGRO_UPDATE_INTERVAL);
-            
+
             int levelDifference = target.Data.Level - character.Data.Level;
             float multiplier = levelDifference > 0 ? (1 + levelDifference * 0.1f) : (1 - Mathf.Abs(levelDifference) * 0.1f);
             float aggro = levelDifference == 0 ? BASE_AGGRO : BASE_AGGRO * multiplier;
