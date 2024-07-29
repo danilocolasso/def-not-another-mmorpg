@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
     private Character caster;
     private Character target;
     private ProjectileAbility ability;
-    private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
 
     public void Initialize(Character caster, Character target, ProjectileAbility ability)
     {
@@ -14,7 +14,11 @@ public class Projectile : MonoBehaviour
         this.target = target;
         this.ability = ability;
 
-        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogWarning($"Performance --> {name} is missing a Rigidbody2D component in the Inspector!");
+            rb = GetComponent<Rigidbody2D>();
+        }
 
         transform.SetParent(caster.transform);
     }

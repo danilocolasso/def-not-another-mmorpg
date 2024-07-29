@@ -8,7 +8,7 @@ public class HumanoidCharacterGraphics : ScriptableObject
     [SerializeField] private Sprite hair;
     [SerializeField] private Sprite beard;
     [SerializeField] private Sprite head;
-    [SerializeField] private Sprite body;
+    [SerializeField] private Sprite chest;
     [SerializeField] private Sprite hand;
     [SerializeField] private Sprite underware;
     [SerializeField] private Sprite leg;
@@ -21,7 +21,7 @@ public class HumanoidCharacterGraphics : ScriptableObject
     [SerializeField] private Sprite shoulderLeft;
     [SerializeField] private Sprite shoulderRight;
     [SerializeField] private Sprite back;
-    [SerializeField] private Sprite chest;
+    [SerializeField] private Sprite torso;
     [SerializeField] private Sprite gloves;
     [SerializeField] private Sprite pants;
     [SerializeField] private Sprite boots;
@@ -32,8 +32,8 @@ public class HumanoidCharacterGraphics : ScriptableObject
     public Sprite Hair => hair;
     public Sprite Beard => beard;
     public Sprite Head => head;
-    public Sprite Body => body;
-    public Sprite Hands => hand;
+    public Sprite Chest => chest;
+    public Sprite Hand => hand;
     public Sprite Underware => underware;
     public Sprite Leg => leg;
     public Sprite Foot => foot;
@@ -43,7 +43,7 @@ public class HumanoidCharacterGraphics : ScriptableObject
     public Sprite ShoulderLeft => shoulderLeft;
     public Sprite ShoulderRight => shoulderRight;
     public Sprite Back => back;
-    public Sprite Chest => chest;
+    public Sprite Torso => torso;
     public Sprite Gloves => gloves;
     public Sprite Pants => pants;
     public Sprite Boots => boots;

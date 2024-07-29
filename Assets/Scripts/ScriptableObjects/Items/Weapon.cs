@@ -1,6 +1,7 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class Weapon : Equipment
+public abstract class Weapon : Equipment
 {
     public enum Hand
     {
@@ -9,17 +10,10 @@ public class Weapon : Equipment
         Both
     }
 
-    public int damage;
-    public float attackSpeed;
-    public float range;
-    public float attackAngle;
+    public float speed;
     public Sprite sprite;
-    public Hand hand;
+    public List<Hand> hands;
 
-    public void Attack(Character character, Character target)
-    {
-        // TODO implement
-
-        // Hitbox no chest
-    }
+    public abstract void Attack(Character character, Character target, Transform hand);
+    public abstract void Aim(HumanoidGraphics.Arms arms, Character target);
 }

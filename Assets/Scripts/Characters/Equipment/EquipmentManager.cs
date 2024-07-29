@@ -1,90 +1,89 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
     [Serializable]
-    public struct Weapons
+    public struct WeaponSlots
     {
-        public Weapon right;
-        public Weapon left;
+        public Weapon Right;
+        public Weapon Left;
     }
 
     private Character character;
-    [SerializeField] private Weapons weapons;
+    [SerializeField]  private WeaponSlots weapons;
+
+    public WeaponSlots Weapons => weapons;
 
     public void Initialize(Character character)
     {
         this.character = character;
-    }
-
-    public void Equip(Equipment equipment)
-    {
-        // TODO implement
+        EquipDefaultWeapons();
     }
 
     public void Equip(Weapon weapon)
     {
-        Equip(weapon, weapon.hand);
+        Equip(weapon, weapon.hands.First());
     }
 
     public void Equip(Weapon weapon, Weapon.Hand hand)
     {
+        Debug.Log($"Equipping {weapon.name} to {hand} hand.");
         if (hand == Weapon.Hand.Left)
         {
-            EquipLeftHand(weapon);
-            return;
+            EquipLeftWeapon(weapon);
         }
-
-        EquipRightHand(weapon);
+        else
+        {
+            EquipRightWeapon(weapon);
+        }
     }
 
     public void Unequip(Weapon.Hand hand)
     {
-        if (hand == Weapon.Hand.Left)
-        {
-            UnequipLeftHand();
-            return;
-        }
-
-        UnequipRightHand();
+        character.Graphics.Unequip(hand);
     }
 
-    private void EquipRightHand(Weapon weapon)
+    private void EquipRightWeapon(Weapon weapon)
     {
-        if (weapons.right != null)
+        if (Weapons.Right != null)
         {
-            UnequipRightHand();
+            Unequip(Weapon.Hand.Right);
         }
 
-        weapons.right = weapon;
-        weapons.right.sprite = weapon.sprite;
+        character.Graphics.Equip(weapon, Weapon.Hand.Right);
+        weapons.Right = weapon;
+
+        Debug.Log($"Equipped {weapon.name} to right hand.");
     }
 
-    private void EquipLeftHand(Weapon weapon)
+    private void EquipLeftWeapon(Weapon weapon)
     {
-        if (weapons.left != null)
+        if (Weapons.Left != null)
         {
-            UnequipLeftHand();
-        }
-        else if (weapons.right != null && weapons.right.hand == Weapon.Hand.Both)
-        {
-            UnequipRightHand();
+            Unequip(Weapon.Hand.Left);
         }
 
-        weapons.left = weapon;
-        weapons.left.sprite = weapon.sprite;
+        if (Weapons.Right != null && Weapons.Right.hands.Contains(Weapon.Hand.Both))
+        {
+            Unequip(Weapon.Hand.Right);
+        }
+
+        character.Graphics.Equip(weapon, Weapon.Hand.Left);
+        weapons.Left = weapon;
     }
 
-    private void UnequipRightHand()
+    private void EquipDefaultWeapons()
     {
-        weapons.right = null;
-        weapons.right.sprite = null;
-    }
+        if (weapons.Right != null)
+        {
+            Equip(weapons.Right, Weapon.Hand.Right);
+        }
 
-    private void UnequipLeftHand()
-    {
-        weapons.left = null;
-        weapons.left.sprite = null;
+        if (weapons.Left != null)
+        {
+            Equip(weapons.Left, Weapon.Hand.Left);
+        }
     }
 }

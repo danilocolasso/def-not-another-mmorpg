@@ -4,6 +4,7 @@ public class PlayerDebbuger : MonoBehaviour
 {
     public Player player;
     public Item testItem;
+    public Weapon testWeapon;
 
     private void Awake()
     {
@@ -12,6 +13,12 @@ public class PlayerDebbuger : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            player.Equipment.Equip(testWeapon);
+            Debug.Log("Equipped " + testWeapon.name);
+        }
+
         if (Input.GetKeyDown(KeyCode.F1))
         {
             testItem.Use(player);

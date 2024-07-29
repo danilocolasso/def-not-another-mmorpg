@@ -32,14 +32,17 @@ public abstract class Character : MonoBehaviour
     public bool IsDead => !IsAlive;
     public bool IsInBattle => battleManager.IsInBattle;
     public CharacterData Data => data;
-    public IStatus Status => statusManager;
+    public StatusManager Status => statusManager;
+    public EquipmentManager Equipment => equipmentManager;
+    public MovementManager Movement => movementManager;
+    public GraphicsManager Graphics => graphicsManager;
 
     public void SetMovement(IMovement newMovement)
     {
-        movementManager?.SetMovement(newMovement);
+        movementManager.SetMovement(newMovement);
     }
 
-    public void SetIsMoving(Vector2 direction)
+    public void SetMoving(Vector2 direction)
     {
         graphicsManager.SetMoving(direction, Status.MoveSpeed);
     }
@@ -52,7 +55,9 @@ public abstract class Character : MonoBehaviour
     public void SetTarget(Character newTarget)
     {
         Debug.Log($"{name} set target to {(newTarget == null ? "null" : newTarget)}");
+    
         Target = newTarget;
+        graphicsManager.SetTarget(newTarget);
     }
 
     public void OnPointerClick(BaseEventData _)
@@ -123,26 +128,6 @@ public abstract class Character : MonoBehaviour
         graphicsManager.Die();
     }
 
-    public void Equip(Equipment equipment)
-    {
-        equipmentManager.Equip(equipment);
-    }
-
-    public void Equip(Weapon weapon)
-    {
-        equipmentManager.Equip(weapon);
-    }
-
-    public void Equip(Weapon weapon, Weapon.Hand hand)
-    {
-        equipmentManager.Equip(weapon, hand);
-    }
-
-    public void Unequip(Weapon.Hand hand)
-    {
-        equipmentManager.Unequip(hand);
-    }
-
     protected virtual void Awake()
     {
         Debug.Assert(data != null, $"Critical --> Assign a Data to {name} in the Inspector!");
@@ -163,6 +148,7 @@ public abstract class Character : MonoBehaviour
         battleManager.Initialize(this);
         abilityManager.Initialize(this);
         equipmentManager.Initialize(this);
+        movementManager.Initialize(this);
         graphicsManager.Initialize(this);
     }
 }

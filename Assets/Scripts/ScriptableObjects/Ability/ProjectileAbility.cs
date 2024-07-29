@@ -6,14 +6,16 @@ public class ProjectileAbility : Ability
     [Range(1, 20)] public float speed;
     public Projectile projectile;
     
-    public override void Use(Character caster, Character target)
+    public override void Use(Character character, Character target)
     {
-        if (projectile == null) {
-          Debug.Log("Projectile is not set in " + name + " ability.");
-          return;
-        }
+        Use(character, target, character.transform.position);
+    }
 
-        Projectile newProjectile = Instantiate(projectile, caster.transform.position, Quaternion.identity);
-        newProjectile.Initialize(caster, target, this);
+    public void Use(Character character, Character target, Vector3 spanwPosition)
+    {
+        Debug.Assert(projectile != null, $"Critical --> Assign a Projectile to {name} in the Inspector!");
+
+        Projectile newProjectile = Instantiate(projectile, spanwPosition, Quaternion.identity);
+        newProjectile.Initialize(character, target, this);
     }
 }

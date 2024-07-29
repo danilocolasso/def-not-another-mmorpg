@@ -5,20 +5,18 @@ public class MovementManager : MonoBehaviour
     private Character character;
     private IMovement movement;
 
-    private void Awake()
+    public void Initialize(Character character)
     {
-        character = GetComponent<Character>();
+        this.character = character;
     }
 
     public void FixedUpdate()
     {
-        if (movement == null)
+        if (movement != null)
         {
-            return;
+            Vector2 direction = movement.Move(character.Rb, character.Status.MoveSpeed);
+            character.Graphics.SetMoving(direction, character.Status.MoveSpeed);
         }
-
-        Vector2 direction = movement.Move(character.Rb, character.Status.MoveSpeed);
-        character.SetIsMoving(direction);
     }
 
     public void SetMovement(IMovement newMovement)

@@ -21,7 +21,7 @@ public class StateManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        currentState?.OnStateUpdate(character);
+        currentState?.OnStateFixedUpdate(character);
     }
 
     private void Update()

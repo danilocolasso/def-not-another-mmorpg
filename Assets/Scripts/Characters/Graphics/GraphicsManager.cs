@@ -1,9 +1,8 @@
+using System.Linq;
 using UnityEngine;
 
 public class GraphicsManager : MonoBehaviour
 {
-    private bool flipped = false;
-
     [SerializeField] private CharacterGraphics graphics;
 
     public void Initialize(Character character)
@@ -12,10 +11,15 @@ public class GraphicsManager : MonoBehaviour
         graphics.Initialize(character);
     }
 
+    public void SetTarget(Character target)
+    {
+        graphics.SetTarget(target);
+    }
+
     public void SetMoving(Vector2 direction, float speed = 1)
     {
         graphics.SetMoving(direction, speed);
-        SetDirection(direction);
+        graphics.SetDirection(direction);
     }
 
     public void EnterBattle(Character target)
@@ -28,23 +32,32 @@ public class GraphicsManager : MonoBehaviour
         graphics.ExitBattle();
     }
 
-    public virtual void SetDirection(Vector2 direction)
+    public void Equip(Weapon weapon)
     {
-        if (direction.x < 0 && !flipped)
+        Equip(weapon, weapon.hands.First());
+    }
+
+    public void Equip(Weapon weapon, Weapon.Hand hand)
+    {
+        graphics.Equip(weapon, hand);
+    }
+
+    public void Unequip(Weapon.Hand hand)
+    {
+        graphics.Unequip(hand);
+    }
+
+    public void Aim(Character target)
+    {
+        if (target != null)
         {
-            graphics.Flip(true);
-            flipped = true;
-        }
-        else if (direction.x > 0 && flipped)
-        {
-            graphics.Flip(false);
-            flipped = false;
+            graphics.Aim(target);
         }
     }
 
     public void Die()
     {
-        graphics.SetDead();
+        graphics.Die();
     }
 
     private void Awake()

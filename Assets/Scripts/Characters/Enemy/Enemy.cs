@@ -27,12 +27,12 @@ public class Enemy : Character
 
     private void StartChase()
     {
-        SetMovement(new TargetMovement(Target.transform, Status.AttackRange));
+        Movement.SetMovement(new TargetMovement(Target.transform, Status.AttackRange));
     }
 
     private void StopChase()
     {
-        SetMovement(null);
+        Movement.SetMovement(null);
     }
 
     public override void EnterBattle(Character target)

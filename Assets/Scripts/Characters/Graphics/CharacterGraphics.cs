@@ -9,18 +9,31 @@ public abstract class CharacterGraphics : MonoBehaviour
     private int enterBattleHash;
     private int exitBattleHash;
     private int moveSpeedHash;
-    private int flippedHash;
+    private int hasTargetHash;
     protected Animator animator;
     protected Character character;
+    private bool flipped = false;
 
     public bool IsFlipped => transform.rotation.y != 0;
 
-    public abstract void SetColor(Color32 color);
+    protected abstract void SetColor(Color32 color);
+    protected abstract void SetSprites();
+    public abstract void Equip(Weapon weapon, Weapon.Hand hand);
+    public abstract void Unequip(Weapon.Hand hand);
+    public abstract void Aim(Character target);
 
     public virtual void Initialize(Character character)
     {
+        animator = GetComponent<Animator>();
         this.character = character;
+        SetSprites();
         SetColor(character.Data.Graphics.SkinColor);
+    }
+
+    public virtual void SetTarget(Character target)
+    {
+        animator.SetBool(hasTargetHash, target != null);
+        Debug.Log($"{character} has target: {target != null}");
     }
 
     public virtual void EnterBattle(Character target)
@@ -39,7 +52,21 @@ public abstract class CharacterGraphics : MonoBehaviour
         animator.SetFloat(moveSpeedHash, speed);
     }
 
-    public virtual void SetDead()
+    public virtual void SetDirection(Vector2 direction)
+    {
+        if (direction.x < 0 && !flipped)
+        {
+            Flip(true);
+            flipped = true;
+        }
+        else if (direction.x > 0 && flipped)
+        {
+            Flip(false);
+            flipped = false;
+        }
+    }
+
+    public virtual void Die()
     {
         SetMoving(Vector2.zero);
     }
@@ -47,12 +74,6 @@ public abstract class CharacterGraphics : MonoBehaviour
     public virtual void Flip(bool flip)
     {
         transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
-        animator.SetBool(flippedHash, flip);
-    }
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -66,6 +87,6 @@ public abstract class CharacterGraphics : MonoBehaviour
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
         enterBattleHash = Animator.StringToHash("EnterBattle");
         exitBattleHash = Animator.StringToHash("ExitBattle");
-        flippedHash = Animator.StringToHash("Flipped");
+        hasTargetHash = Animator.StringToHash("HasTarget");
     }
 }

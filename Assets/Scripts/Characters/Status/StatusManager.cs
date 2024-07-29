@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StatusManager: MonoBehaviour, IStatus
+public class StatusManager: MonoBehaviour
 {
     private IntStat currentHealth;
     private IntStat maxHealth;

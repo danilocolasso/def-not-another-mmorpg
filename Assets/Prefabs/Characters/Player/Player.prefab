@@ -160,8 +160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-    right: {fileID: 0}
-    left: {fileID: 0}
+    Right: {fileID: 0}
+    Left: {fileID: 0}
 --- !u!114 &9045868161778501601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2899638439409890259}
   testItem: {fileID: 11400000, guid: 4a61633a4e6c6ce4bae08c0af98e6017, type: 2}
+  testWeapon: {fileID: 11400000, guid: 4599a83629e14c14c8a5c240d88139ce, type: 2}
 --- !u!1001 &171087647115159278
 PrefabInstance:
   m_ObjectHideFlags: 0
