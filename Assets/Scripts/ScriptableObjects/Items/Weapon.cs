@@ -15,29 +15,29 @@ public abstract class Weapon : Equipment
     public List<Hand> hands;
 
     public abstract void Attack(Character character, Character target, Transform hand);
-    public abstract void Aim(HumanoidGraphics.Arm arm, Character target);
-    public virtual void EnterBattle(HumanoidGraphics.Arm arm) { }
-    public virtual void ExitBattle(HumanoidGraphics.Arm arm)
+    public abstract void Aim(HumanoidArm arm, Character target);
+    public virtual void EnterBattle(HumanoidArm arm) { }
+    public virtual void ExitBattle(HumanoidArm arm)
     {
         arm.Reset();
     }
 
-    public virtual void Equip(HumanoidGraphics.Arm arm)
+    public virtual void Equip(HumanoidArm arm)
     {
         arm.Weapon.sprite = sprite;
     }
 
-    public virtual void Unequip(HumanoidGraphics.Arm arm)
+    public virtual void Unequip(HumanoidArm arm)
     {
         arm.Weapon.sprite = null;
     }
 
-    public virtual void Wield(HumanoidGraphics.Arm arm)
+    public virtual void Wield(HumanoidArm arm)
     {
         arm.Weapon.enabled = true;
     }
 
-    public virtual void Unwield(HumanoidGraphics.Arm arm)
+    public virtual void Unwield(HumanoidArm arm)
     {
         arm.Weapon.enabled = false;
     }

@@ -1,73 +1,18 @@
-using System;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class HumanoidGraphics : CharacterGraphics
 {
-    [Serializable]
-    public struct Equipable
-    {
-        public SortingGroup Group;
-        public SpriteRenderer Skin;
-        public SpriteRenderer Equipment;
-        [HideInInspector] public int DefaultSortingOrder;
-
-        public readonly void Show()
-        {
-            Group.gameObject.SetActive(true);
-        }
-
-        public readonly void Hide()
-        {
-            Group.gameObject.SetActive(false);
-        }
-
-        public readonly void Flip(bool flip)
-        {
-            Group.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
-        }
-    }
-
-    [Serializable]
-    public struct Arm
-    {
-        public Equipable Hand;
-        public SpriteRenderer Weapon;
-
-        public readonly void Reset()
-        {
-            Hand.Group.transform.localRotation = Quaternion.identity;
-            Hand.Group.sortingOrder = Hand.DefaultSortingOrder;
-            Hand.Show();
-        }
-    }
-
-    [Serializable]
-    public struct Arms_
-    {
-        public Arm Right;
-        public Arm Left;
-    }
-
-    [Serializable]
-    public struct Legs_
-    {
-        public Equipable Right;
-        public Equipable Left;
-    }
-
     [SerializeField] private Equipable head;
     [SerializeField] private Equipable chest;
-    [SerializeField] private Arms_ arms;
+    [SerializeField] private HumanoidArms arms;
     [SerializeField] private Equipable underware;
-    [SerializeField] private Legs_ legs;
+    [SerializeField] private HumanoidLegs legs;
 
     public Equipable Head => head;
     public Equipable Chest => chest;
-    public Arms_ Arms => arms;
+    public HumanoidArms Arms => arms;
     public Equipable Underware => underware;
-    public Legs_ Legs => legs;
+    public HumanoidLegs Legs => legs;
 
     public override void SetTarget(Character target)
     {

@@ -10,20 +10,20 @@ public class Bow : Weapon
         projectileAbility.Use(character, target, hand.position);
     }
 
-    public override void Aim(HumanoidGraphics.Arm arm, Character target)
+    public override void Aim(HumanoidArm arm, Character target)
     {
         Vector3 direction = target.transform.position - arm.Hand.Group.transform.position;
         arm.Hand.Group.transform.right = -direction;
         // arm.Hand.Group.transform.rotation = Quaternion.LookRotation(direction, Vector3.up); // TODO test
     }
 
-    public override void EnterBattle(HumanoidGraphics.Arm arm)
+    public override void EnterBattle(HumanoidArm arm)
     {
         base.EnterBattle(arm);
         arm.Weapon.flipX = true;
     }
 
-    public override void ExitBattle(HumanoidGraphics.Arm arm)
+    public override void ExitBattle(HumanoidArm arm)
     {
         base.ExitBattle(arm);
         arm.Weapon.flipX = false;
