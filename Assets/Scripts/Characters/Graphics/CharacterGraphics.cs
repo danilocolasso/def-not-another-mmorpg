@@ -16,18 +16,16 @@ public abstract class CharacterGraphics : MonoBehaviour
 
     public bool IsFlipped => transform.rotation.y != 0;
 
-    protected abstract void SetColor(Color32 color);
-    protected abstract void SetSprites();
-    public abstract void Equip(Weapon weapon, Weapon.Hand hand);
-    public abstract void Unequip(Weapon.Hand hand);
-    public abstract void Aim(Character target);
+    protected abstract void SetSkinColor(Color32 color);
+    protected abstract void SetSkinSprites();
+    // public abstract void Aim(Character target);
 
     public virtual void Initialize(Character character)
     {
         animator = GetComponent<Animator>();
         this.character = character;
-        SetSprites();
-        SetColor(character.Data.Graphics.SkinColor);
+        SetSkinSprites();
+        SetSkinColor(character.Data.Graphics.SkinColor);
     }
 
     public virtual void SetTarget(Character target)

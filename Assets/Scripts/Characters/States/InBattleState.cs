@@ -27,6 +27,6 @@ public class InBattleState : IState
 
     public void OnStateUpdate(Character character)
     {
-        character.Graphics.Aim(character.Target);
+        character.Aim(character.Target);
     }
 }

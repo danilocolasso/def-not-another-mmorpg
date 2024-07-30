@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 6292398421456813810}
   - component: {fileID: 8923464110319633746}
   m_Layer: 12
-  m_Name: Enemy
+  m_Name: HumanoidEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,9 +158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b48b0aedaffc94f971017243c75034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 7042391892774937521}
   weapons:
-    right: {fileID: 0}
-    left: {fileID: 0}
+    Right: {fileID: 0}
+    Left: {fileID: 0}
 --- !u!114 &2461292800418082971
 MonoBehaviour:
   m_ObjectHideFlags: 0

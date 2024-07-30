@@ -14,7 +14,7 @@ public class Player : Character
         inventoryManager = GetComponent<InventoryManager>();
         inputHandler = GetComponent<InputHandler>();
 
-        SetMovement(new InputMovement(inputHandler));
+        movementManager.SetMovement(new InputMovement(inputHandler));
     }
 
     public bool AddBag(Bag bag)

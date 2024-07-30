@@ -12,7 +12,8 @@ public class EquipmentManager : MonoBehaviour
     }
 
     private Character character;
-    [SerializeField]  private WeaponSlots weapons;
+    [SerializeField] private HumanoidGraphics body;
+    [SerializeField] private WeaponSlots weapons;
 
     public WeaponSlots Weapons => weapons;
 
@@ -20,6 +21,8 @@ public class EquipmentManager : MonoBehaviour
     {
         this.character = character;
         EquipDefaultWeapons();
+
+        Debug.Assert(body != null, $"Critical --> Assign a HumanoidGraphics to {character} EquipmentManager in the Inspector!");
     }
 
     public void Equip(Weapon weapon)
@@ -29,7 +32,6 @@ public class EquipmentManager : MonoBehaviour
 
     public void Equip(Weapon weapon, Weapon.Hand hand)
     {
-        Debug.Log($"Equipping {weapon.name} to {hand} hand.");
         if (hand == Weapon.Hand.Left)
         {
             EquipLeftWeapon(weapon);
@@ -42,7 +44,14 @@ public class EquipmentManager : MonoBehaviour
 
     public void Unequip(Weapon.Hand hand)
     {
-        character.Graphics.Unequip(hand);
+        if (hand == Weapon.Hand.Left)
+        {
+            weapons.Left = null;
+        }
+        else
+        {
+            weapons.Right = null;
+        }
     }
 
     private void EquipRightWeapon(Weapon weapon)
@@ -52,10 +61,7 @@ public class EquipmentManager : MonoBehaviour
             Unequip(Weapon.Hand.Right);
         }
 
-        character.Graphics.Equip(weapon, Weapon.Hand.Right);
         weapons.Right = weapon;
-
-        Debug.Log($"Equipped {weapon.name} to right hand.");
     }
 
     private void EquipLeftWeapon(Weapon weapon)
@@ -70,7 +76,6 @@ public class EquipmentManager : MonoBehaviour
             Unequip(Weapon.Hand.Right);
         }
 
-        character.Graphics.Equip(weapon, Weapon.Hand.Left);
         weapons.Left = weapon;
     }
 

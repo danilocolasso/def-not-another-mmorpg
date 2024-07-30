@@ -18,8 +18,8 @@ public abstract class Character : MonoBehaviour
     private BattleManager battleManager;
     private AbilityManager abilityManager;
     private EquipmentManager equipmentManager;
-    private MovementManager movementManager;
     private GraphicsManager graphicsManager;
+    protected MovementManager movementManager;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] protected CharacterData data;
@@ -31,20 +31,19 @@ public abstract class Character : MonoBehaviour
     public bool IsAlive => statusManager.IsAlive;
     public bool IsDead => !IsAlive;
     public bool IsInBattle => battleManager.IsInBattle;
+    public bool IsOutOfBattle => !IsInBattle;
     public CharacterData Data => data;
     public StatusManager Status => statusManager;
     public EquipmentManager Equipment => equipmentManager;
-    public MovementManager Movement => movementManager;
-    public GraphicsManager Graphics => graphicsManager;
 
     public void SetMovement(IMovement newMovement)
     {
         movementManager.SetMovement(newMovement);
     }
 
-    public void SetMoving(Vector2 direction)
+    public void SetMoving(Vector2 direction, float speed)
     {
-        graphicsManager.SetMoving(direction, Status.MoveSpeed);
+        graphicsManager.SetMoving(direction, speed);
     }
 
     public virtual void SetState(IState newState)
@@ -119,6 +118,24 @@ public abstract class Character : MonoBehaviour
     public bool IsInRange(Character target, float range)
     {
         return Vector2.Distance(transform.position, target.transform.position) <= range;
+    }
+
+    public void Aim(Character target)
+    {
+        if (equipmentManager.Weapons.Right != null)
+        {
+            graphicsManager.Aim(equipmentManager.Weapons.Right, Weapon.Hand.Right, target);
+        }
+
+        if (equipmentManager.Weapons.Left != null)
+        {
+            graphicsManager.Aim(equipmentManager.Weapons.Left, Weapon.Hand.Left, target);
+        }
+    }
+
+    public void Equip(Weapon weapon, Weapon.Hand hand)
+    {
+        equipmentManager.Equip(weapon, hand);
     }
 
     public void Die()

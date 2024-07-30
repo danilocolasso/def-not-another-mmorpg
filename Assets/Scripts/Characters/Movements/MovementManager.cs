@@ -15,7 +15,7 @@ public class MovementManager : MonoBehaviour
         if (movement != null)
         {
             Vector2 direction = movement.Move(character.Rb, character.Status.MoveSpeed);
-            character.Graphics.SetMoving(direction, character.Status.MoveSpeed);
+            character.SetMoving(direction, character.Status.MoveSpeed);
         }
     }
 

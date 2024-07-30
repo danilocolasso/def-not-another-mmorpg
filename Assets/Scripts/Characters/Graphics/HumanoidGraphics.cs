@@ -1,90 +1,73 @@
 using System;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class HumanoidGraphics : CharacterGraphics
 {
     [Serializable]
-    private struct Body
+    public struct Equipable
     {
-        public SpriteRenderer RightHand;
-        public SpriteRenderer Head;
-        public SpriteRenderer Chest;
-        public SpriteRenderer Underware;
-        public SpriteRenderer RightLeg;
-        public SpriteRenderer LeftLeg;
-        public SpriteRenderer LeftHand;
+        public SortingGroup Group;
+        public SpriteRenderer Skin;
+        public SpriteRenderer Equipment;
+        [HideInInspector] public int DefaultSortingOrder;
+
+        public readonly void Show()
+        {
+            Group.gameObject.SetActive(true);
+        }
+
+        public readonly void Hide()
+        {
+            Group.gameObject.SetActive(false);
+        }
+
+        public readonly void Flip(bool flip)
+        {
+            Group.transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+        }
     }
 
     [Serializable]
-    private struct Weapons
-    {
-        public SpriteRenderer Right;
-        public SpriteRenderer Left;
-    }
-
     public struct Arm
     {
-        public int OriginalSortingOrder;
-        public Transform Transform;
-        public SpriteRenderer Hand;
+        public Equipable Hand;
         public SpriteRenderer Weapon;
+
+        public readonly void Reset()
+        {
+            Hand.Group.transform.localRotation = Quaternion.identity;
+            Hand.Group.sortingOrder = Hand.DefaultSortingOrder;
+            Hand.Show();
+        }
     }
 
-    public struct Arms
+    [Serializable]
+    public struct Arms_
     {
         public Arm Right;
         public Arm Left;
     }
 
-    [SerializeField] private Body body;
-    [SerializeField] private Weapons weapons;
-
-    private Arms arms;
-
-    private void Awake()
+    [Serializable]
+    public struct Legs_
     {
-        SetArms();
+        public Equipable Right;
+        public Equipable Left;
     }
 
-    protected override void SetColor(Color32 color)
-    {
-        body.Head.color = color;
-        body.RightHand.color = color;
-        body.Chest.color = color;
-        body.RightLeg.color = color;
-        body.Underware.color = color;
-        body.LeftLeg.color = color;
-        body.LeftHand.color = color;
-    }
+    [SerializeField] private Equipable head;
+    [SerializeField] private Equipable chest;
+    [SerializeField] private Arms_ arms;
+    [SerializeField] private Equipable underware;
+    [SerializeField] private Legs_ legs;
 
-    private void FixedUpdate()
-    {
-        FaceTarget();
-    }
-
-    public override void Equip(Weapon weapon, Weapon.Hand hand)
-    {
-        if (hand == Weapon.Hand.Left)
-        {
-            weapons.Left.sprite = weapon.hands.Contains(Weapon.Hand.Both) ? null : weapon.sprite;
-        }
-        else
-        {
-            weapons.Right.sprite = weapon.sprite;
-        }
-    }
-
-    public override void Unequip(Weapon.Hand hand)
-    {
-        if (hand == Weapon.Hand.Left)
-        {
-            weapons.Left.sprite = null;
-        }
-        else
-        {
-            weapons.Right.sprite = null;
-        }
-    }
+    public Equipable Head => head;
+    public Equipable Chest => chest;
+    public Arms_ Arms => arms;
+    public Equipable Underware => underware;
+    public Legs_ Legs => legs;
 
     public override void SetTarget(Character target)
     {
@@ -98,25 +81,11 @@ public class HumanoidGraphics : CharacterGraphics
         if (target == null)
         {
             ExitBattle();
-            Wield();
         }
         else
         {
             EnterBattle(target);
         }
-    }
-
-    public override void EnterBattle(Character target)
-    {
-        base.EnterBattle(target);
-        Wield();
-    }
-
-    public override void ExitBattle()
-    {
-        base.ExitBattle();
-        Unwield();
-        ResetArms();
     }
 
     public override void Flip(bool flip)
@@ -126,51 +95,42 @@ public class HumanoidGraphics : CharacterGraphics
         FaceTarget();
     }
 
-    public override void Aim(Character target)
+    private void Awake()
     {
-        if (character.Equipment.Weapons.Right != null)
-        {
-            character.Equipment.Weapons.Right.Aim(arms, target);
-        }
-
-        if (character.Equipment.Weapons.Left != null)
-        {
-            character.Equipment.Weapons.Left.Aim(arms, target);
-        }
+        SetDefaultSortingOrders();
     }
 
-    protected override void SetSprites()
+    private void FixedUpdate()
     {
-        body.RightHand.sprite = character.Data.Graphics.Hand;
-        body.LeftHand.sprite = character.Data.Graphics.Hand;
-        body.Head.sprite = character.Data.Graphics.Head;
-        body.Chest.sprite = character.Data.Graphics.Chest;
-        body.Underware.sprite = character.Data.Graphics.Underware;
-        body.RightLeg.sprite = character.Data.Graphics.Leg;
-        body.LeftLeg.sprite = character.Data.Graphics.Leg;
+        FaceTarget();
     }
 
-    private void Wield()
+    private void SetDefaultSortingOrders()
     {
-        weapons.Left.enabled = true;
-        weapons.Right.enabled = true;
+        arms.Right.Hand.DefaultSortingOrder = arms.Right.Hand.Group.sortingOrder;
+        arms.Left.Hand.DefaultSortingOrder = arms.Left.Hand.Group.sortingOrder;
     }
 
-    private void Unwield()
+    protected override void SetSkinSprites()
     {
-        weapons.Left.enabled = false;
-        weapons.Right.enabled = false;
+        arms.Right.Hand.Skin.sprite = character.Data.Graphics.Hand;
+        arms.Left.Hand.Skin.sprite = character.Data.Graphics.Hand;
+        head.Skin.sprite = character.Data.Graphics.Head;
+        chest.Skin.sprite = character.Data.Graphics.Chest;
+        underware.Skin.sprite = character.Data.Graphics.Underware;
+        legs.Right.Skin.sprite = character.Data.Graphics.Leg;
+        legs.Left.Skin.sprite = character.Data.Graphics.Leg;
     }
 
-    private void ResetArms()
+    protected override void SetSkinColor(Color32 color)
     {
-        arms.Right.Transform.localRotation = Quaternion.identity;
-        arms.Right.Hand.sortingOrder = arms.Right.OriginalSortingOrder;
-        arms.Right.Transform.gameObject.SetActive(true);
-
-        arms.Left.Transform.localRotation = Quaternion.identity;
-        arms.Left.Hand.sortingOrder = arms.Left.OriginalSortingOrder;
-        arms.Left.Transform.gameObject.SetActive(true);
+        head.Skin.color = color;
+        arms.Right.Hand.Skin.color = color;
+        chest.Skin.color = color;
+        legs.Right.Skin.color = color;
+        underware.Skin.color = color;
+        legs.Left.Skin.color = color;
+        arms.Left.Hand.Skin.color = color;
     }
 
     private void FaceTarget()
@@ -183,52 +143,37 @@ public class HumanoidGraphics : CharacterGraphics
 
         Vector3 direction = (character.Target.transform.position - transform.position).normalized;
 
-        bool isHeadFlipped = body.Head.transform.localRotation.y != 0;
+        bool isHeadFlipped = Head.Group.transform.localRotation.y != 0;
         bool isFacingRight = (IsFlipped && isHeadFlipped) || (!IsFlipped && !isHeadFlipped);
         bool shouldFaceRight = direction.x > 0;
         bool shouldFlipHead = isFacingRight != shouldFaceRight;
 
         if (shouldFlipHead)
         {
-            body.Head.transform.Rotate(0, isHeadFlipped ? -FLIP_ANGLE : FLIP_ANGLE, 0);
+            Head.Flip(!isHeadFlipped);
         }
     }
 
     private void ResetHead()
     {
-        if (body.Head.transform.localRotation.y != 0)
+        if (head.Group.transform.localRotation.y != 0)
         {
-            body.Head.transform.Rotate(0, -FLIP_ANGLE, 0);
+            head.Flip(false);
         }
     }
 
     private void SwapHands(bool flip)
     {
-        Vector3 newRotation = new(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+        arms.Right.Hand.Flip(flip);
+        arms.Left.Hand.Flip(flip);
 
-        arms.Right.Transform.transform.Rotate(newRotation);
-        arms.Left.Transform.transform.Rotate(newRotation);
-
-        if (!character.IsInBattle)
+        if (character.IsOutOfBattle)
         {
-            body.LeftHand.transform.Rotate(newRotation);
-            body.RightHand.transform.Rotate(newRotation);
+            arms.Left.Hand.Flip(flip);
+            arms.Left.Hand.Flip(flip);
+            arms.Right.Hand.Flip(flip);
         }
 
-        (weapons.Right.sortingOrder, weapons.Left.sortingOrder) = (weapons.Left.sortingOrder, weapons.Right.sortingOrder);
-        (body.LeftHand.sortingOrder, body.RightHand.sortingOrder) = (body.RightHand.sortingOrder, body.LeftHand.sortingOrder);
-    }
-
-    private void SetArms()
-    {
-        arms.Right.Transform = body.RightHand.transform.parent;
-        arms.Right.Hand = body.RightHand;
-        arms.Right.Weapon = weapons.Right;
-        arms.Right.OriginalSortingOrder = weapons.Right.sortingOrder;
-
-        arms.Left.Transform = body.LeftHand.transform.parent;
-        arms.Left.Hand = body.LeftHand;
-        arms.Left.Weapon = weapons.Left;
-        arms.Left.OriginalSortingOrder = weapons.Left.sortingOrder;
+        (arms.Right.Hand.Group.sortingOrder, arms.Left.Hand.Group.sortingOrder) = (arms.Left.Hand.Group.sortingOrder, arms.Right.Hand.Group.sortingOrder);
     }
 }

@@ -16,7 +16,7 @@ public class GraphicsManager : MonoBehaviour
         graphics.SetTarget(target);
     }
 
-    public void SetMoving(Vector2 direction, float speed = 1)
+    public void SetMoving(Vector2 direction, float speed)
     {
         graphics.SetMoving(direction, speed);
         graphics.SetDirection(direction);
@@ -32,26 +32,11 @@ public class GraphicsManager : MonoBehaviour
         graphics.ExitBattle();
     }
 
-    public void Equip(Weapon weapon)
-    {
-        Equip(weapon, weapon.hands.First());
-    }
-
-    public void Equip(Weapon weapon, Weapon.Hand hand)
-    {
-        graphics.Equip(weapon, hand);
-    }
-
-    public void Unequip(Weapon.Hand hand)
-    {
-        graphics.Unequip(hand);
-    }
-
-    public void Aim(Character target)
+    public void Aim(Weapon weapon, Weapon.Hand hand, Character target)
     {
         if (target != null)
         {
-            graphics.Aim(target);
+            // graphics.Aim(weapon, hand, target);
         }
     }
 
