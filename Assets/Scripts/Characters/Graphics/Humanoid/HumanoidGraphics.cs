@@ -52,8 +52,8 @@ public class HumanoidGraphics : CharacterGraphics
 
     private void SetDefaultSortingOrders()
     {
-        arms.Right.Hand.DefaultSortingOrder = arms.Right.Hand.Group.sortingOrder;
-        arms.Left.Hand.DefaultSortingOrder = arms.Left.Hand.Group.sortingOrder;
+        arms.Right.DefaultSorting = arms.Right.Group.sortingOrder;
+        arms.Left.DefaultSorting = arms.Left.Group.sortingOrder;
     }
 
     protected override void SetSkinSprites()
@@ -71,6 +71,7 @@ public class HumanoidGraphics : CharacterGraphics
     {
         head.Skin.color = color;
         arms.Right.Hand.Skin.color = color;
+        arms.Left.Hand.Skin.color = color;
         chest.Skin.color = color;
         legs.Right.Skin.color = color;
         underware.Skin.color = color;
@@ -89,11 +90,10 @@ public class HumanoidGraphics : CharacterGraphics
         Vector3 direction = (character.Target.transform.position - transform.position).normalized;
 
         bool isHeadFlipped = Head.Group.transform.localRotation.y != 0;
-        bool isFacingRight = (IsFlipped && isHeadFlipped) || (!IsFlipped && !isHeadFlipped);
+        bool isFacingRight = IsFlipped ? isHeadFlipped : !isHeadFlipped;
         bool shouldFaceRight = direction.x > 0;
-        bool shouldFlipHead = isFacingRight != shouldFaceRight;
 
-        if (shouldFlipHead)
+        if (isFacingRight != shouldFaceRight)
         {
             Head.Flip(!isHeadFlipped);
         }
@@ -109,16 +109,12 @@ public class HumanoidGraphics : CharacterGraphics
 
     private void SwapHands(bool flip)
     {
+        (arms.Right.Group.sortingOrder, arms.Left.Group.sortingOrder) = (arms.Left.Group.sortingOrder, arms.Right.Group.sortingOrder);
+
+        arms.Right.Flip(flip);
+        arms.Left.Flip(flip);
+
         arms.Right.Hand.Flip(flip);
         arms.Left.Hand.Flip(flip);
-
-        if (character.IsOutOfBattle)
-        {
-            arms.Left.Hand.Flip(flip);
-            arms.Left.Hand.Flip(flip);
-            arms.Right.Hand.Flip(flip);
-        }
-
-        (arms.Right.Hand.Group.sortingOrder, arms.Left.Hand.Group.sortingOrder) = (arms.Left.Hand.Group.sortingOrder, arms.Right.Hand.Group.sortingOrder);
     }
 }

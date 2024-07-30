@@ -1047,43 +1047,45 @@ MonoBehaviour:
     Group: {fileID: 7289072533984209838}
     Skin: {fileID: 5900595499597510525}
     Equipment: {fileID: 253957049962313179}
-    DefaultSortingOrder: 0
+    DefaultSorting: 0
   chest:
     Group: {fileID: 5840172603807018666}
     Skin: {fileID: 3860417047331590950}
     Equipment: {fileID: 4130591946357497401}
-    DefaultSortingOrder: 0
+    DefaultSorting: 0
   arms:
     Right:
+      Group: {fileID: 266842858891427440}
       Hand:
-        Group: {fileID: 266842858891427440}
+        Group: {fileID: 5998147900136122005}
         Skin: {fileID: 3958819436256538878}
         Equipment: {fileID: 3727378029554508695}
-        DefaultSortingOrder: 0
-      Weapon: {fileID: 7020722569517085837}
+        Weapon: {fileID: 7020722569517085837}
+      DefaultSorting: 0
     Left:
+      Group: {fileID: 4183338735686653037}
       Hand:
-        Group: {fileID: 4183338735686653037}
+        Group: {fileID: 7288138036014531928}
         Skin: {fileID: 2735200653104655573}
         Equipment: {fileID: 5790388197706795517}
-        DefaultSortingOrder: 0
-      Weapon: {fileID: 121423741732156996}
+        Weapon: {fileID: 7020722569517085837}
+      DefaultSorting: 0
   underware:
     Group: {fileID: 4998403572889244996}
     Skin: {fileID: 2475239000030576856}
     Equipment: {fileID: 2051188315232680093}
-    DefaultSortingOrder: 0
+    DefaultSorting: 0
   legs:
     Right:
       Group: {fileID: 6539791044683034235}
       Skin: {fileID: 4601080216696065557}
       Equipment: {fileID: 2602805516381861752}
-      DefaultSortingOrder: 0
+      DefaultSorting: 0
     Left:
       Group: {fileID: 3237121097581579329}
       Skin: {fileID: 3556742395813394965}
       Equipment: {fileID: 6403249655314559924}
-      DefaultSortingOrder: 0
+      DefaultSorting: 0
 --- !u!1 &6075240131959475810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,7 +1924,7 @@ SpriteRenderer:
   m_SortingLayerID: -168536307
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: c4571d618848b7f41bd7dd200da3b41a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1930,7 +1932,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!1 &8842880634496014880

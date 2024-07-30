@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 [System.Serializable]
-public struct Equipable
+public struct HumanoidHand
 {
-    public SortingGroup Group;
+    public Transform Group;
     public SpriteRenderer Skin;
     public SpriteRenderer Equipment;
-    [HideInInspector] public int DefaultSorting;
+    public SpriteRenderer Weapon;
 
     public readonly void Show()
     {
@@ -21,6 +20,6 @@ public struct Equipable
 
     public readonly void Flip(bool flip)
     {
-        Group.transform.Rotate(0, flip ? 180 : -180, 0);
+        Group.transform.Rotate(0, flip ? -180 : 180, 0);
     }
 }

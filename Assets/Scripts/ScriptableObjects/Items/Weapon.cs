@@ -24,21 +24,21 @@ public abstract class Weapon : Equipment
 
     public virtual void Equip(HumanoidArm arm)
     {
-        arm.Weapon.sprite = sprite;
+        arm.Hand.Weapon.sprite = sprite;
     }
 
     public virtual void Unequip(HumanoidArm arm)
     {
-        arm.Weapon.sprite = null;
+        arm.Hand.Weapon.sprite = null;
     }
 
     public virtual void Wield(HumanoidArm arm)
     {
-        arm.Weapon.enabled = true;
+        arm.Hand.Weapon.enabled = true;
     }
 
     public virtual void Unwield(HumanoidArm arm)
     {
-        arm.Weapon.enabled = false;
+        arm.Hand.Weapon.enabled = false;
     }
 }

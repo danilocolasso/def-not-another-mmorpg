@@ -20,12 +20,12 @@ public class Bow : Weapon
     public override void EnterBattle(HumanoidArm arm)
     {
         base.EnterBattle(arm);
-        arm.Weapon.flipX = true;
+        arm.Hand.Weapon.flipX = true;
     }
 
     public override void ExitBattle(HumanoidArm arm)
     {
         base.ExitBattle(arm);
-        arm.Weapon.flipX = false;
+        arm.Hand.Weapon.flipX = false;
     }
 }

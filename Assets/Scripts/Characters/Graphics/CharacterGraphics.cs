@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public abstract class CharacterGraphics : MonoBehaviour
 {
-    protected const int FLIP_ANGLE = 180;
-
     private int isMovingHash;
     private int enterBattleHash;
     private int exitBattleHash;
@@ -71,7 +69,7 @@ public abstract class CharacterGraphics : MonoBehaviour
 
     public virtual void Flip(bool flip)
     {
-        transform.Rotate(0, flip ? FLIP_ANGLE : -FLIP_ANGLE, 0);
+        transform.Rotate(0, flip ? -180 : 180, 0);
     }
 
     private void Start()
