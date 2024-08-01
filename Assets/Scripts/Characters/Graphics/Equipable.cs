@@ -21,6 +21,6 @@ public struct Equipable
 
     public readonly void Flip(bool flip)
     {
-        Group.transform.Rotate(0, flip ? 180 : -180, 0);
+        Group.transform.Rotate(0, flip ? -180 : 180, 0);
     }
 }

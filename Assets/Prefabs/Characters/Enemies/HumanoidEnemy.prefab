@@ -158,10 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b48b0aedaffc94f971017243c75034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 7042391892774937521}
-  weapons:
-    Right: {fileID: 0}
-    Left: {fileID: 0}
+  humanoidGraphics: {fileID: 7042391892774937521}
 --- !u!114 &2461292800418082971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +428,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 6569050341242377573, guid: 4049fbea5f1330142a48261095b6beff, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1866063934770578986}
     - target: {fileID: 6655578709176922034, guid: 4049fbea5f1330142a48261095b6beff, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -439,6 +440,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 7829549065594776118, guid: 4049fbea5f1330142a48261095b6beff, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1866063934770578986}
     - target: {fileID: 8254593204917239244, guid: 4049fbea5f1330142a48261095b6beff, type: 3}
       propertyPath: m_Layer
       value: 12

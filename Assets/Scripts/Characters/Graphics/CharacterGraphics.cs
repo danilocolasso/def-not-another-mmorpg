@@ -4,13 +4,14 @@ using UnityEngine;
 public abstract class CharacterGraphics : MonoBehaviour
 {
     private int isMovingHash;
-    private int enterBattleHash;
-    private int exitBattleHash;
     private int moveSpeedHash;
     private int hasTargetHash;
-    protected Animator animator;
+    private int enterBattleHash;
+    private int exitBattleHash;
     protected Character character;
     private bool flipped = false;
+    
+    [SerializeField] protected Animator animator;
 
     public bool IsFlipped => transform.rotation.y != 0;
 
@@ -20,8 +21,14 @@ public abstract class CharacterGraphics : MonoBehaviour
 
     public virtual void Initialize(Character character)
     {
-        animator = GetComponent<Animator>();
         this.character = character;
+        
+        if (animator == null)
+        {
+            Debug.LogWarning($"Performance --> {character} has no Animator component attached!");
+            animator = GetComponent<Animator>();
+        }
+        
         SetSkinSprites();
         SetSkinColor(character.Data.Graphics.SkinColor);
     }
@@ -81,8 +88,8 @@ public abstract class CharacterGraphics : MonoBehaviour
     {
         isMovingHash = Animator.StringToHash("IsMoving");
         moveSpeedHash = Animator.StringToHash("MoveSpeed");
+        hasTargetHash = Animator.StringToHash("HasTarget");
         enterBattleHash = Animator.StringToHash("EnterBattle");
         exitBattleHash = Animator.StringToHash("ExitBattle");
-        hasTargetHash = Animator.StringToHash("HasTarget");
     }
 }

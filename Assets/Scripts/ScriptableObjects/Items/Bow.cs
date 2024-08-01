@@ -13,7 +13,7 @@ public class Bow : Weapon
     public override void Aim(HumanoidArm arm, Character target)
     {
         Vector3 direction = target.transform.position - arm.Hand.Group.transform.position;
-        arm.Hand.Group.transform.right = -direction;
+        arm.Group.transform.parent.right = direction;
         // arm.Hand.Group.transform.rotation = Quaternion.LookRotation(direction, Vector3.up); // TODO test
     }
 

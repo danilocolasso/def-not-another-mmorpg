@@ -13,7 +13,7 @@ public class DetectCharacterCommand : ICommand
     {
         if (target == null || !target.IsAlive) return;
 
-        if (!character.IsInBattle) {
+        if (character.IsOutOfBattle) {
             character.SetState(new DetectState(target));
             return;
         }

@@ -13,9 +13,14 @@ public class PlayerDebbuger : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            player.Wield();
+        }
+
         if (Input.GetKeyDown(KeyCode.F7))
         {
-            player.Equipment.Equip(testWeapon);
+            player.Equip(testWeapon);
             Debug.Log("Equipped " + testWeapon.name);
         }
 

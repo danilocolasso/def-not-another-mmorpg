@@ -8,18 +8,8 @@ public struct HumanoidHand
     public SpriteRenderer Equipment;
     public SpriteRenderer Weapon;
 
-    public readonly void Show()
-    {
-        Group.gameObject.SetActive(true);
-    }
-
-    public readonly void Hide()
-    {
-        Group.gameObject.SetActive(false);
-    }
-
     public readonly void Flip(bool flip)
     {
-        Group.transform.Rotate(0, flip ? -180 : 180, 0);
+        Group.transform.Rotate(Group.transform.rotation.x, flip ? -180 : 180, Group.transform.rotation.z);
     }
 }

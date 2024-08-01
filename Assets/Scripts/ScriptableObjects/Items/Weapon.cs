@@ -11,7 +11,6 @@ public abstract class Weapon : Equipment
     }
 
     public float speed;
-    public Sprite sprite;
     public List<Hand> hands;
 
     public abstract void Attack(Character character, Character target, Transform hand);

@@ -1,94 +1,78 @@
-using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    [Serializable]
-    public struct WeaponSlots
-    {
-        public Weapon Right;
-        public Weapon Left;
-    }
+    private readonly Dictionary<HumanoidArm, Weapon> weapons = new();
+    private readonly Dictionary<Equipment, Equipment> equipments = new();
 
-    private Character character;
-    [SerializeField] private HumanoidGraphics body;
-    [SerializeField] private WeaponSlots weapons;
+    [SerializeField] private HumanoidGraphics humanoidGraphics;
 
-    public WeaponSlots Weapons => weapons;
+    public HumanoidArms Arms => humanoidGraphics.Arms;
 
     public void Initialize(Character character)
     {
-        this.character = character;
-        EquipDefaultWeapons();
-
-        Debug.Assert(body != null, $"Critical --> Assign a HumanoidGraphics to {character} EquipmentManager in the Inspector!");
+        Debug.Assert(humanoidGraphics != null, $"Critical --> Assign a HumanoidGraphics to {character} EquipmentManager in the Inspector!");
+        InitializeWeapons();
     }
 
-    public void Equip(Weapon weapon)
+    public void Equip(Equipment equipment)
     {
-        Equip(weapon, weapon.hands.First());
+        equipments[equipment] = equipment;
     }
 
-    public void Equip(Weapon weapon, Weapon.Hand hand)
+    public void Equip(Weapon weapon, HumanoidArm arm)
     {
-        if (hand == Weapon.Hand.Left)
+        if (weapon.hands.Contains(Weapon.Hand.Both))
         {
-            EquipLeftWeapon(weapon);
+            Unequip(humanoidGraphics.Arms.Left);
         }
-        else
+
+        Unequip(arm);
+        weapons[arm] = weapon;
+        weapon.Equip(arm);
+    }
+
+    public void Unequip(Equipment equipment)
+    {
+        equipments[equipment] = null;
+    }
+
+    public void Unequip(HumanoidArm arm)
+    {
+        if (weapons[arm] != null)
         {
-            EquipRightWeapon(weapon);
+            weapons[arm].Unequip(arm);
+            weapons[arm] = null;
         }
     }
 
-    public void Unequip(Weapon.Hand hand)
+    public void Wield()
     {
-        if (hand == Weapon.Hand.Left)
+        humanoidGraphics.Wield();
+    }
+
+    public void Unwield()
+    {
+        humanoidGraphics.Unwield();
+    }
+
+    public void Aim(Character target)
+    {
+        if (weapons[humanoidGraphics.Arms.Right] != null)
         {
-            weapons.Left = null;
+            weapons[humanoidGraphics.Arms.Right].Aim(humanoidGraphics.Arms.Right, target);
         }
-        else
+
+        if (weapons[humanoidGraphics.Arms.Left] != null)
         {
-            weapons.Right = null;
+            weapons[humanoidGraphics.Arms.Left].Aim(humanoidGraphics.Arms.Left, target);
         }
     }
 
-    private void EquipRightWeapon(Weapon weapon)
+    private void InitializeWeapons()
     {
-        if (Weapons.Right != null)
-        {
-            Unequip(Weapon.Hand.Right);
-        }
-
-        weapons.Right = weapon;
-    }
-
-    private void EquipLeftWeapon(Weapon weapon)
-    {
-        if (Weapons.Left != null)
-        {
-            Unequip(Weapon.Hand.Left);
-        }
-
-        if (Weapons.Right != null && Weapons.Right.hands.Contains(Weapon.Hand.Both))
-        {
-            Unequip(Weapon.Hand.Right);
-        }
-
-        weapons.Left = weapon;
-    }
-
-    private void EquipDefaultWeapons()
-    {
-        if (weapons.Right != null)
-        {
-            Equip(weapons.Right, Weapon.Hand.Right);
-        }
-
-        if (weapons.Left != null)
-        {
-            Equip(weapons.Left, Weapon.Hand.Left);
-        }
+        weapons.Add(humanoidGraphics.Arms.Left, null);
+        weapons.Add(humanoidGraphics.Arms.Right, null);
     }
 }

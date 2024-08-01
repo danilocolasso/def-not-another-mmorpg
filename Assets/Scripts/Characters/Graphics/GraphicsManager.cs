@@ -16,6 +16,11 @@ public class GraphicsManager : MonoBehaviour
         graphics.SetTarget(target);
     }
 
+    public void Attack(Character target)
+    {
+        graphics.SetTarget(target);
+    }
+
     public void SetMoving(Vector2 direction, float speed)
     {
         graphics.SetMoving(direction, speed);
@@ -32,7 +37,7 @@ public class GraphicsManager : MonoBehaviour
         graphics.ExitBattle();
     }
 
-    public void Aim(Weapon weapon, Weapon.Hand hand, Character target)
+    public void Aim(Weapon weapon,  Character target)
     {
         if (target != null)
         {

@@ -34,7 +34,6 @@ public abstract class Character : MonoBehaviour
     public bool IsOutOfBattle => !IsInBattle;
     public CharacterData Data => data;
     public StatusManager Status => statusManager;
-    public EquipmentManager Equipment => equipmentManager;
 
     public void SetMovement(IMovement newMovement)
     {
@@ -80,7 +79,7 @@ public abstract class Character : MonoBehaviour
             battleManager.ExitBattle(target);
         }
 
-        if (!IsInBattle)
+        if (IsOutOfBattle)
         {
             graphicsManager.ExitBattle();
         }
@@ -94,6 +93,7 @@ public abstract class Character : MonoBehaviour
     public void Attack(Character target)
     {
         battleManager.Attack(target);
+        graphicsManager.Attack(target);
     }
 
     public void TakeDamage(Character attacker, int damage = 1)
@@ -122,20 +122,22 @@ public abstract class Character : MonoBehaviour
 
     public void Aim(Character target)
     {
-        if (equipmentManager.Weapons.Right != null)
-        {
-            graphicsManager.Aim(equipmentManager.Weapons.Right, Weapon.Hand.Right, target);
-        }
-
-        if (equipmentManager.Weapons.Left != null)
-        {
-            graphicsManager.Aim(equipmentManager.Weapons.Left, Weapon.Hand.Left, target);
-        }
+        equipmentManager.Aim(target);
     }
 
-    public void Equip(Weapon weapon, Weapon.Hand hand)
+    public void Wield()
     {
-        equipmentManager.Equip(weapon, hand);
+        equipmentManager.Wield();
+    }
+
+    public void Unwield()
+    {
+        equipmentManager.Unwield();
+    }
+
+    public void Equip(Weapon weapon, Weapon.Hand hand = Weapon.Hand.Right)
+    {
+        equipmentManager.Equip(weapon, hand == Weapon.Hand.Left ? equipmentManager.Arms.Left : equipmentManager.Arms.Right);
     }
 
     public void Die()
