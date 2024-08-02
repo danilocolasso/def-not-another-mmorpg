@@ -14,18 +14,5 @@ public class Bow : Weapon
     {
         Vector3 direction = target.transform.position - arm.Hand.Group.transform.position;
         arm.Group.transform.parent.right = direction;
-        // arm.Hand.Group.transform.rotation = Quaternion.LookRotation(direction, Vector3.up); // TODO test
-    }
-
-    public override void EnterBattle(HumanoidArm arm)
-    {
-        base.EnterBattle(arm);
-        arm.Hand.Weapon.flipX = true;
-    }
-
-    public override void ExitBattle(HumanoidArm arm)
-    {
-        base.ExitBattle(arm);
-        arm.Hand.Weapon.flipX = false;
     }
 }

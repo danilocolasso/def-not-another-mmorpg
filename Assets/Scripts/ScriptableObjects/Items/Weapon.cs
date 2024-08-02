@@ -12,14 +12,10 @@ public abstract class Weapon : Equipment
 
     public float speed;
     public List<Hand> hands;
+    public AnimatorOverrideController animator;
 
     public abstract void Attack(Character character, Character target, Transform hand);
     public abstract void Aim(HumanoidArm arm, Character target);
-    public virtual void EnterBattle(HumanoidArm arm) { }
-    public virtual void ExitBattle(HumanoidArm arm)
-    {
-        arm.Reset();
-    }
 
     public virtual void Equip(HumanoidArm arm)
     {

@@ -80,20 +80,9 @@ public class HumanoidGraphics : CharacterGraphics
         FaceTarget();
     }
 
-    private void Awake()
-    {
-        SetDefaultSortingOrders();
-    }
-
     private void FixedUpdate()
     {
         FaceTarget();
-    }
-
-    private void SetDefaultSortingOrders()
-    {
-        arms.Right.DefaultSorting = arms.Right.Group.sortingOrder;
-        arms.Left.DefaultSorting = arms.Left.Group.sortingOrder;
     }
 
     protected override void SetSkinSprites()

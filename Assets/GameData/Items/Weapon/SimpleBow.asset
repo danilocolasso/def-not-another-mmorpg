@@ -16,8 +16,8 @@ MonoBehaviour:
   description: Just a common bow
   icon: {fileID: 0}
   maxStack: 1
-  speed: 1
   sprite: {fileID: 21300000, guid: 2bb7c990aa32d454a8464de873f69203, type: 3}
+  speed: 1
   hands: 02000000
-  rotation: -45
+  animator: {fileID: 22100000, guid: 17bb24af9e2269644bde7c7c862faa94, type: 2}
   projectileAbility: {fileID: 11400000, guid: 82825cd5d4e4cbc44963255dc57a6fca, type: 2}
