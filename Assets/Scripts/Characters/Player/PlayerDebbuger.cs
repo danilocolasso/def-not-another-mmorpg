@@ -75,11 +75,6 @@ public class PlayerDebbuger : MonoBehaviour
             {
                 player.Attack(player.Target);
             }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                player.UseAbility("Arrow Shot", player.Target);
-            }
         }
     }
 }
