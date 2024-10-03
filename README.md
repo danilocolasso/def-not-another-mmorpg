@@ -2,6 +2,8 @@
 
 Welcome to **Def Not Another MMORPG**! This game is a personal project aimed at creating an exciting role-playing experience while learning and improving my skills in Unity, C#, and game development.
 
+All the code is located in the `Assets/Scripts` folder.
+
 ## Project Overview
 
 - **Start Date**: June 20, 2024
@@ -22,6 +24,7 @@ Welcome to **Def Not Another MMORPG**! This game is a personal project aimed at 
 - **Movement Mechanics**: Developed smooth and responsive controls for navigating the game world.
 - **Enemies and Aggro Management**: Designed enemy AI that reacts to player actions and manages aggression levels.
 - **Enemy Drops**: Set up a loot system where defeated enemies drop items and resources.
+- **Different Weapons**: Implemented various weapons, each with unique attacks.
 - **Character States**: Implemented various behaviors like wandering, patrolling, and engaging in combat.
 
 ## What's Next
